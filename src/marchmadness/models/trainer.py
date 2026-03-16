@@ -61,9 +61,9 @@ class ModelTrainer:
             raise ValueError("No training data built")
 
         feature_cols = get_feature_columns(self.training_df)
-        X = self.training_df[feature_cols].values
-        y = self.training_df["Label"].values
-        season_arr = self.training_df["Season"].values
+        X = self.training_df[feature_cols].values.copy()
+        y = self.training_df["Label"].values.copy()
+        season_arr = self.training_df["Season"].values.copy()
 
         # Handle NaN: fill with column median
         col_medians = np.nanmedian(X, axis=0)

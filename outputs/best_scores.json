@@ -1,0 +1,22 @@
+{
+  "M_seeds_only": {
+    "brier": 0.19147541550029748,
+    "model": "seeds_only ensemble",
+    "timestamp": "2026-03-16T10:36:05.575547"
+  },
+  "M_all": {
+    "brier": 0.19503561872475636,
+    "model": "all ensemble",
+    "timestamp": "2026-03-16T10:38:41.297578"
+  },
+  "M_tier1": {
+    "brier": 0.19444190844024625,
+    "model": "tier1 ensemble",
+    "timestamp": "2026-03-16T10:39:17.377664"
+  },
+  "W_seeds_only": {
+    "brier": 0.14893704068894856,
+    "model": "seeds_only ensemble",
+    "timestamp": "2026-03-16T10:39:44.069107"
+  }
+}

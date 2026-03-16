@@ -40,7 +40,7 @@ ELO_SEASON_REGRESSION = 0.75  # new = 0.75 * end + 0.25 * 1500
 LOGISTIC_PARAMS = {"C": 1.0, "max_iter": 1000, "solver": "lbfgs"}
 
 XGBOOST_PARAMS = {
-    "tree_method": "gpu_hist",
+    "tree_method": "hist",
     "device": "cuda",
     "objective": "binary:logistic",
     "eval_metric": "logloss",
