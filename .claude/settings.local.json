@@ -42,7 +42,16 @@
       "Bash(git fetch:*)",
       "Bash(git rebase:*)",
       "Bash(git stash:*)",
-      "Bash(python scripts/run_pipeline.py --mode cv --features tier2 --gender M)"
+      "Bash(python scripts/run_pipeline.py --mode cv --features tier2 --gender M)",
+      "Bash(python scripts/generate_submissions.py)",
+      "WebFetch(domain:arxiv.org)",
+      "WebFetch(domain:masseyratings.com)",
+      "WebFetch(domain:blog.oddsgods.net)",
+      "WebFetch(domain:givemechallenge.com)",
+      "WebFetch(domain:clist.by)",
+      "Bash(python scripts/experiment_improvements.py)",
+      "Bash(python scripts/experiment6_clean.py)",
+      "Bash(python scripts/experiment6b_meta_ensemble.py)"
     ]
   }
 }

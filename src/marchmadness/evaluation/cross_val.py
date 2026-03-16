@@ -8,7 +8,9 @@ from marchmadness.evaluation.metrics import compute_all_metrics
 
 def leave_season_out_cv(model, X: pd.DataFrame, y: np.ndarray,
                         seasons: np.ndarray, cv_seasons: list[int],
-                        calibrate: bool = False) -> dict:
+                        calibrate: bool = False,
+                        sample_weights: np.ndarray | None = None,
+                        shrinkage_alpha: float = 0.0) -> dict:
     """Run leave-season-out cross-validation.
 
     Args:
@@ -18,6 +20,8 @@ def leave_season_out_cv(model, X: pd.DataFrame, y: np.ndarray,
         seasons: Season array aligned with X
         cv_seasons: List of seasons to use as validation folds
         calibrate: If True, apply nested isotonic regression calibration
+        sample_weights: Optional sample weights for training
+        shrinkage_alpha: If > 0, shrink predictions toward 0.5
 
     Returns:
         Dict with:
@@ -40,7 +44,21 @@ def leave_season_out_cv(model, X: pd.DataFrame, y: np.ndarray,
         X_train, y_train = X[train_mask], y[train_mask]
         X_val, y_val = X[val_mask], y[val_mask]
 
-        model.fit(X_train, y_train)
+        if sample_weights is not None:
+            w_train = sample_weights[train_mask]
+            # Try passing sample_weight with pipeline-compatible naming
+            try:
+                model.fit(X_train, y_train, sample_weight=w_train)
+            except (TypeError, ValueError):
+                # For sklearn Pipeline, need stepname__sample_weight
+                # Try to find the last step name
+                if hasattr(model, 'steps'):
+                    step_name = model.steps[-1][0]
+                    model.fit(X_train, y_train, **{f"{step_name}__sample_weight": w_train})
+                else:
+                    model.fit(X_train, y_train)
+        else:
+            model.fit(X_train, y_train)
 
         if hasattr(model, "predict_proba"):
             preds = model.predict_proba(X_val)[:, 1]
@@ -57,6 +75,10 @@ def leave_season_out_cv(model, X: pd.DataFrame, y: np.ndarray,
             iso = IsotonicRegression(y_min=0.025, y_max=0.975, out_of_bounds="clip")
             iso.fit(train_preds, y_train)
             preds = iso.predict(preds)
+
+        # Shrinkage: pull predictions toward 0.5
+        if shrinkage_alpha > 0:
+            preds = preds * (1 - shrinkage_alpha) + 0.5 * shrinkage_alpha
 
         oof_preds[val_mask] = preds
         fold_metrics = compute_all_metrics(y_val, preds)

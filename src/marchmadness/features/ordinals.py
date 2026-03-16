@@ -53,6 +53,9 @@ def compute(data: dict[str, pd.DataFrame], season: int, gender: str = "M") -> pd
     # Compute aggregate features
     ordinal_cols = [c for c in merged.columns if c.startswith("Ordinal_")]
     merged["OrdinalMean"] = merged[ordinal_cols].mean(axis=1)
+    merged["OrdinalMedian"] = merged[ordinal_cols].median(axis=1)
     merged["OrdinalStd"] = merged[ordinal_cols].std(axis=1).fillna(0)
+    merged["OrdinalMin"] = merged[ordinal_cols].min(axis=1)  # best ranking
+    merged["OrdinalMax"] = merged[ordinal_cols].max(axis=1)  # worst ranking
 
     return merged.reset_index(drop=True)

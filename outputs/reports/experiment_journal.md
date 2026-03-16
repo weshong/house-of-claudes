@@ -279,11 +279,65 @@ All submissions passed validation. Mean predictions near 0.5 and narrow std (~0.
 
 ---
 
+## 2026-03-16 12:00 - Experiment 6: Feature Improvements + Meta-Ensemble
+
+### Research Summary
+
+Surveyed past Kaggle March Madness winners (2019-2025) and advanced approaches:
+- **Winning Brier scores**: ~0.10-0.11 (combined M+W). Our 0.19 M-only is not yet competitive.
+- **Winners used**: gradient-boosted trees + LR ensembles on **external ratings** (KenPom, Sagarin, Torvik). Deep learning has never won.
+- **Key tricks**: tournament game weighting (6x), probability shrinkage, isotonic calibration on OOF
+- **External data**: Bart Torvik T-Rank (free KenPom alternative), Massey Composite, ESPN BPI
+
+### Changes Implemented
+
+1. **Better ordinal aggregation**: Added OrdinalMedian, OrdinalMin, OrdinalMax (beyond just Mean/Std)
+2. **Interaction features**: seed_ordinal_agreement, seed_ordinal_mismatch, elo_ordinal_agreement
+3. **Sample weight support**: Tournament games can be weighted 6x vs regular season
+4. **Probability shrinkage**: `pred = pred * (1 - alpha) + 0.5 * alpha`
+
+### Results: Tournament Game Weighting (NEGATIVE)
+
+Including regular season games with 6x tournament weighting **hurt badly**:
+- seeds_only + RS (6x weight): Brier 0.2143 (vs 0.1944 baseline)
+- The domain shift between regular season and tournament is too large. 6x weighting isn't enough to overcome it.
+
+### Results: Shrinkage (MARGINAL/NEGATIVE)
+
+For seed-only LR, shrinkage doesn't help — already well-calibrated:
+- shrink=0.05: 0.1944 (same), shrink=0.10: 0.1946 (worse), shrink=0.15: 0.1952 (worse)
+
+### Results: New Features (POSITIVE)
+
+tier1 (seeds + improved ordinals) with C=0.01: **Brier 0.1938** (vs 0.1944 baseline LR)
+
+### Results: Meta-Ensemble (NEW BEST!)
+
+The breakthrough came from ensembling models trained on different feature sets:
+
+**Men's Best: 0.1904** (seeds_LGB 43% + tier2_LR 57%)
+- LightGBM on seeds makes different errors than LR on tier2 features
+- Blending captures both calibration (from seeds LGB) and accuracy (from tier2 LR)
+- Previous best was 0.1915 — improvement of 0.0011
+
+**Women's Best: 0.1390** (tier2_LR C=0.1, 83% weight in ensemble)
+- Massive improvement from 0.1489 — improvement of 0.0099!
+- Elo + season stats are very predictive for women's basketball
+- Seeds-only approach was leaving signal on the table
+- Key: strong regularization (C=0.1) prevents overfitting
+
+### Key Insight
+
+The meta-ensemble works because different feature sets produce predictions with **different error patterns**. Even when one model is worse on its own, it can improve the ensemble by reducing correlated errors. The seeds-only LGB is critical not because it's the best model, but because its errors are most *different* from the feature-rich LR models.
+
+---
+
 ## Brier Score Leaderboard (Best Configurations)
 
 | Gender | Config | Brier | Accuracy | Timestamp |
 |--------|--------|-------|----------|-----------|
-| M | seeds_only ensemble (LR+LGB) | **0.1915** | 68.3% | 2026-03-16 10:38 |
+| M | seeds_LGB(43%) + tier2_LR(57%) meta-ensemble | **0.1904** | — | 2026-03-16 12:00 |
+| M | seeds_only ensemble (LR+LGB) | 0.1915 | 68.3% | 2026-03-16 10:38 |
 | M | 30% seed + 70% minimal blend | 0.1921 | 72.4% | 2026-03-16 10:55 |
-| M | minimal 3-feat LR (C=0.01) | 0.1925 | 71.3% | 2026-03-16 10:50 |
-| W | seeds_only LR | **0.1489** | 77.2% | 2026-03-16 10:39 |
+| W | tier2_LR C=0.1 (83%) meta-ensemble | **0.1390** | — | 2026-03-16 12:00 |
+| W | seeds_only LR | 0.1489 | 77.2% | 2026-03-16 10:39 |

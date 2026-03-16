@@ -67,6 +67,10 @@ LIGHTGBM_PARAMS = {
     "verbose": -1,
 }
 
+# Probability shrinkage: pred = pred * (1 - alpha) + 0.5 * alpha
+# Shrinks predictions toward 0.5 to improve calibration
+SHRINKAGE_ALPHA = 0.10
+
 # Best scores tracking
 BEST_SCORES_FILE = OUTPUT_DIR / "best_scores.json"
 REGRESSION_THRESHOLD = 0.005

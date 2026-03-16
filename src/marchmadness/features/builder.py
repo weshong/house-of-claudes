@@ -96,15 +96,37 @@ def build_matchup_features(team_features: pd.DataFrame, team_a_id: int, team_b_i
             features["seed_a"] = val_a if not pd.isna(val_a) else np.nan
             features["seed_b"] = val_b if not pd.isna(val_b) else np.nan
 
+    # Interaction features (only if both seed and ordinal features exist)
+    if "Seed_diff" in features and "OrdinalMean_diff" in features:
+        seed_d = features["Seed_diff"]
+        ord_d = features["OrdinalMean_diff"]
+        if not (pd.isna(seed_d) or pd.isna(ord_d)):
+            # Seed-ranking agreement: do seeds and rankings agree on who's better?
+            features["seed_ordinal_agreement"] = seed_d * ord_d
+            # Seed-ranking mismatch: larger = seeds and rankings disagree more
+            # Normalize seed_diff to ~same scale as ordinal_diff
+            features["seed_ordinal_mismatch"] = abs(seed_d * 20 - ord_d)
+
+    if "Elo_diff" in features and "OrdinalMean_diff" in features:
+        elo_d = features.get("Elo_diff", np.nan)
+        ord_d = features["OrdinalMean_diff"]
+        if not (pd.isna(elo_d) or pd.isna(ord_d)):
+            features["elo_ordinal_agreement"] = np.sign(elo_d) * np.sign(ord_d)
+
     return features
 
 
 def build_training_data(data: dict[str, pd.DataFrame], seasons: list[int],
-                        gender: str = "M", feature_set: str = "all") -> pd.DataFrame:
+                        gender: str = "M", feature_set: str = "all",
+                        include_regular_season: bool = False) -> pd.DataFrame:
     """Build matchup features + labels for tournament games across multiple seasons.
 
+    Args:
+        include_regular_season: If True, include regular season games (weighted 1x)
+            alongside tournament games (weighted 6x). This increases training data.
+
     Returns DataFrame with feature columns + 'Label' (1 if lower TeamID won, 0 otherwise)
-    + 'Season' column.
+    + 'Season' + 'SampleWeight' columns.
     """
     tourney_key = f"{gender}NCAATourneyCompactResults"
     tourney = data[tourney_key]
@@ -115,15 +137,15 @@ def build_training_data(data: dict[str, pd.DataFrame], seasons: list[int],
         if team_features.empty:
             continue
 
+        # Tournament games (weight = 6.0)
         season_tourney = tourney[tourney["Season"] == season]
         for _, game in season_tourney.iterrows():
             w_id = game["WTeamID"]
             l_id = game["LTeamID"]
 
-            # Ensure lower ID is always "team A"
             team_a = min(w_id, l_id)
             team_b = max(w_id, l_id)
-            label = 1 if w_id == team_a else 0  # 1 if lower ID won
+            label = 1 if w_id == team_a else 0
 
             matchup = build_matchup_features(team_features, team_a, team_b)
             if not matchup:
@@ -132,7 +154,44 @@ def build_training_data(data: dict[str, pd.DataFrame], seasons: list[int],
             matchup["Season"] = season
             matchup["Label"] = label
             matchup["DayNum"] = game["DayNum"]
+            matchup["SampleWeight"] = 6.0
             all_rows.append(matchup)
+
+        # Optional: regular season games between tournament teams (weight = 1.0)
+        if include_regular_season:
+            rs_key = f"{gender}RegularSeasonCompactResults"
+            rs = data[rs_key]
+            season_rs = rs[rs["Season"] == season]
+            # Only include games between teams that have seeds (tournament teams)
+            tourney_teams = set(
+                season_tourney["WTeamID"].tolist() + season_tourney["LTeamID"].tolist()
+            )
+            if not tourney_teams:
+                seeds_key = f"{gender}NCAATourneySeeds"
+                season_seeds = data[seeds_key]
+                tourney_teams = set(
+                    season_seeds[season_seeds["Season"] == season]["TeamID"].tolist()
+                )
+
+            for _, game in season_rs.iterrows():
+                w_id = game["WTeamID"]
+                l_id = game["LTeamID"]
+                if w_id not in tourney_teams or l_id not in tourney_teams:
+                    continue
+
+                team_a = min(w_id, l_id)
+                team_b = max(w_id, l_id)
+                label = 1 if w_id == team_a else 0
+
+                matchup = build_matchup_features(team_features, team_a, team_b)
+                if not matchup:
+                    continue
+
+                matchup["Season"] = season
+                matchup["Label"] = label
+                matchup["DayNum"] = game["DayNum"]
+                matchup["SampleWeight"] = 1.0
+                all_rows.append(matchup)
 
     if not all_rows:
         return pd.DataFrame()
@@ -173,5 +232,5 @@ def build_prediction_matchups(data: dict[str, pd.DataFrame], season: int,
 
 def get_feature_columns(df: pd.DataFrame) -> list[str]:
     """Get feature column names (excluding metadata and label columns)."""
-    exclude = {"Season", "Label", "DayNum", "TeamA", "TeamB"}
+    exclude = {"Season", "Label", "DayNum", "TeamA", "TeamB", "SampleWeight"}
     return [c for c in df.columns if c not in exclude]

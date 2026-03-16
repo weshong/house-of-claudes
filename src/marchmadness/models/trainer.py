@@ -43,8 +43,9 @@ class ModelTrainer:
         """Load all competition data."""
         self.data = load_all()
 
-    def build_training(self, seasons: list[int] | None = None) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-        """Build training data. Returns (X, y, seasons)."""
+    def build_training(self, seasons: list[int] | None = None,
+                        include_regular_season: bool = False) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray | None]:
+        """Build training data. Returns (X, y, seasons, sample_weights)."""
         if self.data is None:
             self.load_data()
 
@@ -55,7 +56,8 @@ class ModelTrainer:
             seasons = available_seasons
 
         self.training_df = build_training_data(
-            self.data, seasons, self.gender, self.feature_set
+            self.data, seasons, self.gender, self.feature_set,
+            include_regular_season=include_regular_season
         )
         if self.training_df.empty:
             raise ValueError("No training data built")
@@ -65,6 +67,11 @@ class ModelTrainer:
         y = self.training_df["Label"].values.copy()
         season_arr = self.training_df["Season"].values.copy()
 
+        # Extract sample weights if available
+        sample_weights = None
+        if "SampleWeight" in self.training_df.columns:
+            sample_weights = self.training_df["SampleWeight"].values.copy()
+
         # Handle NaN: fill with column median
         col_medians = np.nanmedian(X, axis=0)
         for i in range(X.shape[1]):
@@ -72,7 +79,7 @@ class ModelTrainer:
             X[mask, i] = col_medians[i] if not np.isnan(col_medians[i]) else 0
 
         self.feature_cols = feature_cols
-        return X, y, season_arr
+        return X, y, season_arr, sample_weights
 
     def run_cv(self, model_name: str, X: np.ndarray, y: np.ndarray,
                seasons: np.ndarray, calibrate: bool = False) -> dict:
