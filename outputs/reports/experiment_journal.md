@@ -341,3 +341,80 @@ The meta-ensemble works because different feature sets produce predictions with 
 | M | 30% seed + 70% minimal blend | 0.1921 | 72.4% | 2026-03-16 10:55 |
 | W | tier2_LR C=0.1 (83%) meta-ensemble | **0.1390** | — | 2026-03-16 12:00 |
 | W | seeds_only LR | 0.1489 | 77.2% | 2026-03-16 10:39 |
+
+---
+
+## 2026-03-16 13:00 - Experiment 7: Bart Torvik External Ratings (BREAKTHROUGH)
+
+### Motivation
+
+Research showed that past Kaggle winners universally cite external power ratings (KenPom, Sagarin, Torvik) as their most impactful features. Bart Torvik T-Rank provides free adjusted efficiency metrics similar to KenPom.
+
+### Data
+
+Downloaded Torvik team results CSVs for 2015-2026 from barttorvik.com. Each contains ~350 D1 teams with:
+- **adjoe**: Adjusted offensive efficiency (points per 100 possessions, opponent-adjusted)
+- **adjde**: Adjusted defensive efficiency
+- **barthag**: Power rating (win probability against average team)
+- **adjt**: Adjusted tempo
+- **sos**: Strength of schedule
+
+Team name matching: fuzzy matching + manual overrides. Matched 349-357/381 Kaggle teams per season (all tournament teams covered).
+
+**Technical challenge**: Torvik CSVs pre-2023 have a header/data column count mismatch (`"Fun Rk, adjt"` quoted header vs two separate data columns), causing pandas to shift all columns. Fixed by reading by position instead of column name.
+
+### Results (Men's, trained on 2015-2025, CV on 2022-2025)
+
+| Config | Brier | Notes |
+|--------|-------|-------|
+| seeds_only LR (baseline, 2015+) | 0.1982 | Slightly worse than full history (0.1944) |
+| tier1 LR C=0.01 (seeds + ordinals) | 0.1977 | |
+| **torvik LR C=0.01** | **0.1843** | Seeds + ordinals + Torvik features |
+| **torvik LR C=0.1** | **0.1719** | Less regularization helps with good features |
+| **torvik LR C=1.0** | **0.1703** | Even better — Torvik features are high-signal |
+| **torvik LGB** | **0.1848** | LGB overfits more than LR |
+| tier2 LR C=0.01 (our features) | 0.1971 | Elo/stats much worse than Torvik |
+| all LR C=0.01 (everything + Torvik) | 0.1870 | Too many features dilute signal |
+
+### Best Ensembles
+
+| Ensemble | Brier |
+|----------|-------|
+| torvik_LR_1 (62%) + torvik_LGB (38%) | **0.1610** |
+| torvik_LR_01 (60%) + torvik_LGB (40%) | 0.1615 |
+| torvik_LR_001 (50%) + torvik_LGB (50%) | 0.1643 |
+| seeds_LR (43%) + torvik_LGB (57%) | 0.1656 |
+| **All 9 models (best 3: seeds_LR 11%, torvik_LR 50%, torvik_LGB 39%)** | **0.1607** |
+
+### Why This Is Such a Big Improvement
+
+1. **Expert-calibrated features**: Torvik's adjusted efficiency metrics represent years of domain expertise in opponent adjustment, tempo normalization, and schedule strength correction. Our homegrown Elo and season stats can't compete.
+
+2. **Opponent adjustment**: Raw PPG/FG% don't account for schedule difficulty. Torvik's AdjOE and AdjDE normalize for opponent quality, which is critical for cross-conference tournament matchups.
+
+3. **Barthag**: This single feature (estimated probability of beating an average D1 team) is directly analogous to what we're trying to predict, making it an extremely efficient input for the model.
+
+4. **Less regularization is better**: With high-quality features, the model can use more of the signal (C=1.0 beats C=0.01). This is the opposite of our findings with homegrown features, where more regularization was needed to prevent overfitting on noise.
+
+### Improvement Timeline
+
+| Experiment | Best M Brier | Delta |
+|------------|-------------|-------|
+| Exp 1: Seed baseline | 0.1915 | — |
+| Exp 6: Meta-ensemble | 0.1904 | -0.0011 |
+| **Exp 7: Torvik** | **0.1607** | **-0.0308** |
+
+Total improvement: **0.0308** (16% reduction in Brier score).
+
+---
+
+## Brier Score Leaderboard (Updated)
+
+| Gender | Config | Brier | Timestamp |
+|--------|--------|-------|-----------|
+| M | **Torvik ensemble (LR 50% + LGB 39% + seeds 11%)** | **0.1607** | 2026-03-16 13:00 |
+| M | torvik_LR_1 + torvik_LGB (62/38) | 0.1610 | 2026-03-16 13:00 |
+| M | torvik LR C=1.0 (single model) | 0.1703 | 2026-03-16 13:00 |
+| M | seeds_only ensemble (LR+LGB) | 0.1915 | 2026-03-16 10:38 |
+| W | tier2_LR C=0.1 meta-ensemble | **0.1390** | 2026-03-16 12:00 |
+| W | seeds_only LR | 0.1489 | 2026-03-16 10:39 |

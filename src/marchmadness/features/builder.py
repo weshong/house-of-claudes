@@ -5,7 +5,7 @@ import numpy as np
 from itertools import combinations
 
 from marchmadness.data_loader import load_all
-from marchmadness.features import seeds, ordinals, elo, season_stats, efficiency, four_factors
+from marchmadness.features import seeds, ordinals, elo, season_stats, efficiency, four_factors, torvik
 
 
 def build_team_features(data: dict[str, pd.DataFrame], season: int, gender: str = "M",
@@ -38,6 +38,13 @@ def build_team_features(data: dict[str, pd.DataFrame], season: int, gender: str 
     if feature_set == "tier1":
         return team_df
 
+    # Tier 1.5: Seeds + ordinals + Torvik external ratings
+    if feature_set == "torvik":
+        torvik_df = torvik.compute(data, season, gender)
+        if not torvik_df.empty:
+            team_df = team_df.merge(torvik_df, on="TeamID", how="left")
+        return team_df
+
     # Tier 2: Elo + season stats
     elo_df = elo.compute(data, season, gender)
     if not elo_df.empty:
@@ -50,7 +57,7 @@ def build_team_features(data: dict[str, pd.DataFrame], season: int, gender: str 
     if feature_set == "tier2":
         return team_df
 
-    # Tier 3: Efficiency + four factors (needs detailed results)
+    # Tier 3: Efficiency + four factors (needs detailed results) + Torvik
     eff_df = efficiency.compute(data, season, gender)
     if not eff_df.empty:
         team_df = team_df.merge(eff_df, on="TeamID", how="left")
@@ -58,6 +65,11 @@ def build_team_features(data: dict[str, pd.DataFrame], season: int, gender: str 
     ff_df = four_factors.compute(data, season, gender)
     if not ff_df.empty:
         team_df = team_df.merge(ff_df, on="TeamID", how="left")
+
+    # External: Bart Torvik T-Rank (men's only, 2015+)
+    torvik_df = torvik.compute(data, season, gender)
+    if not torvik_df.empty:
+        team_df = team_df.merge(torvik_df, on="TeamID", how="left")
 
     return team_df
 
