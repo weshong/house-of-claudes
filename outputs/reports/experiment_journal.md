@@ -222,6 +222,63 @@ For final submission:
 
 ---
 
+## 2026-03-16 11:15 - Experiment 5: Team Embeddings via Neural Network (NEGATIVE RESULT)
+
+### Hypothesis
+Hand-engineered features (seeds, ordinals, Elo) are a bottleneck. A neural network trained on regular season game outcomes could learn latent team representations that capture strength, style, and dynamics that manual features miss.
+
+### Setup
+- **Architecture**: PyTorch embedding model
+  - Team embedding layer: n_teams × 16 dimensions
+  - Prediction head: Linear(32→64) → ReLU → Dropout(0.3) → Linear(64→32) → ReLU → Dropout(0.2) → Linear(32→1) → Sigmoid
+  - Input: concatenation of two team embeddings (team A, team B)
+- **Training**: BCE loss, Adam optimizer (lr=0.001, weight_decay=1e-4), 50 epochs, batch size 256
+- **Data**: Regular season compact results from 5 most recent seasons (~25K games)
+- **Evaluation**: Embedding features (Emb_0 through Emb_15) added to matchup features, tested with LR via leave-season-out CV
+
+### Results (Men's)
+
+| Config | Brier | Accuracy | ECE |
+|--------|-------|----------|-----|
+| seeds_only ensemble (baseline) | **0.1915** | 68.3% | 0.056 |
+| Embeddings only (16-dim) | 0.2269 | 62.1% | 0.142 |
+| Seeds + Embeddings | 0.2018 | 67.5% | 0.098 |
+
+### Why It Failed
+
+1. **Regular season ≠ tournament**: Embeddings learned from regular season game outcomes don't capture "tournament readiness." Teams play different competition levels in the regular season (conference games vs non-conference), and tournament play involves different dynamics (neutral sites, single elimination pressure, preparation time).
+
+2. **Overfitting on small data**: With only ~350 teams per season, 16-dim embeddings have 5,600+ parameters for the embedding layer alone. The model likely memorized regular season patterns rather than learning generalizable representations.
+
+3. **Information already captured**: The signal that embeddings could learn (team strength relative to opponents) is already well-captured by Massey ordinals, which aggregate 197 expert ranking systems. The ordinals are essentially a crowdsourced version of what we're trying to learn with a single neural network.
+
+4. **Calibration degradation**: ECE jumped from 0.056 to 0.142, confirming the model produces overconfident predictions — the hallmark of overfitting on this small dataset.
+
+### Takeaway
+
+Simple neural embeddings from regular season data don't add value over expert ranking systems (ordinals). If pursuing deep learning for this problem, would need:
+- **Pre-training on much larger dataset** (multiple sports, historical data back to 1985)
+- **Game-level features as input** (not just team IDs) — e.g., box score sequences
+- **Tournament-specific fine-tuning** to bridge the regular season → tournament domain gap
+- **External data** (KenPom ratings, Sagarin, etc.) as additional training signal
+
+---
+
+## 2026-03-16 11:30 - Submissions Generated
+
+Four submission files generated for both stages:
+
+| Stage | Strategy | Rows | Mean Pred | Std Pred |
+|-------|----------|------|-----------|----------|
+| 1 (Historical) | conservative (seed ensemble) | 519,144 | 0.5011 | 0.0519 |
+| 1 (Historical) | aggressive (30/70 blend) | 519,144 | 0.5011 | 0.0514 |
+| 2 (2026) | conservative (seed ensemble) | 132,133 | 0.5017 | 0.0517 |
+| 2 (2026) | aggressive (30/70 blend) | 132,133 | 0.5018 | 0.0526 |
+
+All submissions passed validation. Mean predictions near 0.5 and narrow std (~0.05) reflect the well-calibrated, conservative nature of seed-based predictions.
+
+---
+
 ## Brier Score Leaderboard (Best Configurations)
 
 | Gender | Config | Brier | Accuracy | Timestamp |
