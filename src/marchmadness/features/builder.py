@@ -5,7 +5,7 @@ import numpy as np
 from itertools import combinations
 
 from marchmadness.data_loader import load_all
-from marchmadness.features import seeds, ordinals, elo, season_stats, efficiency, four_factors, torvik
+from marchmadness.features import seeds, ordinals, elo, season_stats, efficiency, four_factors, torvik, adj_efficiency
 
 
 def build_team_features(data: dict[str, pd.DataFrame], season: int, gender: str = "M",
@@ -38,11 +38,18 @@ def build_team_features(data: dict[str, pd.DataFrame], season: int, gender: str 
     if feature_set == "tier1":
         return team_df
 
-    # Tier 1.5: Seeds + ordinals + Torvik external ratings
+    # Tier 1.5a: Seeds + ordinals + Torvik external ratings
     if feature_set == "torvik":
         torvik_df = torvik.compute(data, season, gender)
         if not torvik_df.empty:
             team_df = team_df.merge(torvik_df, on="TeamID", how="left")
+        return team_df
+
+    # Tier 1.5b: Seeds + ordinals + iterative adjusted efficiency
+    if feature_set == "iter_eff":
+        iter_eff_df = adj_efficiency.compute(data, season, gender)
+        if not iter_eff_df.empty:
+            team_df = team_df.merge(iter_eff_df, on="TeamID", how="left")
         return team_df
 
     # Tier 2: Elo + season stats
@@ -61,6 +68,11 @@ def build_team_features(data: dict[str, pd.DataFrame], season: int, gender: str 
     eff_df = efficiency.compute(data, season, gender)
     if not eff_df.empty:
         team_df = team_df.merge(eff_df, on="TeamID", how="left")
+
+    # Iterative opponent-adjusted efficiency (our KenPom clone)
+    iter_eff_df = adj_efficiency.compute(data, season, gender)
+    if not iter_eff_df.empty:
+        team_df = team_df.merge(iter_eff_df, on="TeamID", how="left")
 
     ff_df = four_factors.compute(data, season, gender)
     if not ff_df.empty:

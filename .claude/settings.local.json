@@ -53,7 +53,9 @@
       "Bash(python scripts/experiment6_clean.py)",
       "Bash(python scripts/experiment6b_meta_ensemble.py)",
       "WebFetch(domain:barttorvik.com)",
-      "Bash(python scripts/experiment7_torvik.py)"
+      "Bash(python scripts/experiment7_torvik.py)",
+      "Bash(python scripts/generate_submissions_v2.py)",
+      "Bash(python scripts/generate_submissions_v3.py)"
     ]
   }
 }

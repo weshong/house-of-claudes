@@ -338,9 +338,60 @@ The meta-ensemble works because different feature sets produce predictions with 
 |--------|--------|-------|----------|-----------|
 | M | seeds_LGB(43%) + tier2_LR(57%) meta-ensemble | **0.1904** | — | 2026-03-16 12:00 |
 | M | seeds_only ensemble (LR+LGB) | 0.1915 | 68.3% | 2026-03-16 10:38 |
-| M | 30% seed + 70% minimal blend | 0.1921 | 72.4% | 2026-03-16 10:55 |
 | W | tier2_LR C=0.1 (83%) meta-ensemble | **0.1390** | — | 2026-03-16 12:00 |
 | W | seeds_only LR | 0.1489 | 77.2% | 2026-03-16 10:39 |
+
+---
+
+## 2026-03-16 14:00 - Experiment 8: Shallow Trees + Iterative Efficiency (MAJOR BREAKTHROUGH)
+
+### Discovery: Shallow Trees Massively Outperform Deep Trees
+
+While testing Brier-optimized objectives, accidentally discovered that **shallow LightGBM trees (depth=3) outperform deep trees (depth=6) by 0.03 Brier points**. This is because:
+
+1. With only ~750 games in training (2015-2025 tournaments), deep trees memorize noise
+2. Shallow trees (2-3 splits) learn simple, generalizable rules like "better Torvik rating + better seed = higher win probability"
+3. Combined with slow learning rate (0.02-0.03), this acts as strong regularization
+
+### Shallow LGB Results (Men's, Torvik features)
+
+| Config | Brier |
+|--------|-------|
+| LGB d=6 n=500 lr=0.05 (previous default) | 0.1848 |
+| LGB d=4 n=300 lr=0.03 | 0.1565 |
+| LGB d=3 n=300 lr=0.03 | 0.1551 |
+| **LGB d=3 n=400 lr=0.02** | **0.1543** |
+| LGB d=2 n=500 lr=0.03 | 0.1588 |
+
+### Iterative Opponent-Adjusted Efficiency (Our KenPom Clone)
+
+Built an iterative efficiency calculator that:
+1. Computes raw OE/DE per game from box scores
+2. Iteratively adjusts for opponent quality (15 iterations)
+3. Re-centers to preserve league averages
+
+Results:
+- **Women's**: iter_eff LR C=0.1 = **0.1411** (vs 0.1489 seeds-only)
+- **Women's combined**: iter_eff(28%) + tier2_LR(72%) = **0.1387**
+- Men's: 0.1918 (worse than Torvik's 0.1703 — Torvik has better adjustments)
+
+### Final Best Scores
+
+| Gender | Config | Brier |
+|--------|--------|-------|
+| **M** | **Torvik LGB d=3 n=400 lr=0.02** | **0.1543** |
+| **W** | **iter_eff(28%) + tier2_LR(72%)** | **0.1387** |
+
+### Improvement Timeline
+
+| Experiment | Best M Brier | Best W Brier |
+|------------|-------------|-------------|
+| Exp 1: Seed baseline | 0.1915 | 0.1489 |
+| Exp 6: Meta-ensemble | 0.1904 | 0.1390 |
+| Exp 7: Torvik | 0.1607 | 0.1390 |
+| **Exp 8: Shallow trees** | **0.1543** | **0.1387** |
+
+Total improvement: M **0.0372** (19.4%), W **0.0102** (6.9%)
 
 ---
 
