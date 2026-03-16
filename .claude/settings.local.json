@@ -37,7 +37,12 @@
       "Bash(source .venv/Scripts/activate)",
       "Bash(python scripts/run_pipeline.py --mode cv --features all --gender M)",
       "Bash(python scripts/run_pipeline.py --mode cv --features tier1 --gender M)",
-      "Bash(python scripts/run_pipeline.py --mode cv --features seeds_only --gender W)"
+      "Bash(python scripts/run_pipeline.py --mode cv --features seeds_only --gender W)",
+      "Bash(git branch:*)",
+      "Bash(git fetch:*)",
+      "Bash(git rebase:*)",
+      "Bash(git stash:*)",
+      "Bash(python scripts/run_pipeline.py --mode cv --features tier2 --gender M)"
     ]
   }
 }

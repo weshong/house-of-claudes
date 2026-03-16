@@ -18,5 +18,10 @@
     "brier": 0.14893704068894856,
     "model": "seeds_only ensemble",
     "timestamp": "2026-03-16T10:39:44.069107"
+  },
+  "M_tier2": {
+    "brier": 0.19512106617029357,
+    "model": "tier2 ensemble",
+    "timestamp": "2026-03-16T10:43:57.040081"
   }
 }

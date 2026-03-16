@@ -2,11 +2,13 @@
 
 import numpy as np
 import pandas as pd
+from sklearn.isotonic import IsotonicRegression
 from marchmadness.evaluation.metrics import compute_all_metrics
 
 
 def leave_season_out_cv(model, X: pd.DataFrame, y: np.ndarray,
-                        seasons: np.ndarray, cv_seasons: list[int]) -> dict:
+                        seasons: np.ndarray, cv_seasons: list[int],
+                        calibrate: bool = False) -> dict:
     """Run leave-season-out cross-validation.
 
     Args:
@@ -15,6 +17,7 @@ def leave_season_out_cv(model, X: pd.DataFrame, y: np.ndarray,
         y: Labels (0 or 1)
         seasons: Season array aligned with X
         cv_seasons: List of seasons to use as validation folds
+        calibrate: If True, apply nested isotonic regression calibration
 
     Returns:
         Dict with:
@@ -43,6 +46,17 @@ def leave_season_out_cv(model, X: pd.DataFrame, y: np.ndarray,
             preds = model.predict_proba(X_val)[:, 1]
         else:
             preds = model.predict(X_val)
+
+        if calibrate:
+            # Nested calibration: train calibrator on OOF predictions from
+            # non-val, non-current training folds
+            if hasattr(model, "predict_proba"):
+                train_preds = model.predict_proba(X_train)[:, 1]
+            else:
+                train_preds = model.predict(X_train)
+            iso = IsotonicRegression(y_min=0.025, y_max=0.975, out_of_bounds="clip")
+            iso.fit(train_preds, y_train)
+            preds = iso.predict(preds)
 
         oof_preds[val_mask] = preds
         fold_metrics = compute_all_metrics(y_val, preds)

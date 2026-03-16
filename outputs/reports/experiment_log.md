@@ -58,3 +58,18 @@
 - features: ['Seed_diff', 'seed_a', 'seed_b']
 
 ---
+
+## 2026-03-16 10:43:57 - M tier2 ensemble
+
+- Feature set: tier2
+- Gender: M
+- brier_score: 0.1951
+- log_loss: 0.5716
+- accuracy: 0.7164
+- ece: 0.0864
+- n_samples: 268
+- mean_prediction: 0.5457
+- calibration_bins: [{'bin_center': np.float64(0.05), 'mean_pred': np.float64(0.052571947400545896), 'actual_rate': np.float64(0.047619047619047616), 'count': 21}, {'bin_center': np.float64(0.15000000000000002), 'mean_pred': np.float64(0.15721826099071895), 'actual_rate': np.float64(0.26666666666666666), 'count': 15}, {'bin_center': np.float64(0.25), 'mean_pred': np.float64(0.2482885655117496), 'actual_rate': np.float64(0.3333333333333333), 'count': 24}, {'bin_center': np.float64(0.35000000000000003), 'mean_pred': np.float64(0.35133810923444625), 'actual_rate': np.float64(0.39285714285714285), 'count': 28}, {'bin_center': np.float64(0.45), 'mean_pred': np.float64(0.45093580515497445), 'actual_rate': np.float64(0.5384615384615384), 'count': 26}, {'bin_center': np.float64(0.55), 'mean_pred': np.float64(0.5467004708249585), 'actual_rate': np.float64(0.6551724137931034), 'count': 29}, {'bin_center': np.float64(0.6500000000000001), 'mean_pred': np.float64(0.6501147829606371), 'actual_rate': np.float64(0.8125), 'count': 32}, {'bin_center': np.float64(0.75), 'mean_pred': np.float64(0.7606967163763456), 'actual_rate': np.float64(0.625), 'count': 32}, {'bin_center': np.float64(0.8500000000000001), 'mean_pred': np.float64(0.8549515571263401), 'actual_rate': np.float64(0.7948717948717948), 'count': 39}, {'bin_center': np.float64(0.95), 'mean_pred': np.float64(0.9506933339728757), 'actual_rate': np.float64(0.9090909090909091), 'count': 22}]
+- features: ['Seed_diff', 'seed_a', 'seed_b', 'Elo_diff', 'WinPct_diff', 'PPG_diff', 'PPGAllowed_diff', 'PointDiff_diff', 'GamesPlayed_diff', 'SOS_diff', 'Ordinal_POM_diff', 'Ordinal_SAG_diff', 'Ordinal_WLK_diff', 'Ordinal_WOL_diff', 'Ordinal_MOR_diff', 'Ordinal_DOL_diff', 'Ordinal_COL_diff', 'Ordinal_RPI_diff', 'Ordinal_AP_diff', 'Ordinal_USA_diff', 'OrdinalMean_diff', 'OrdinalStd_diff']
+
+---

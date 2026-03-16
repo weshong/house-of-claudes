@@ -75,12 +75,13 @@ class ModelTrainer:
         return X, y, season_arr
 
     def run_cv(self, model_name: str, X: np.ndarray, y: np.ndarray,
-               seasons: np.ndarray) -> dict:
+               seasons: np.ndarray, calibrate: bool = False) -> dict:
         """Run leave-season-out CV for a single model."""
         factory = MODEL_FACTORIES[model_name]
         model = factory()
 
-        cv_result = leave_season_out_cv(model, X, y, seasons, CV_SEASONS)
+        cv_result = leave_season_out_cv(model, X, y, seasons, CV_SEASONS,
+                                        calibrate=calibrate)
         self.cv_results[model_name] = cv_result
 
         print(f"\n{model_name} CV Results:")
