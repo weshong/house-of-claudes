@@ -79,12 +79,19 @@ def build_custom_team_features(data, season, gender):
     from marchmadness.features import torvik
 
     if gender == "W":
-        # For women's: tier2 + T-Rank clone
-        team_df = build_team_features(data, season, gender, "tier2")
+        # For women's: seeds + Elo + IterAdj + T-Rank clone
+        team_df = seeds.compute(data, season, gender)
         if team_df.empty:
             return team_df
 
-        # Add T-Rank clone features
+        elo_df = elo.compute(data, season, gender)
+        if not elo_df.empty:
+            team_df = team_df.merge(elo_df, on="TeamID", how="left")
+
+        iter_eff_df = adj_efficiency.compute(data, season, gender)
+        if not iter_eff_df.empty:
+            team_df = team_df.merge(iter_eff_df, on="TeamID", how="left")
+
         trank_df = compute_trank(data, season, gender)
         if not trank_df.empty:
             team_df = team_df.merge(trank_df[["TeamID", "TRank_barthag", "TRank_adjoe", "TRank_adjde", "TRank_adjem"]], on="TeamID", how="left")
