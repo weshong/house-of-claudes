@@ -57,36 +57,12 @@ M_CONFIG = {
 
 # Women's config — blend of two models
 W_CONFIG = {
-    "blend": True,
-    "models": [
-        {
-            "weight": 0.05,
-            "feature_set": "tier2",
-            "start_year": 2003,
-            "model": lambda: Pipeline([
-                ("s", StandardScaler()),
-                ("lr", LogisticRegression(C=0.05, max_iter=1000))
-            ]),
-        },
-        {
-            "weight": 0.05,
-            "feature_set": "iter_eff",
-            "start_year": 2003,
-            "model": lambda: Pipeline([
-                ("s", StandardScaler()),
-                ("lr", LogisticRegression(C=0.1, max_iter=1000))
-            ]),
-        },
-        {
-            "weight": 0.90,
-            "feature_set": "all",
-            "start_year": 2003,
-            "model": lambda: Pipeline([
-                ("s", StandardScaler()),
-                ("lr", LogisticRegression(C=0.06, penalty='l1', solver='liblinear', max_iter=2000))
-            ]),
-        },
-    ],
+    "feature_set": "all",
+    "start_year": 2003,
+    "model": lambda: Pipeline([
+        ("s", StandardScaler()),
+        ("lr", LogisticRegression(C=0.06, penalty='l1', solver='liblinear', max_iter=2000))
+    ]),
 }
 
 
