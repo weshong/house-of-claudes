@@ -122,6 +122,11 @@ def build_custom_team_features(data, season, gender):
     if not elo_df.empty:
         team_df = team_df.merge(elo_df, on="TeamID", how="left")
 
+    # Add T-Rank clone barthag (complementary to external Torvik)
+    trank_df = compute_trank(data, season, gender)
+    if not trank_df.empty:
+        team_df = team_df.merge(trank_df[["TeamID", "TRank_barthag"]], on="TeamID", how="left")
+
     return team_df
 
 
