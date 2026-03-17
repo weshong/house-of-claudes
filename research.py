@@ -1,7 +1,7 @@
 """Autoresearch experiment file. THIS IS THE FILE THE AGENT MODIFIES.
 
 Current best scores:
-  Men's:   0.1364  (custom LGB d=3, ordinal aggs + Torvik + TRank + gaps)
+  Men's:   0.1307  (55% LGB d=3 + 45% L2 LR C=100, ordinal aggs + Torvik + TRank + gaps)
   Women's: 0.1365  (seeds + Elo + TRank clone, L1 LR C=0.15)
 
 The agent modifies the functions below, then runs this file to evaluate.
