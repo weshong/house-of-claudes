@@ -56,7 +56,7 @@ M_CONFIG = {
                 subsample=0.8, colsample_bytree=0.6, min_split_gain=0.005,
                 random_state=42, verbose=-1
             ),
-            "weight": 0.8,
+            "weight": 0.75,
         },
         {
             "feature_set": "custom",
@@ -65,7 +65,7 @@ M_CONFIG = {
                 ("s", StandardScaler()),
                 ("lr", LogisticRegression(C=100.0, penalty='l2', solver='lbfgs', max_iter=2000))
             ]),
-            "weight": 0.2,
+            "weight": 0.25,
         },
     ],
 }
