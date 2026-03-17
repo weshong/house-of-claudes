@@ -46,7 +46,7 @@ from marchmadness.features.trank_clone import compute as compute_trank
 
 # Men's config
 M_CONFIG = {
-    "feature_set": "torvik",       # "seeds_only", "tier1", "tier2", "torvik", "iter_eff", "all", or "custom"
+    "feature_set": "custom",       # "seeds_only", "tier1", "tier2", "torvik", "iter_eff", "all", or "custom"
     "start_year": 2015,
     "model": lambda: LGBMClassifier(
         n_estimators=400, max_depth=3, learning_rate=0.02,
@@ -99,36 +99,27 @@ def build_custom_team_features(data, season, gender):
     Return a DataFrame with TeamID column + feature columns.
     Called when feature_set="custom" in config.
     """
+    from marchmadness.features import torvik
+
     # Start with seeds
     team_df = seeds.compute(data, season, gender)
     if team_df.empty:
         return team_df
 
-    # Add ordinals
+    # Add ordinals (all individual + aggregates)
     ord_df = ordinals.compute(data, season, gender)
     if not ord_df.empty:
         team_df = team_df.merge(ord_df, on="TeamID", how="left")
 
-    # Add Elo + season stats
+    # Add Torvik external ratings
+    torvik_df = torvik.compute(data, season, gender)
+    if not torvik_df.empty:
+        team_df = team_df.merge(torvik_df, on="TeamID", how="left")
+
+    # Add Elo
     elo_df = elo.compute(data, season, gender)
     if not elo_df.empty:
         team_df = team_df.merge(elo_df, on="TeamID", how="left")
-
-    stats_df = season_stats.compute(data, season, gender)
-    if not stats_df.empty:
-        team_df = team_df.merge(stats_df, on="TeamID", how="left")
-
-    # Add T-Rank clone
-    trank_df = compute_trank(data, season, gender)
-    if not trank_df.empty:
-        team_df = team_df.merge(trank_df, on="TeamID", how="left")
-
-    # Add iterative efficiency
-    iter_df = adj_efficiency.compute(data, season, gender)
-    if not iter_df.empty:
-        team_df = team_df.merge(iter_df, on="TeamID", how="left")
-
-    # === ADD YOUR CUSTOM FEATURES BELOW ===
 
     return team_df
 
