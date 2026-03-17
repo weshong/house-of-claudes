@@ -59,7 +59,7 @@ W_CONFIG = {
     "blend": True,
     "models": [
         {
-            "weight": 0.60,
+            "weight": 0.50,
             "feature_set": "tier2",
             "start_year": 2003,
             "model": lambda: Pipeline([
@@ -77,7 +77,7 @@ W_CONFIG = {
             ]),
         },
         {
-            "weight": 0.20,
+            "weight": 0.30,
             "feature_set": "all",
             "start_year": 2003,
             "model": lambda: Pipeline([
