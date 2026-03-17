@@ -131,6 +131,11 @@ def build_custom_team_features(data, season, gender):
     if "Torvik_adjt" in team_df.columns and "TRank_tempo" in team_df.columns:
         team_df["tempo_gap"] = team_df["Torvik_adjt"] - team_df["TRank_tempo"]
 
+    # Derived: efficiency margin gap (Torvik adjEM vs TRank adjem)
+    if "Torvik_adjoe" in team_df.columns and "Torvik_adjde" in team_df.columns and "TRank_adjem" in team_df.columns:
+        torvik_adjem = team_df["Torvik_adjoe"] - team_df["Torvik_adjde"]
+        team_df["adjem_gap"] = torvik_adjem - team_df["TRank_adjem"]
+
     return team_df
 
 
