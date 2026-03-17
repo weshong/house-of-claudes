@@ -102,7 +102,7 @@ def build_custom_team_features(data, season, gender):
     # Add ordinals (aggregates only — individual systems add noise)
     ord_df = ordinals.compute(data, season, gender)
     if not ord_df.empty:
-        agg_cols = ["TeamID", "OrdinalMean", "OrdinalMedian", "OrdinalStd", "OrdinalMin", "OrdinalMax"]
+        agg_cols = ["TeamID", "OrdinalMean", "OrdinalStd"]
         agg_cols = [c for c in agg_cols if c in ord_df.columns]
         team_df = team_df.merge(ord_df[agg_cols], on="TeamID", how="left")
 
