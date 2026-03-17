@@ -1,8 +1,8 @@
 """Autoresearch experiment file. THIS IS THE FILE THE AGENT MODIFIES.
 
 Current best scores:
-  Men's:   0.1543  (Torvik LGB d=3)
-  Women's: 0.1386  (tier2 LR 70% + iter_eff LR 30%)
+  Men's:   0.1364  (custom LGB d=3, ordinal aggs + Torvik + TRank + gaps)
+  Women's: 0.1365  (seeds + Elo + TRank clone, L1 LR C=0.15)
 
 The agent modifies the functions below, then runs this file to evaluate.
 If Brier improves, keep the change. If not, revert.
