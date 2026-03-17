@@ -101,7 +101,7 @@ def build_custom_team_features(data, season, gender):
     # Add T-Rank clone features (complementary to external Torvik)
     trank_df = compute_trank(data, season, gender)
     if not trank_df.empty:
-        team_df = team_df.merge(trank_df[["TeamID", "TRank_barthag", "TRank_adjoe", "TRank_adjde", "TRank_sos"]], on="TeamID", how="left")
+        team_df = team_df.merge(trank_df[["TeamID", "TRank_barthag", "TRank_adjoe", "TRank_adjde", "TRank_sos", "TRank_tempo"]], on="TeamID", how="left")
 
     # Disagreement between external Torvik and our clone
     if "Torvik_barthag" in team_df.columns and "TRank_barthag" in team_df.columns:
@@ -112,6 +112,8 @@ def build_custom_team_features(data, season, gender):
         team_df["adjde_gap"] = team_df["Torvik_adjde"] - team_df["TRank_adjde"]
     if "Torvik_sos" in team_df.columns and "TRank_sos" in team_df.columns:
         team_df["sos_gap"] = team_df["Torvik_sos"] - team_df["TRank_sos"]
+    if "Torvik_adjt" in team_df.columns and "TRank_tempo" in team_df.columns:
+        team_df["tempo_gap"] = team_df["Torvik_adjt"] - team_df["TRank_tempo"]
 
     return team_df
 
