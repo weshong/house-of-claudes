@@ -11,7 +11,7 @@
 | M | torvik_LR_1 + torvik_LGB (62/38) | 0.1610 | 2026-03-16 13:00 |
 | M | torvik LR C=1.0 (single model) | 0.1703 | 2026-03-16 13:00 |
 | M | seeds_only ensemble (LR+LGB) | 0.1915 | 2026-03-16 10:38 |
-| W | **tier2 LR(72%) + iter_eff LR(28%) blend** | **0.1387** | 2026-03-16 14:00 |
+| W | **tier2 LR(70%) + iter_eff LR(30%) blend** | **0.1386** | 2026-03-16 22:00 |
 | W | tier2_LR C=0.1 meta-ensemble | 0.1390 | 2026-03-16 12:00 |
 | W | seeds_only LR | 0.1489 | 2026-03-16 10:39 |
 
@@ -22,9 +22,10 @@
 | Exp 1: Seed baseline | 0.1915 | 0.1489 |
 | Exp 6: Meta-ensemble | 0.1904 | 0.1390 |
 | Exp 7: Torvik | 0.1607 | 0.1390 |
-| **Exp 8: Shallow trees** | **0.1543** | **0.1387** |
+| Exp 8: Shallow trees | 0.1543 | 0.1387 |
+| **Exp 9-15: T-Rank, calibration** | **0.1543** | **0.1386** |
 
-Total improvement: M **0.0372** (19.4%), W **0.0102** (6.9%)
+Total improvement: M **0.0372** (19.4%), W **0.0103** (6.9%)
 
 ---
 
@@ -65,6 +66,54 @@ A Brier score is MSE of predicted probabilities vs 0/1 outcomes. Each game contr
 3. **More features**: Coaching tenure, conference strength, travel distance, rest days
 4. **Women's Torvik**: Find women's adjusted efficiency ratings (Her Hoop Stats)
 5. **Recency**: Weight late-season performance more heavily
+
+---
+
+## 2026-03-16 22:00 - Experiments 9-15: T-Rank Clone, Features, Calibration
+
+### Exp 9: Enhanced Torvik Features & Women's LGB (NEGATIVE)
+- Extra Torvik columns (WAB, elite_SOS, Qual_Barthag, etc.): 0.1550 → 0.1627 (hurt)
+- Women's LGB d=3: 0.1440-0.1541 (all worse than LR 0.1390)
+- Single Torvik LGB d=3 (0.1543) remains best for men's
+
+### Exp 10-10b: Enhanced Features & Ensembles (NEGATIVE)
+- Derived Torvik features (AdjEM, off_pct, percentiles, interactions): 0.1610 vs 0.1543 baseline (hurt)
+- Best pairwise ensemble: 0.1562 — WORSE than single LGB (0.1543)
+- All 3-model, 4-model, log-odds, seed prior blends: all worse
+- **Confirmed: single model dominance for men's**
+
+### Exp 11: Enhanced Iterative Efficiency v2 (NEGATIVE)
+- Added recency, HCA, possession weighting to iter_eff
+- Women's: v2 = 0.1426 vs v1 = 0.1411 (worse)
+- V1 remains superior
+
+### Exp 12: Conference Strength Features (NEGATIVE)
+- Added conf_mean_strength, conf_rank, conf_size, team_strength_vs_conf
+- Women's: 0.1394 vs 0.1390 baseline (no improvement)
+
+### Exp 13: T-Rank Clone + Bayesian Optimization
+- Built vectorized Torvik-style adjusted efficiency clone (works for both genders)
+- Validated against real Torvik: 0.93-0.96 correlation
+- **Vectorized version: 0.16s for 16 seasons (vs hours with iterrows)**
+- Optuna optimization (50 trials): best Brier = 0.1418 for women's
+- Best params: n_iter=10, hca=0.018, recency_win=31, decay=0.011, floor=0.43, blowout=9, barthag_exp=13.0, preseason=5, C=0.05
+- Men's clone: 0.1868 (much worse than real Torvik 0.1543 — missing preseason priors, recruiting data)
+- Blending with tier2: T-Rank adds 0% weight (fully redundant)
+
+### Exp 14: T-Rank + tier2 Combined Features & 3-Way Blend
+- tier2 + T-Rank combined: 0.1421 (worse than tier2 alone)
+- 3-way blend tier2 + iter_eff + T-Rank: best = tier2 70% + iter_eff 30% + T-Rank 0% = **0.1386**
+- T-Rank features built from same game data → no complementary signal
+
+### Exp 15: Calibration Analysis
+- Women's ECE = 0.0402, Men's ECE = 0.0582
+- **Women's**: [0.2-0.3] bin badly miscalibrated (pred=0.256, actual=0.138)
+- Temperature T=0.9: 0.1387 (tiny improvement) — slight overconfidence
+- **Men's**: [0.6-0.8] range underconfident (pred ~0.7, actual ~0.87)
+- No temperature, clipping, Platt, or isotonic method improves either model
+- Models are already near-optimally calibrated for small dataset
+
+### Updated Women's blend: 70/30 → Brier 0.1386 (v4 submission generated)
 
 ---
 
