@@ -44,15 +44,30 @@ from marchmadness.features.trank_clone import compute as compute_trank
 # CONFIGURATION — modify these to experiment
 # ============================================================
 
-# Men's config
+# Men's config — blend LGB + LR
 M_CONFIG = {
-    "feature_set": "custom",       # "seeds_only", "tier1", "tier2", "torvik", "iter_eff", "all", or "custom"
-    "start_year": 2015,
-    "model": lambda: LGBMClassifier(
-        n_estimators=300, max_depth=3, learning_rate=0.025,
-        subsample=0.8, colsample_bytree=0.6, min_split_gain=0.005,
-        random_state=42, verbose=-1
-    ),
+    "blend": True,
+    "models": [
+        {
+            "feature_set": "custom",
+            "start_year": 2015,
+            "model": lambda: LGBMClassifier(
+                n_estimators=300, max_depth=3, learning_rate=0.025,
+                subsample=0.8, colsample_bytree=0.6, min_split_gain=0.005,
+                random_state=42, verbose=-1
+            ),
+            "weight": 0.8,
+        },
+        {
+            "feature_set": "custom",
+            "start_year": 2015,
+            "model": lambda: Pipeline([
+                ("s", StandardScaler()),
+                ("lr", LogisticRegression(C=0.1, penalty='l1', solver='liblinear', max_iter=2000))
+            ]),
+            "weight": 0.2,
+        },
+    ],
 }
 
 # Women's config — blend of two models
@@ -203,17 +218,42 @@ def run_evaluation():
     print("  MEN'S EVALUATION")
     print("=" * 60)
 
-    m_df = build_data_fn(data, "M", M_CONFIG["feature_set"], M_CONFIG["start_year"])
-    feat_cols = get_feature_columns(m_df)
+    if M_CONFIG.get("blend"):
+        m_results = []
+        for i, mc in enumerate(M_CONFIG["models"]):
+            m_df = build_data_fn(data, "M", mc["feature_set"], mc["start_year"])
+            fc = get_feature_columns(m_df)
 
-    def m_build(data, gender):
-        return m_df
+            def m_build(data, gender, _df=m_df):
+                return _df
 
-    m_result = evaluate_single_model(m_build, M_CONFIG["model"], data, "M", "Men's")
-    m_brier = m_result["brier"]
-    print(f"  Men's Brier: {m_brier:.6f}  ({len(feat_cols)} features, {m_result.get('n_samples', 0)} samples)")
-    for s, b in sorted(m_result.get("per_fold", {}).items()):
-        print(f"    {s}: {b:.4f}")
+            r = evaluate_single_model(m_build, mc["model"], data, "M",
+                                      f"M model {i} ({mc['feature_set']})")
+            m_results.append(r)
+            print(f"  Model {i} ({mc['feature_set']}): {r['brier']:.6f} ({len(fc)} features)")
+
+        weights = [mc["weight"] for mc in M_CONFIG["models"]]
+        n_games = [len(r["oof_preds"]) for r in m_results]
+        if len(set(n_games)) == 1:
+            blend_result = evaluate_blend(m_results, weights)
+            m_brier = blend_result["brier"]
+            wt_str = " + ".join(f"{mc['feature_set']}({mc['weight']:.0%})" for mc in M_CONFIG["models"])
+            print(f"  Blend [{wt_str}]: {m_brier:.6f}")
+        else:
+            print(f"  WARNING: CV game count mismatch: {n_games}")
+            m_brier = min(r["brier"] for r in m_results)
+    else:
+        m_df = build_data_fn(data, "M", M_CONFIG["feature_set"], M_CONFIG["start_year"])
+        feat_cols = get_feature_columns(m_df)
+
+        def m_build(data, gender):
+            return m_df
+
+        m_result = evaluate_single_model(m_build, M_CONFIG["model"], data, "M", "Men's")
+        m_brier = m_result["brier"]
+        print(f"  Men's Brier: {m_brier:.6f}  ({len(feat_cols)} features, {m_result.get('n_samples', 0)} samples)")
+        for s, b in sorted(m_result.get("per_fold", {}).items()):
+            print(f"    {s}: {b:.4f}")
     results["M"] = m_brier
 
     # === WOMEN'S ===
