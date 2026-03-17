@@ -88,10 +88,6 @@ def build_custom_team_features(data, season, gender):
         if not elo_df.empty:
             team_df = team_df.merge(elo_df, on="TeamID", how="left")
 
-        iter_eff_df = adj_efficiency.compute(data, season, gender)
-        if not iter_eff_df.empty:
-            team_df = team_df.merge(iter_eff_df, on="TeamID", how="left")
-
         trank_df = compute_trank(data, season, gender)
         if not trank_df.empty:
             team_df = team_df.merge(trank_df[["TeamID", "TRank_barthag", "TRank_adjoe", "TRank_adjde", "TRank_adjem"]], on="TeamID", how="left")
