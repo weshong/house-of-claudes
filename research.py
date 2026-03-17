@@ -61,7 +61,7 @@ W_CONFIG = {
         {
             "weight": 0.60,
             "feature_set": "tier2",
-            "start_year": 1998,
+            "start_year": 2003,
             "model": lambda: Pipeline([
                 ("s", StandardScaler()),
                 ("lr", LogisticRegression(C=0.05, max_iter=1000))
