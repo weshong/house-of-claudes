@@ -99,10 +99,12 @@ def build_custom_team_features(data, season, gender):
     if team_df.empty:
         return team_df
 
-    # Add ordinals (all individual + aggregates)
+    # Add ordinals (aggregates only — individual systems add noise)
     ord_df = ordinals.compute(data, season, gender)
     if not ord_df.empty:
-        team_df = team_df.merge(ord_df, on="TeamID", how="left")
+        agg_cols = ["TeamID", "OrdinalMean", "OrdinalMedian", "OrdinalStd", "OrdinalMin", "OrdinalMax"]
+        agg_cols = [c for c in agg_cols if c in ord_df.columns]
+        team_df = team_df.merge(ord_df[agg_cols], on="TeamID", how="left")
 
     # Add Torvik external ratings
     torvik_df = torvik.compute(data, season, gender)
