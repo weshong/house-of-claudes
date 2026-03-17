@@ -98,14 +98,18 @@ def build_custom_team_features(data, season, gender):
     if not elo_df.empty:
         team_df = team_df.merge(elo_df, on="TeamID", how="left")
 
-    # Add T-Rank clone barthag (complementary to external Torvik)
+    # Add T-Rank clone features (complementary to external Torvik)
     trank_df = compute_trank(data, season, gender)
     if not trank_df.empty:
-        team_df = team_df.merge(trank_df[["TeamID", "TRank_barthag"]], on="TeamID", how="left")
+        team_df = team_df.merge(trank_df[["TeamID", "TRank_barthag", "TRank_adjoe", "TRank_adjde"]], on="TeamID", how="left")
 
     # Disagreement between external Torvik and our clone
     if "Torvik_barthag" in team_df.columns and "TRank_barthag" in team_df.columns:
         team_df["barthag_gap"] = team_df["Torvik_barthag"] - team_df["TRank_barthag"]
+    if "Torvik_adjoe" in team_df.columns and "TRank_adjoe" in team_df.columns:
+        team_df["adjoe_gap"] = team_df["Torvik_adjoe"] - team_df["TRank_adjoe"]
+    if "Torvik_adjde" in team_df.columns and "TRank_adjde" in team_df.columns:
+        team_df["adjde_gap"] = team_df["Torvik_adjde"] - team_df["TRank_adjde"]
 
     return team_df
 
