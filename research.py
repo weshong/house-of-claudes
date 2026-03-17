@@ -136,6 +136,12 @@ def build_custom_team_features(data, season, gender):
         torvik_adjem = team_df["Torvik_adjoe"] - team_df["Torvik_adjde"]
         team_df["adjem_gap"] = torvik_adjem - team_df["TRank_adjem"]
 
+    # Elo-Torvik disagreement: normalize Elo to similar scale as barthag
+    if "Torvik_barthag" in team_df.columns and "Elo" in team_df.columns:
+        # Convert Elo to win probability scale (~0-1) to compare with barthag
+        elo_norm = 1 / (1 + 10 ** ((1500 - team_df["Elo"]) / 400))
+        team_df["elo_barthag_gap"] = elo_norm - team_df["Torvik_barthag"]
+
     return team_df
 
 
