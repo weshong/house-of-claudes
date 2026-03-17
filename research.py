@@ -83,7 +83,7 @@ W_CONFIG = {
             "start_year": 2003,
             "model": lambda: Pipeline([
                 ("s", StandardScaler()),
-                ("lr", LogisticRegression(C=0.06, penalty='l1', solver='saga', max_iter=2000))
+                ("lr", LogisticRegression(C=0.06, penalty='l1', solver='liblinear', max_iter=2000))
             ]),
         },
     ],
