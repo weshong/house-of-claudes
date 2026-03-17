@@ -127,6 +127,10 @@ def build_custom_team_features(data, season, gender):
     if not trank_df.empty:
         team_df = team_df.merge(trank_df[["TeamID", "TRank_barthag"]], on="TeamID", how="left")
 
+    # Disagreement between external Torvik and our clone
+    if "Torvik_barthag" in team_df.columns and "TRank_barthag" in team_df.columns:
+        team_df["barthag_gap"] = team_df["Torvik_barthag"] - team_df["TRank_barthag"]
+
     return team_df
 
 
