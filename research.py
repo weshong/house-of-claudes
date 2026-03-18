@@ -105,7 +105,7 @@ def build_custom_team_features(data, season, gender):
 
         trank_df = compute_trank(data, season, gender)
         if not trank_df.empty:
-            team_df = team_df.merge(trank_df[["TeamID", "TRank_barthag", "TRank_adjoe", "TRank_adjde", "TRank_adjem", "TRank_tempo"]], on="TeamID", how="left")
+            team_df = team_df.merge(trank_df[["TeamID", "TRank_barthag", "TRank_adjoe", "TRank_adjde", "TRank_tempo"]], on="TeamID", how="left")
 
         stats_df = season_stats.compute(data, season, gender)
         if not stats_df.empty:
