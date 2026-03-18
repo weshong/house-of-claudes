@@ -118,12 +118,39 @@ def build_custom_team_features(data, season, gender):
     if team_df.empty:
         return team_df
 
-    # Add ordinals (aggregates only — individual systems add noise)
+    # Add ordinals (aggregates + PCA from all systems)
     ord_df = ordinals.compute(data, season, gender)
     if not ord_df.empty:
         agg_cols = ["TeamID", "OrdinalMean", "OrdinalStd"]
         agg_cols = [c for c in agg_cols if c in ord_df.columns]
         team_df = team_df.merge(ord_df[agg_cols], on="TeamID", how="left")
+
+    # PCA on all ordinal systems
+    ord_key = f"{gender}MasseyOrdinals"
+    if ord_key in data:
+        from sklearn.decomposition import PCA
+        all_ord = data[ord_key]
+        season_ord = all_ord[
+            (all_ord["Season"] == season) &
+            (all_ord["RankingDayNum"] >= 128)
+        ]
+        if not season_ord.empty:
+            # Get all systems with enough coverage
+            sys_counts = season_ord.groupby("SystemName")["TeamID"].nunique()
+            good_sys = sys_counts[sys_counts >= 50].index.tolist()
+            # Pivot to team x system matrix
+            latest = season_ord[season_ord["SystemName"].isin(good_sys)]
+            latest = latest.loc[latest.groupby(["TeamID", "SystemName"])["RankingDayNum"].idxmax()]
+            pivot = latest.pivot(index="TeamID", columns="SystemName", values="OrdinalRank")
+            pivot = pivot.fillna(pivot.median())
+            if pivot.shape[1] >= 5:
+                n_components = min(3, pivot.shape[1])
+                pca = PCA(n_components=n_components)
+                comps = pca.fit_transform(pivot.values)
+                pca_df = pd.DataFrame({"TeamID": pivot.index})
+                for i in range(n_components):
+                    pca_df[f"OrdPCA_{i}"] = comps[:, i]
+                team_df = team_df.merge(pca_df, on="TeamID", how="left")
 
     # Add Torvik external ratings
     torvik_df = torvik.compute(data, season, gender)
