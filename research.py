@@ -75,7 +75,7 @@ W_CONFIG = {
     "feature_set": "custom",
     "start_year": 2003,
     "model": lambda: Pipeline([
-        ("q", QuantileTransformer(output_distribution='normal', n_quantiles=100)),
+        ("q", QuantileTransformer(output_distribution='normal', n_quantiles=50)),
         ("lr", LogisticRegression(C=0.15, penalty='l1', solver='liblinear', max_iter=2000))
     ]),
 }
