@@ -132,7 +132,7 @@ def build_custom_team_features(data, season, gender):
         all_ord = data[ord_key]
         season_ord = all_ord[
             (all_ord["Season"] == season) &
-            (all_ord["RankingDayNum"] >= 128)
+            (all_ord["RankingDayNum"] >= 133)
         ]
         if not season_ord.empty:
             # Get systems with good coverage (rank nearly all D1 teams)
