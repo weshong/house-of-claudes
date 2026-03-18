@@ -131,9 +131,9 @@ def build_custom_team_features(data, season, gender):
             (all_ord["RankingDayNum"] >= 128)
         ]
         if not season_ord.empty:
-            # Get all systems with enough coverage
+            # Get systems with good coverage (rank nearly all D1 teams)
             sys_counts = season_ord.groupby("SystemName")["TeamID"].nunique()
-            good_sys = sys_counts[sys_counts >= 50].index.tolist()
+            good_sys = sys_counts[sys_counts >= 200].index.tolist()
             # Pivot to team x system matrix
             latest = season_ord[season_ord["SystemName"].isin(good_sys)]
             latest = latest.loc[latest.groupby(["TeamID", "SystemName"])["RankingDayNum"].idxmax()]
