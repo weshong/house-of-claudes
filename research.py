@@ -27,7 +27,7 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, QuantileTransformer
 from sklearn.pipeline import Pipeline
 from lightgbm import LGBMClassifier
 
@@ -75,7 +75,7 @@ W_CONFIG = {
     "feature_set": "custom",
     "start_year": 2003,
     "model": lambda: Pipeline([
-        ("s", StandardScaler()),
+        ("q", QuantileTransformer(output_distribution='normal', n_quantiles=100)),
         ("lr", LogisticRegression(C=0.15, penalty='l1', solver='liblinear', max_iter=2000))
     ]),
 }
