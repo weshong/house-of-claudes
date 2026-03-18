@@ -111,6 +111,10 @@ def build_custom_team_features(data, season, gender):
         if not stats_df.empty:
             team_df = team_df.merge(stats_df[["TeamID", "PointDiff"]], on="TeamID", how="left")
 
+        adj_eff_df = adj_efficiency.compute(data, season, gender)
+        if not adj_eff_df.empty and "IterAdjEM" in adj_eff_df.columns:
+            team_df = team_df.merge(adj_eff_df[["TeamID", "IterAdjEM"]], on="TeamID", how="left")
+
         return team_df
 
     # Men's: custom build with seeds, ordinals, Torvik, Elo, T-Rank clone + disagreement
