@@ -94,7 +94,7 @@ def build_custom_team_features(data, season, gender):
     from marchmadness.features import torvik
 
     if gender == "W":
-        # For women's: seeds + Elo + IterAdj + T-Rank clone
+        # For women's: seeds + Elo + T-Rank clone + PointDiff
         team_df = seeds.compute(data, season, gender)
         if team_df.empty:
             return team_df
@@ -106,6 +106,10 @@ def build_custom_team_features(data, season, gender):
         trank_df = compute_trank(data, season, gender)
         if not trank_df.empty:
             team_df = team_df.merge(trank_df[["TeamID", "TRank_barthag", "TRank_adjoe", "TRank_adjde", "TRank_adjem"]], on="TeamID", how="left")
+
+        stats_df = season_stats.compute(data, season, gender)
+        if not stats_df.empty:
+            team_df = team_df.merge(stats_df[["TeamID", "PointDiff"]], on="TeamID", how="left")
 
         return team_df
 
