@@ -52,7 +52,7 @@ M_CONFIG = {
             "feature_set": "custom",
             "start_year": 2015,
             "model": lambda: LGBMClassifier(
-                n_estimators=300, max_depth=3, learning_rate=0.025,
+                n_estimators=250, max_depth=3, learning_rate=0.025,
                 subsample=0.8, colsample_bytree=0.6, min_split_gain=0.005,
                 random_state=42, verbose=-1
             ),
