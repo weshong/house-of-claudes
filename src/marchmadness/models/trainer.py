@@ -38,6 +38,7 @@ class ModelTrainer:
         self.ensemble_weights = None
         self.data = None
         self.training_df = None
+        self.impute_medians = None
 
     def load_data(self):
         """Load all competition data."""
@@ -72,11 +73,8 @@ class ModelTrainer:
         if "SampleWeight" in self.training_df.columns:
             sample_weights = self.training_df["SampleWeight"].values.copy()
 
-        # Handle NaN: fill with column median
-        col_medians = np.nanmedian(X, axis=0)
-        for i in range(X.shape[1]):
-            mask = np.isnan(X[:, i])
-            X[mask, i] = col_medians[i] if not np.isnan(col_medians[i]) else 0
+        # Handle NaN: fill with column median, store medians for prediction
+        X, self.impute_medians = self._impute_nans(X)
 
         self.feature_cols = feature_cols
         return X, y, season_arr, sample_weights
@@ -139,8 +137,33 @@ class ModelTrainer:
                 pickle.dump(model, f)
             print(f"  Saved {name} to {model_path}")
 
+    @staticmethod
+    def _impute_nans(X: np.ndarray, medians: np.ndarray | None = None) -> tuple[np.ndarray, np.ndarray]:
+        """Fill NaN values with column medians.
+
+        Args:
+            X: Feature matrix (modified in place).
+            medians: Pre-computed medians from training. If None, computes from X.
+
+        Returns:
+            (X with NaNs filled, medians used for imputation)
+        """
+        if medians is None:
+            medians = np.nanmedian(X, axis=0)
+        for i in range(X.shape[1]):
+            mask = np.isnan(X[:, i])
+            if mask.any():
+                fill = medians[i] if not np.isnan(medians[i]) else 0
+                X[mask, i] = fill
+        return X, medians
+
     def predict(self, X: np.ndarray) -> np.ndarray:
         """Generate ensemble predictions."""
+        # Apply same NaN imputation as training
+        if self.impute_medians is not None:
+            X = X.copy()
+            X, _ = self._impute_nans(X, self.impute_medians)
+
         preds_list = []
         for name, model in self.models.items():
             if hasattr(model, "predict_proba"):

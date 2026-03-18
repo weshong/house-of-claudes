@@ -31,6 +31,16 @@ def compute(data: dict[str, pd.DataFrame], season: int, gender: str = "M") -> pd
         # Fall back to whatever systems are available
         available_systems = season_ord["SystemName"].unique().tolist()[:10]
 
+    # Filter out systems with very low coverage (e.g. polls that only rank top 25)
+    min_teams = 50
+    available_systems = [
+        s for s in available_systems
+        if len(season_ord[season_ord["SystemName"] == s]["TeamID"].unique()) >= min_teams
+    ]
+
+    if not available_systems:
+        return pd.DataFrame(columns=["TeamID"])
+
     # For each team, get mean rank from each system (using latest available day)
     results = []
     for system in available_systems:

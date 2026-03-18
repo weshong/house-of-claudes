@@ -28,7 +28,9 @@ DETAILED_RESULTS_START = 2003
 # Massey ordinals: only use late-season rankings
 ORDINALS_MIN_DAY = 128
 # Top ranking systems to use as features
-TOP_RANKING_SYSTEMS = ["POM", "SAG", "WLK", "WOL", "MOR", "DOL", "COL", "RPI", "AP", "USA"]
+# Excluded: AP/USA (Top-25 polls, ~60% missing for tournament teams),
+#           SAG/WOL (zero coverage in recent seasons)
+TOP_RANKING_SYSTEMS = ["POM", "WLK", "MOR", "DOL", "COL", "RPI"]
 
 # Elo parameters
 ELO_K = 20
