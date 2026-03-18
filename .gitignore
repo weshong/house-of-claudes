@@ -23,8 +23,12 @@ outputs/reports/*.jpg
 .venv/
 *.conda
 
-# Claude Code local settings (may contain secrets in permission rules)
-.claude/settings.local.json
+# Claude Code settings
+.claude/
+
+# Experiment artifacts
+results.tsv
+run.log
 
 # IDE
 .vscode/

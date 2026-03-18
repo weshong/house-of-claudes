@@ -2,17 +2,74 @@
 
 ---
 
+## 2026-03-17 21:40 - Experiment: R Model Port (MhouseOfCardFINAL.R / WhouseOfCardFINAL.R)
+
+### Background
+
+Ported the legacy R model from previous years' competitions to Python for apples-to-apples comparison against our current best models. The R scripts use Random Forest (1000 trees) + XGBoost (depth=6, eta=0.01) trained on regular season + tournament data, with a logistic regression calibration wrapper on the RF. Feature set: WP, OWP (median opponent WP excl. head-to-head), shooting pcts (FG/FG3/FT), box score averages (OR/DR/Ast/TO/Stl/Blk/PF), opponent versions of all, possessions, OE/DE, four factors (eFG%, TO%, OREB%, FTR) — 90 raw features or 47 diff features per matchup.
+
+### Men's Results (CV 2022-2025, tournament-only training)
+
+| Config | Brier | Notes |
+|--------|-------|-------|
+| XGB d=6 raw features (R params) | 0.1937 | R model's approach, tied best |
+| RF + LR calibration, raw | 0.1937 | Calibration helps RF a lot |
+| RF diff features | 0.1943 | RF works well with diffs too |
+| XGB d=3 raw | 0.1950 | Shallow trees slightly worse here |
+| LGB d=3 raw | 0.1971 | |
+| LR C=0.01 diff | 0.1980 | |
+| LR C=0.1 diff | 0.1981 | |
+| RF raw (uncalibrated) | 0.1996 | RF needs calibration |
+| LGB d=3 diff | 0.2001 | |
+| **50/50 blend XGB-raw + RF-diff** | **0.1886** | Best blend of R-style models |
+| **Current best (55% LGB + 45% LR, Torvik features)** | **0.1307** | Still far ahead |
+
+### Women's Results (CV 2022-2025, tournament-only training)
+
+| Config | Brier | Notes |
+|--------|-------|-------|
+| LR C=0.01 diff | 0.1465 | Strongest single model |
+| RF diff features | 0.1496 | |
+| LR C=0.1 diff | 0.1521 | |
+| RF + LR calibration, raw | 0.1541 | |
+| LGB d=3 raw | 0.1572 | |
+| XGB d=3 raw | 0.1593 | |
+| LGB d=3 diff | 0.1596 | |
+| RF raw (uncalibrated) | 0.1611 | |
+| XGB d=6 raw (R params) | 0.1721 | Overfits badly |
+| **Current best (Seeds+Elo+TRank clone, L1 LR)** | **0.1365** | Still ahead |
+
+### Key Observations
+
+1. **The R model scores ~0.19 for men's, ~0.15 for women's** — roughly where our seed-only baselines started before we added Torvik/ordinals. This makes sense: the R features are entirely derived from box scores with no external ratings (no Torvik, no Massey ordinals, no Elo).
+
+2. **Random Forest is a legitimate model choice** — RF with calibration (0.1937) ties XGBoost for men's, and is competitive for women's. We haven't previously tested RF in our Python pipeline. The LR calibration wrapper matters a lot for RF (0.1996 → 0.1937).
+
+3. **Raw features vs diffs**: For tree models (RF, XGB), raw team-A/team-B columns (90 features) perform similarly to diff features (47 features). For LR, diffs are the natural representation. The raw representation doesn't provide a meaningful advantage.
+
+4. **The R model's depth-6 XGBoost actually works here** — unlike our Torvik-based models where depth=3 was clearly better, depth=6 ties depth=3 on the R feature set. This may be because the R features have less signal per feature (raw box scores vs expert-calibrated Torvik), so deeper trees can extract more complex interactions without overfitting as badly.
+
+5. **Blending R-model with current best would help only marginally** — the 50/50 raw+diff blend gets 0.1886 for men's, still 0.06 worse than our Torvik-based 0.1307. The feature quality gap (box scores vs Torvik) is the dominant factor, not model choice.
+
+6. **Women's LR C=0.01 (0.1465) is notably better than the R model's RF/XGB** — confirming that for women's, strong regularization + simple models dominate because of the smaller dataset and higher variance.
+
+### Verdict
+
+The R model approach is a solid ~0.19 baseline for men's and ~0.15 for women's, but **our current models are substantially better** (+0.06 men's, +0.01 women's) primarily due to external rating features (Torvik for men's, Elo+TRank clone for women's). The R model's box-score-only features cannot compete with expert-calibrated efficiency ratings. RF with calibration is worth considering as an ensemble component, but the feature gap is the bottleneck, not the model architecture.
+
+---
+
 ## Brier Score Leaderboard (Updated)
 
 | Gender | Config | Brier | Timestamp |
 |--------|--------|-------|-----------|
-| M | **Torvik shallow LGB d=3 n=400 lr=0.02** | **0.1543** | 2026-03-16 14:00 |
+| M | **55% LGB d=3 + 45% L2 LR C=100 blend** | **0.1307** | 2026-03-17 |
+| M | Single LGB d=3 (custom features, 27 feat) | 0.1347 | 2026-03-17 |
+| M | Torvik shallow LGB d=3 n=400 lr=0.02 | 0.1543 | 2026-03-16 14:00 |
 | M | Torvik ensemble (LR 50% + LGB 39% + seeds 11%) | 0.1607 | 2026-03-16 13:00 |
-| M | torvik_LR_1 + torvik_LGB (62/38) | 0.1610 | 2026-03-16 13:00 |
-| M | torvik LR C=1.0 (single model) | 0.1703 | 2026-03-16 13:00 |
 | M | seeds_only ensemble (LR+LGB) | 0.1915 | 2026-03-16 10:38 |
-| W | **tier2 LR(70%) + iter_eff LR(30%) blend** | **0.1386** | 2026-03-16 22:00 |
-| W | tier2_LR C=0.1 meta-ensemble | 0.1390 | 2026-03-16 12:00 |
+| W | **seeds + Elo + TRank clone, L1 LR C=0.15** | **0.1365** | 2026-03-17 |
+| W | tier2 LR(70%) + iter_eff LR(30%) blend | 0.1386 | 2026-03-16 22:00 |
 | W | seeds_only LR | 0.1489 | 2026-03-16 10:39 |
 
 ### Improvement Timeline
@@ -23,9 +80,10 @@
 | Exp 6: Meta-ensemble | 0.1904 | 0.1390 |
 | Exp 7: Torvik | 0.1607 | 0.1390 |
 | Exp 8: Shallow trees | 0.1543 | 0.1387 |
-| **Exp 9-15: T-Rank, calibration** | **0.1543** | **0.1386** |
+| Exp 9-15: T-Rank, calibration | 0.1543 | 0.1386 |
+| **Exp 82-224: Autoresearch loop** | **0.1307** | **0.1365** |
 
-Total improvement: M **0.0372** (19.4%), W **0.0103** (6.9%)
+Total improvement: M **0.0608** (31.7%), W **0.0124** (8.3%)
 
 ---
 
