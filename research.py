@@ -144,7 +144,7 @@ def build_custom_team_features(data, season, gender):
             pivot = latest.pivot(index="TeamID", columns="SystemName", values="OrdinalRank")
             pivot = pivot.fillna(pivot.median())
             if pivot.shape[1] >= 5:
-                n_components = min(3, pivot.shape[1])
+                n_components = min(2, pivot.shape[1])
                 pca = PCA(n_components=n_components)
                 comps = pca.fit_transform(pivot.values)
                 pca_df = pd.DataFrame({"TeamID": pivot.index})
