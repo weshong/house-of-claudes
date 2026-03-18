@@ -4,11 +4,33 @@
 
 | Model | Men's | Women's |
 |-------|-------|---------|
-| **v5: LGB+LR blend / L1 LR** | **0.1318** | **0.1365** |
+| **v7: PCA ordinals + LGB-LR blend / QT L1 LR** | **0.1267** | **0.1335** |
+| v5: LGB+LR blend / L1 LR | 0.1318 | 0.1365 |
 | seeds_only ensemble | 0.1915 | 0.1489 |
 | tier1 (seeds+ordinals) | 0.1944 | — |
 | all (full features) | 0.1950 | — |
 | tier2 (seeds+elo+stats+ord) | 0.1951 | — |
+
+---
+
+## 2026-03-18 — v7: PCA ordinals + optimized blend [CURRENT BEST]
+
+### Men's: 40% LightGBM + 60% L2 Logistic Regression blend
+- **LGB**: max_depth=3, n_estimators=250, lr=0.025, subsample=0.8, colsample=0.6, min_split_gain=0.005
+- **LR**: L2 penalty, C=100.0, lbfgs solver, StandardScaler
+- **Training data**: 2015-2025 (excluding test season)
+- **Features (22)**: PCA on ordinals (2 components from ~50+ systems with coverage>=250), Torvik external (adjoe/adjde/barthag/adjt/sos), Elo, TRank clone (barthag/adjoe/adjde/sos/tempo), gap features (barthag/adjoe/adjde/sos/tempo/elo_barthag), seed
+- **Key innovations**: PCA on all ordinal systems (replaces top-10 selection), disagreement features between Torvik external and TRank clone, DayNum>=133 for final-week rankings
+- **Mean Brier: 0.1267** (std ~0.015)
+
+### Women's: QT + L1 Logistic Regression
+- **LR**: L1 penalty, C=0.20, liblinear solver, QuantileTransformer (n_quantiles=50, normal output)
+- **Training data**: 2003-2025 (excluding test season)
+- **Features (9)**: Seed, Elo, TRank_barthag, TRank_adjoe, TRank_adjde, TRank_tempo, PointDiff
+- **Key innovations**: QuantileTransformer preprocessing (huge improvement), aggressive L1 regularization, simple feature set
+- **Mean Brier: 0.1335** (std ~0.026)
+
+Commentary: This session ran ~48 experiments. The major gains came from previous sessions (PCA ordinals, QT, disagreement features). This session achieved small gains from simplifying models (dropping IterAdjEM, TRank_adjem) and adjusting PCA coverage threshold. The models are deeply optimized — nearly all feature additions, model changes, and hyperparameter tweaks were discarded. The combined score of 0.1301 is far beyond the "competitive" target of 0.14.
 
 ---
 
