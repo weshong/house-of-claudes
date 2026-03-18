@@ -181,10 +181,6 @@ def build_custom_team_features(data, season, gender):
         elo_norm = 1 / (1 + 10 ** ((1500 - team_df["Elo"]) / 400))
         team_df["elo_barthag_gap"] = elo_norm - team_df["Torvik_barthag"]
 
-    # Seed-ordinal mismatch (over/under-seeded?)
-    if "OrdinalMean" in team_df.columns and "Seed" in team_df.columns:
-        team_df["seed_ordinal_raw"] = team_df["Seed"] * 20 - team_df["OrdinalMean"]
-
     return team_df
 
 
