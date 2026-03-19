@@ -266,8 +266,10 @@ ROUND_NAMES = {
 
 
 class BracketTracker:
-    def __init__(self, slots_df, seeds_df, gender, data):
+    def __init__(self, slots_df, seeds_df, gender, data, preds=None, model_name='v7'):
         self.data = data
+        self.preds = preds if preds is not None else data['v7']
+        self.model_name = model_name
         self.seeds = {}
         self.slots = {}
         self.results = {}
@@ -295,7 +297,7 @@ class BracketTracker:
         m = mid(t1, t2)
         if m in self.results:
             return (self.results[m][0], True)
-        p1 = get_pred(t1, t2, self.data['v7'])
+        p1 = get_pred(t1, t2, self.preds)
         return (t1 if p1 >= 0.5 else t2, False)
 
     def get_games(self):
@@ -315,23 +317,24 @@ class BracketTracker:
             t1, t1a = self.resolve(strong)
             t2, t2a = self.resolve(weak)
 
-            game = {'slot': slot, 'round': rnd, 'region': region, 'team1': t1, 'team2': t2}
+            game = {'slot': slot, 'round': rnd, 'region': region, 'team1': t1, 'team2': t2,
+                    'model_name': self.model_name}
 
             if t1 is not None and t2 is not None:
                 m = mid(t1, t2)
                 if m in self.results:
                     w, ws, ls = self.results[m]
                     lo = t2 if w == t1 else t1
-                    p1 = get_pred(t1, t2, self.data['v7'])
+                    p1 = get_pred(t1, t2, self.preds)
                     pred_w = t1 if p1 >= 0.5 else t2
                     game.update({
                         'completed': True, 'winner': w, 'loser': lo,
                         'w_score': ws, 'l_score': ls,
                         'model_correct': pred_w == w,
-                        'v7_conf': get_pred(w, lo, self.data['v7']),
+                        'model_conf': get_pred(w, lo, self.preds),
                     })
                 else:
-                    p1 = get_pred(t1, t2, self.data['v7'])
+                    p1 = get_pred(t1, t2, self.preds)
                     game.update({
                         'completed': False,
                         'pred_winner': t1 if p1 >= 0.5 else t2,
@@ -388,6 +391,7 @@ def final_four_html(tracker, label, data):
 
 def game_html(g, data):
     t1, t2 = g.get('team1'), g.get('team2')
+    mname = g.get('model_name', 'v7')
     if t1 is None or t2 is None:
         return '<div class="gm gm-p"><div class="tm">TBD</div><div class="tm">TBD</div></div>'
 
@@ -401,7 +405,7 @@ def game_html(g, data):
             f'<div class="gm {cls}">'
             f'<div class="tm tw">{team_label(w, data)} <span class="sc">{g["w_score"]}</span></div>'
             f'<div class="tm tl">{team_label(lo, data)} <span class="sc">{g["l_score"]}</span></div>'
-            f'<div class="gm-m"><span class="{icls}">{icon}</span> v7: {g["v7_conf"]:.0%}</div>'
+            f'<div class="gm-m"><span class="{icls}">{icon}</span> {mname}: {g["model_conf"]:.0%}</div>'
             f'</div>'
         )
     else:
@@ -411,7 +415,7 @@ def game_html(g, data):
         for t in [t1, t2]:
             cls = ' tp' if t == pw else ''
             h += f'<div class="tm{cls}">{team_label(t, data)}</div>'
-        h += f'<div class="gm-m pm">v7: {team_label(pw, data)} ({conf:.0%})</div></div>'
+        h += f'<div class="gm-m pm">{mname}: {team_label(pw, data)} ({conf:.0%})</div></div>'
         return h
 
 
@@ -517,22 +521,39 @@ def render(data=None):
     # Chart
     traces_json, layout_json = brier_chart_json(brier_data)
 
-    # Brackets
-    bm = BracketTracker(data['slots_m'], data['seeds_m'], 'M', data)
-    bw = BracketTracker(data['slots_w'], data['seeds_w'], 'W', data)
-
+    # Brackets — generate for each model
     M_REGIONS = {'W': 'East', 'X': 'South', 'Y': 'Midwest', 'Z': 'West'}
     W_REGIONS = {'W': 'Albany', 'X': 'Spokane', 'Y': 'Fort Worth', 'Z': 'Portland'}
 
-    m_bkt = '<h3 class="sec-hdr">Men\'s Bracket</h3>'
-    for rc, rn in M_REGIONS.items():
-        m_bkt += bracket_region_html(bm, rc, rn, data)
-    m_bkt += final_four_html(bm, "Men's", data)
+    models = [
+        ('v7', 'v7 (LGB+LR)', data['v7']),
+        ('rf', 'RF Baseline', data['rf']),
+        ('seed', 'Seed Baseline', data['seed']),
+    ]
 
-    w_bkt = '<h3 class="sec-hdr" style="margin-top:24px">Women\'s Bracket</h3>'
-    for rc, rn in W_REGIONS.items():
-        w_bkt += bracket_region_html(bw, rc, rn, data)
-    w_bkt += final_four_html(bw, "Women's", data)
+    bracket_tabs = '<div class="tab-bar">'
+    for i, (mid_key, label, _) in enumerate(models):
+        active = ' active' if i == 0 else ''
+        bracket_tabs += f'<button class="tab-btn{active}" onclick="switchTab(\'{mid_key}\')">{label}</button>'
+    bracket_tabs += '</div>'
+
+    bracket_panels = ''
+    for i, (mid_key, label, preds) in enumerate(models):
+        display = '' if i == 0 else 'display:none;'
+        bm = BracketTracker(data['slots_m'], data['seeds_m'], 'M', data, preds=preds, model_name=mid_key)
+        bw = BracketTracker(data['slots_w'], data['seeds_w'], 'W', data, preds=preds, model_name=mid_key)
+
+        panel = f'<div class="tab-panel" id="tab-{mid_key}" style="{display}">'
+        panel += '<h3 class="sec-hdr">Men\'s Bracket</h3>'
+        for rc, rn in M_REGIONS.items():
+            panel += bracket_region_html(bm, rc, rn, data)
+        panel += final_four_html(bm, "Men's", data)
+        panel += '<h3 class="sec-hdr" style="margin-top:24px">Women\'s Bracket</h3>'
+        for rc, rn in W_REGIONS.items():
+            panel += bracket_region_html(bw, rc, rn, data)
+        panel += final_four_html(bw, "Women's", data)
+        panel += '</div>'
+        bracket_panels += panel
 
     # Liveblog
     blog = liveblog_html(data)
@@ -641,6 +662,10 @@ header .sub{{font-size:12px;color:#94a3b8;margin-top:4px}}
 .bl-c{{font-size:11px;color:#475569;margin-top:4px;line-height:1.5}}
 .bl-date{{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#f1f5f9;font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;position:sticky;top:40px;z-index:1}}
 .bl-date-r{{font-weight:600;color:#64748b}}
+.tab-bar{{display:flex;gap:4px;margin-bottom:16px}}
+.tab-btn{{padding:8px 18px;border:1px solid #e2e8f0;border-radius:8px;background:white;font-size:12px;font-weight:600;color:#64748b;cursor:pointer;transition:all .15s}}
+.tab-btn:hover{{background:#f1f5f9;color:#1e293b}}
+.tab-btn.active{{background:#1e293b;color:white;border-color:#1e293b}}
 </style>
 </head>
 <body>
@@ -658,8 +683,8 @@ header .sub{{font-size:12px;color:#94a3b8;margin-top:4px}}
   <div class="grid">
     <div class="main">
       {chart_section}
-      {m_bkt}
-      {w_bkt}
+      {bracket_tabs}
+      {bracket_panels}
     </div>
     <div class="blog">
       <div class="blog-hdr">Live Commentary &middot; {n_games} games</div>
@@ -673,6 +698,12 @@ var traces = {traces_json};
 var layout = {layout_json};
 if (traces) {{
   Plotly.newPlot('brier-chart', traces, layout, {{responsive: true}});
+}}
+function switchTab(id) {{
+  document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).style.display = '';
+  event.target.classList.add('active');
 }}
 </script>
 </body>
