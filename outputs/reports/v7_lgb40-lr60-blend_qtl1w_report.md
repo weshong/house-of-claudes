@@ -14,12 +14,13 @@
 3. [Model Architecture](#3-model-architecture)
 4. [Feature Engineering](#4-feature-engineering)
 5. [Cross-Validation Results](#5-cross-validation-results)
-6. [Calibration Analysis](#6-calibration-analysis)
-7. [Upset Detection & The 5-12 Problem](#7-upset-detection--the-5-12-problem)
-8. [Feature Importance Analysis](#8-feature-importance-analysis)
-9. [Theoretical Brier Floor Analysis](#9-theoretical-brier-floor-analysis)
-10. [Prediction Distribution Analysis](#10-prediction-distribution-analysis)
-11. [Opportunities for Improvement](#11-opportunities-for-improvement)
+6. [Predicted Brackets](#6-predicted-brackets)
+7. [Calibration Analysis](#7-calibration-analysis)
+8. [Upset Detection & The 5-12 Problem](#8-upset-detection--the-5-12-problem)
+9. [Feature Importance Analysis](#9-feature-importance-analysis)
+10. [Theoretical Brier Floor Analysis](#10-theoretical-brier-floor-analysis)
+11. [Prediction Distribution Analysis](#11-prediction-distribution-analysis)
+12. [Opportunities for Improvement](#12-opportunities-for-improvement)
 
 ---
 
@@ -32,6 +33,10 @@ v7 is our best model, achieving a mean Brier score of **0.1267** (men's) and **0
 - Shifted blend weights from 55/45 to 40/60 LGB/LR (more linear model weight)
 - QuantileTransformer preprocessing for women's (biggest single gain)
 - Late-season ordinals filter (DayNum >= 133, final week only)
+
+**Model predictions for 2026 champions:**
+- **Men's**: (1) Michigan over (1) Duke (52.5%) — All four 1-seeds reach Final Four
+- **Women's**: (1) UConn over (1) UCLA (58.0%) — All four 1-seeds reach Final Four
 
 **Key tradeoff**: v7 has better overall Brier and calibration (ECE 0.0769 vs 0.1093) but is *worse* on 5-12 matchups specifically. This is the correct optimization for the competition metric.
 
@@ -172,7 +177,310 @@ The "all features" model being worse than seeds-only is the clearest evidence th
 
 ---
 
-## 6. Calibration Analysis
+## 6. Predicted Brackets
+
+### Men's Tournament
+
+```
+REGION W (EAST)
+                    R64                 R32              S16             E8
+                    ─────────────────   ──────────────   ─────────────   ──────────────
+ (1) Duke     ──┐
+        97.5%   ├── (1) Duke     ──┐
+(16) Siena     ─┘          95.9%   ├── (1) Duke     ──┐
+ (8) Ohio St   ──┐                 │          88.0%   │
+        91.9%    ├── (8) Ohio St ──┘                  │
+ (9) TCU       ──┘                                    ├── (1) Duke
+ (5) St John's ──┐                                    │       79.2%
+        94.5%    ├── (5) St John's ─┐                 │
+(12) N Iowa    ──┘          71.5%   ├── (5) St John's─┘  ** 5 over 4 **
+ (4) Kansas    ──┐                  │
+        96.0%    ├── (4) Kansas  ───┘
+(13) Cal Baptist─┘
+
+ (6) Louisville──┐
+        91.1%    ├── (6) Louisville─┐
+(11) S Florida ──┘          57.1%   ├── (3) Mich St ──┐
+ (3) Mich St   ──┐                 │                  │
+        97.0%    ├── (3) Mich St ──┘                  ├── (2) UConn
+ (7) UCLA      ──┐                                    │       70.7%
+        87.4%    ├── (7) UCLA    ──┐                  │
+(10) UCF       ──┘          84.8%  ├── (2) UConn   ──┘
+ (2) UConn     ──┐                 │
+        97.5%    ├── (2) UConn  ──┘
+(15) Furman    ──┘
+(14) N Dakota St─┘
+
+>>> REGION W WINNER: (1) Duke (79.2% over UConn in Elite 8)
+
+
+REGION X (SOUTH)
+                    R64                 R32              S16             E8
+                    ─────────────────   ──────────────   ─────────────   ──────────────
+ (1) Florida   ──┐
+        97.3%    ├── (1) Florida  ──┐
+(16) Prairie Vw──┘          97.2%   ├── (1) Florida  ──┐
+ (8) Clemson   ──┐                  │          79.1%   │
+        53.3%    ├── (9) Iowa   ────┘ ** UPSET **      │
+ (9) Iowa      ──┘                                     ├── (1) Florida
+ (5) Vanderbilt──┐                                     │       61.5%
+        97.5%    ├── (5) Vanderbilt─┐                  │
+(12) McNeese St──┘          86.5%   ├── (5) Vanderbilt─┘  ** 5 over 4 **
+ (4) Nebraska  ──┐                  │
+        97.5%    ├── (4) Nebraska ──┘
+(13) Troy      ──┘
+
+ (6) N Carolina──┐
+        73.1%    ├── (6) N Carolina─┐
+(11) VCU       ──┘          95.2%   ├── (3) Illinois ──┐
+ (3) Illinois  ──┐                  │                   │
+        97.5%    ├── (3) Illinois ──┘                   ├── (2) Houston
+ (7) St Mary's ──┐                                      │       51.9%
+        53.0%    ├── (7) St Mary's─┐                    │
+(10) Texas A&M ──┘          94.1%  ├── (2) Houston  ───┘
+ (2) Houston   ──┐                 │
+        95.7%    ├── (2) Houston ──┘
+(15) Idaho     ──┘
+
+>>> REGION X WINNER: (1) Florida (61.5% over Houston in Elite 8)
+
+
+REGION Y (MIDWEST)
+                    R64                 R32              S16             E8
+                    ─────────────────   ──────────────   ─────────────   ──────────────
+ (1) Michigan  ──┐
+        97.5%    ├── (1) Michigan ──┐
+(16) UMBC      ──┘          97.5%   ├── (1) Michigan ──┐
+ (8) Georgia   ──┐                  │          88.1%   │
+        60.5%    ├── (8) Georgia ───┘                  │
+ (9) St Louis  ──┘                                     ├── (1) Michigan
+ (5) Texas Tech──┐                                     │       76.6%
+        92.7%    ├── (5) Texas Tech─┐                  │
+(12) Akron     ──┘          54.8%   ├── (4) Alabama  ──┘
+ (4) Alabama   ──┐                  │
+        96.4%    ├── (4) Alabama  ──┘
+(13) Hofstra   ──┘
+
+ (6) Tennessee ──┐
+        88.0%    ├── (6) Tennessee ─┐
+(11) SMU       ──┘          53.1%   ├── (6) Tennessee──┐  ** UPSET **
+ (3) Virginia  ──┐                  │                   │
+        96.7%    ├── (3) Virginia ──┘                   ├── (2) Iowa St
+ (7) Kentucky  ──┐                                      │       60.7%
+        80.5%    ├── (10) S Clara──┐  ** UPSET **       │
+(10) Santa Clara─┘          83.6%  ├── (2) Iowa St  ───┘
+ (2) Iowa St   ──┐                 │
+        97.5%    ├── (2) Iowa St ──┘
+(15) Tenn St   ──┘
+
+>>> REGION Y WINNER: (1) Michigan (76.6% over Iowa St in Elite 8)
+
+
+REGION Z (WEST)
+                    R64                 R32              S16             E8
+                    ─────────────────   ──────────────   ─────────────   ──────────────
+ (1) Arizona   ──┐
+        91.1%    ├── (1) Arizona  ──┐
+(16) LIU Brooklyn┘          95.6%  ├── (1) Arizona  ──┐
+ (8) Villanova ──┐                  │          75.4%   │
+        56.4%    ├── (9) Utah St ───┘  ** UPSET **     │
+ (9) Utah St   ──┘                                     ├── (1) Arizona
+ (5) Wisconsin ──┐                                     │       58.6%
+        94.7%    ├── (5) Wisconsin ─┐                  │
+(12) High Point──┘          62.0%   ├── (4) Arkansas ──┘
+ (4) Arkansas  ──┐                  │
+        95.8%    ├── (4) Arkansas ──┘
+(13) Hawaii    ──┘
+
+ (6) BYU       ──┐
+        63.2%    ├── (6) BYU      ─┐
+(11) Texas     ──┘          87.0%   ├── (3) Gonzaga ───┐
+ (3) Gonzaga   ──┐                  │                   │
+        94.2%    ├── (3) Gonzaga  ──┘                   ├── (2) Purdue
+ (7) Miami FL  ──┐                                      │       86.4%
+        63.2%    ├── (10) Missouri─┐  ** UPSET **       │
+(10) Missouri  ──┘          94.2%  ├── (2) Purdue   ───┘
+ (2) Purdue    ──┐                 │
+        97.5%    ├── (2) Purdue  ──┘
+(15) Queens NC ──┘
+
+>>> REGION Z WINNER: (1) Arizona (58.6% over Purdue in Elite 8)
+
+
+FINAL FOUR
+═══════════════════════════════════════════════════════════════════
+
+  Semifinal 1:  (1) Duke [W]  vs  (1) Florida [X]
+                    Winner: (1) Duke — 50.6%
+
+  Semifinal 2:  (1) Michigan [Y]  vs  (1) Arizona [Z]
+                    Winner: (1) Michigan — 53.8%
+
+  Championship: (1) Duke  vs  (1) Michigan
+                    ╔═══════════════════════════════════╗
+                    ║  CHAMPION: (1) MICHIGAN — 52.5%   ║
+                    ╚═══════════════════════════════════╝
+```
+
+### Women's Tournament
+
+```
+REGION W
+                    R64                 R32              S16             E8
+                    ─────────────────   ──────────────   ─────────────   ──────────────
+ (1) UConn     ──┐
+        97.5%    ├── (1) UConn    ──┐
+(16) UTSA      ──┘          97.3%   ├── (1) UConn    ──┐
+ (8) Iowa St   ──┐                  │          94.4%   │
+        62.4%    ├── (8) Iowa St  ──┘                  │
+ (9) Syracuse  ──┘                                     ├── (1) UConn
+ (5) Maryland  ──┐                                     │       90.7%
+        91.3%    ├── (5) Maryland ──┐                  │
+(12) Murray St ──┘          53.7%   ├── (5) Maryland ──┘  ** 5 over 4 **
+ (4) N Carolina──┐                  │
+        96.2%    ├── (4) N Carolina─┘
+(13) W Illinois──┘
+
+ (6) Notre Dame──┐
+        80.6%    ├── (6) Notre Dame─┐
+(11) Fairfield ──┘          75.3%   ├── (3) Ohio St  ──┐
+ (3) Ohio St   ──┐                  │                   │
+        97.5%    ├── (3) Ohio St  ──┘                   ├── (3) Ohio St
+ (7) Illinois  ──┐                                      │       50.4%  ** UPSET **
+        60.6%    ├── (7) Illinois──┐                    │
+(10) Colorado  ──┘          85.6%  ├── (2) Vanderbilt──┘
+ (2) Vanderbilt──┐                 │
+        97.5%    ├── (2) Vanderbilt┘
+(15) High Point──┘
+
+>>> REGION W WINNER: (1) UConn (90.7% over Ohio St in Elite 8)
+
+
+REGION X
+                    R64                 R32              S16             E8
+                    ─────────────────   ──────────────   ─────────────   ──────────────
+ (1) S Carolina──┐
+        97.5%    ├── (1) S Carolina─┐
+(16) Southern U ─┘          95.9%   ├── (1) S Carolina─┐
+ (8) Clemson   ──┐                  │          87.9%   │
+        65.5%    ├── (9) USC     ───┘  ** UPSET **     │
+ (9) USC       ──┘                                     ├── (1) S Carolina
+ (5) Michigan St─┐                                     │       83.5%
+        88.1%    ├── (5) Mich St  ──┐                  │
+(12) Colorado St─┘          60.0%   ├── (4) Oklahoma ──┘
+ (4) Oklahoma  ──┐                  │
+        95.5%    ├── (4) Oklahoma ──┘
+(13) Idaho     ──┘
+
+ (6) Washington──┐
+        73.3%    ├── (6) Washington─┐
+(11) S Dakota St─┘          84.2%   ├── (3) TCU     ───┐
+ (3) TCU       ──┐                  │                    │
+        97.5%    ├── (3) TCU     ───┘                    ├── (2) Iowa
+ (7) Georgia   ──┐                                       │       62.9%
+        76.1%    ├── (7) Georgia ──┐                     │
+(10) Virginia  ──┘          87.1%  ├── (2) Iowa      ───┘
+ (2) Iowa      ──┐                 │
+        97.5%    ├── (2) Iowa    ──┘
+(15) F Dickinson─┘
+
+>>> REGION X WINNER: (1) S Carolina (83.5% over Iowa in Elite 8)
+
+
+REGION Y
+                    R64                 R32              S16             E8
+                    ─────────────────   ──────────────   ─────────────   ──────────────
+ (1) Texas     ──┐
+        97.5%    ├── (1) Texas    ──┐
+(16) SF Austin ──┘          95.5%   ├── (1) Texas    ──┐
+ (8) Oregon    ──┐                  │          88.1%   │
+        67.2%    ├── (8) Oregon   ──┘                  │
+ (9) Virginia T──┘                                     ├── (1) Texas
+ (5) Kentucky  ──┐                                     │       80.7%
+        82.2%    ├── (5) Kentucky ──┐                  │
+(12) James Mad ──┘          58.5%   ├── (4) W Virginia─┘
+ (4) W Virginia──┐                  │
+        94.6%    ├── (4) W Virginia─┘
+(13) Miami OH  ──┘
+
+ (6) Alabama   ──┐
+        79.1%    ├── (6) Alabama  ──┐
+(11) Rhode Is  ──┘          81.9%   ├── (3) Louisville─┐
+ (3) Louisville──┐                  │                   │
+        96.4%    ├── (3) Louisville─┘                   ├── (2) Michigan
+ (7) NC State  ──┐                                      │       52.1%
+        60.9%    ├── (7) NC State──┐                    │
+(10) Tennessee ──┘          87.2%  ├── (2) Michigan  ──┘
+ (2) Michigan  ──┐                 │
+        97.5%    ├── (2) Michigan──┘
+(15) Holy Cross──┘
+
+>>> REGION Y WINNER: (1) Texas (80.7% over Michigan in Elite 8)
+
+
+REGION Z
+                    R64                 R32              S16             E8
+                    ─────────────────   ──────────────   ─────────────   ──────────────
+ (1) UCLA      ──┐
+        97.5%    ├── (1) UCLA     ──┐
+(16) Cal Baptist─┘          96.5%   ├── (1) UCLA     ──┐
+ (8) Oklahoma St─┐                  │          91.7%   │
+        65.2%    ├── (8) Okla St  ──┘                  │
+ (9) Princeton ──┘                                     ├── (1) UCLA
+ (5) Ole Miss  ──┐                                     │       75.0%
+        85.8%    ├── (5) Ole Miss ──┐                  │
+(12) Gonzaga   ──┘          70.6%   ├── (4) Minnesota──┘
+ (4) Minnesota ──┐                  │
+        95.1%    ├── (4) Minnesota──┘
+(13) WI Green B─┘
+
+ (6) Baylor    ──┐
+        69.0%    ├── (6) Baylor   ──┐
+(11) Richmond  ──┘          83.1%   ├── (3) Duke     ──┐
+ (3) Duke      ──┐                  │                   │
+        97.1%    ├── (3) Duke     ──┘                   ├── (2) LSU
+ (7) Texas Tech──┐                                      │       67.3%
+        55.8%    ├── (7) Texas Tech┐                    │
+(10) Villanova ──┘          93.9%  ├── (2) LSU       ──┘
+ (2) LSU       ──┐                 │
+        97.5%    ├── (2) LSU     ──┘
+(15) Jacksonville┘
+
+>>> REGION Z WINNER: (1) UCLA (75.0% over LSU in Elite 8)
+
+
+FINAL FOUR
+═══════════════════════════════════════════════════════════════════
+
+  Semifinal 1:  (1) UConn [W]  vs  (1) S Carolina [X]
+                    Winner: (1) UConn — 72.0%
+
+  Semifinal 2:  (1) Texas [Y]  vs  (1) UCLA [Z]
+                    Winner: (1) UCLA — 58.3%
+
+  Championship: (1) UConn  vs  (1) UCLA
+                    ╔══════════════════════════════════╗
+                    ║  CHAMPION: (1) UCONN — 58.0%    ║
+                    ╚══════════════════════════════════╝
+```
+
+### v5 vs v7 Bracket Comparison
+
+| Prediction | v5 | v7 |
+|------------|----|----|
+| **Men's Champion** | (1) Florida (54.0%) | (1) Michigan (52.5%) |
+| **Women's Champion** | (1) UConn (58.2%) | (1) UConn (58.0%) |
+| Men's Final | Florida vs Arizona | Duke vs Michigan |
+| Women's Final | UConn vs UCLA | UConn vs UCLA |
+| Men's FF upsets | Tennessee(6) over Virginia(3) | Tennessee(6) over Virginia(3) |
+| Key R64 upsets (M) | Texas A&M(10) over St Mary's(7), Missouri(10) over Miami(7) | Santa Clara(10) over Kentucky(7), Missouri(10) over Miami(7), Utah St(9) over Villanova(8) |
+| Common calls | St John's(5) over Kansas(4), Vanderbilt(5) over Nebraska(4) | Same — both models agree on these upsets |
+
+Both models agree on the women's final (UConn vs UCLA) and most structural outcomes. The key difference is the men's champion: v5 picked Florida, v7 picks Michigan. v7 is more bullish on Duke (region W winner) while v5 had Duke winning W too but losing in the semifinal.
+
+---
+
+## 7. Calibration Analysis
 
 ### Overall Calibration (Expected Calibration Error)
 
@@ -216,7 +524,7 @@ Women's tournament is much more chalk-dominated: no 1-16 upsets in CV data, no 2
 
 ---
 
-## 7. Upset Detection & The 5-12 Problem
+## 8. Upset Detection & The 5-12 Problem
 
 ### Overall Upset Detection (Seed Diff >= 3)
 
@@ -263,7 +571,7 @@ The 5-12 matchup has the highest upset rate of any first-round pairing (~35-38% 
 
 ---
 
-## 8. Feature Importance Analysis
+## 9. Feature Importance Analysis
 
 ### Men's Feature Importance (Blended)
 
@@ -328,7 +636,7 @@ All importances decreased from v5 to v7 because v7 has fewer features to compete
 
 ---
 
-## 9. Theoretical Brier Floor Analysis
+## 10. Theoretical Brier Floor Analysis
 
 ### What is the theoretical minimum Brier score?
 
@@ -370,7 +678,7 @@ Brier is a **proper scoring rule** — the optimal prediction equals the true pr
 
 ---
 
-## 10. Prediction Distribution Analysis
+## 11. Prediction Distribution Analysis
 
 ### Men's Prediction Spread
 
@@ -395,7 +703,7 @@ All 68 men's seeded teams and 68 women's seeded teams are represented in the sub
 
 ---
 
-## 11. Opportunities for Improvement
+## 12. Opportunities for Improvement
 
 ### High-Impact (Likely to Help)
 
