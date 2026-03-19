@@ -1,0 +1,46 @@
+Starting game monitor (polling every 3600s / 60min)
+Results file: C:\Users\wesho\Projects\house-of-claudes\data\live\results.json
+Liveblog file: C:\Users\wesho\Projects\house-of-claudes\data\live\liveblog.json
+Existing results: 0
+Press Ctrl+C to stop.
+
+
+[2026-03-18 23:24:49] Checking ESPN for new tournament games...
+  No new games. Rendering initial dashboard...
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (26 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 00:24:51
+
+[2026-03-19 00:24:51] Checking ESPN for new tournament games...
+  No new games. (0 total results)
+  Next check: 01:24:51
+
+[2026-03-19 01:24:51] Checking ESPN for new tournament games...
+  No new games. (0 total results)
+  Next check: 02:24:52
+
+[2026-03-19 02:24:52] Checking ESPN for new tournament games...
+  No new games. (0 total results)
+  Next check: 03:24:52
+
+[2026-03-19 03:24:52] Checking ESPN for new tournament games...
+  No new games. (0 total results)
+  Next check: 04:24:52
+
+[2026-03-19 04:24:52] Checking ESPN for new tournament games...
+  No new games. (0 total results)
+  Next check: 05:24:53
+
+[2026-03-19 05:24:53] Checking ESPN for new tournament games...
+  No new games. (0 total results)
+  Next check: 06:24:53
+
+[2026-03-19 06:24:53] Checking ESPN for new tournament games...
+  No new games. (0 total results)
+  Next check: 07:24:53
+
+[2026-03-19 07:24:53] Checking ESPN for new tournament games...
+  No new games. (0 total results)
+  Next check: 08:24:54

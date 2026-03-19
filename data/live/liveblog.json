@@ -1,0 +1,72 @@
+[
+  {
+    "timestamp": "2026-03-19T15:05:06.923997+00:00",
+    "type": "game",
+    "title": "(11) Miami OH 89, (11) SMU 79",
+    "commentary": "Comfortable win for (11) Miami OH, up 10 over (11) SMU. Brutal miss. Model was 87% on (11) SMU. This is a Brier score killer. [Got it: Seed | Missed: v7, RF] Per-game Brier contribution: 0.749 (ouch).",
+    "round": "Play-In",
+    "gender": "M",
+    "date": "2026-03-19",
+    "model_correct": false,
+    "is_upset": false,
+    "v7_pred": 0.1347,
+    "seed_pred": 0.5,
+    "rf_pred": 0.496
+  },
+  {
+    "timestamp": "2026-03-19T15:05:06.924054+00:00",
+    "type": "game",
+    "title": "(16) Prairie View 67, (16) Lehigh 55",
+    "commentary": "Comfortable win for (16) Prairie View, up 12 over (16) Lehigh. Model correctly favored the winner at 79%. [Got it: v7, Seed | Missed: RF]",
+    "round": "Play-In",
+    "gender": "M",
+    "date": "2026-03-18",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.7942,
+    "seed_pred": 0.5,
+    "rf_pred": 0.471
+  },
+  {
+    "timestamp": "2026-03-19T15:05:06.924467+00:00",
+    "type": "daily_summary",
+    "title": "Day Summary \u2014 2026-03-18",
+    "commentary": "Day complete: 1/1 correct (100%). 0 upset(s). Today's average Brier: 0.0424. Excellent day for the model.",
+    "date": "2026-03-18"
+  },
+  {
+    "timestamp": "2026-03-19T15:06:52.404242+00:00",
+    "type": "game",
+    "title": "(11) Texas 68, (11) NC State 66",
+    "commentary": "Nail-biter! (11) Texas edges (11) NC State by just 2. Significant miss \u2014 we had 73% on (11) NC State. Hurts the Brier. [Got it: Seed | Missed: v7, RF] Per-game Brier contribution: 0.530 (ouch).",
+    "round": "Play-In",
+    "gender": "M",
+    "date": "2026-03-18",
+    "model_correct": false,
+    "is_upset": false,
+    "v7_pred": 0.2722,
+    "seed_pred": 0.5,
+    "rf_pred": 0.486
+  },
+  {
+    "timestamp": "2026-03-19T15:06:52.404276+00:00",
+    "type": "game",
+    "title": "(16) Howard 86, (16) UMBC 83",
+    "commentary": "Nail-biter! (16) Howard edges (16) UMBC by just 3. Model leaned wrong at 62% for (16) UMBC. Moderate miss. [Got it: Seed | Missed: v7, RF] Per-game Brier contribution: 0.388 (ouch).",
+    "round": "Play-In",
+    "gender": "M",
+    "date": "2026-03-17",
+    "model_correct": false,
+    "is_upset": false,
+    "v7_pred": 0.3774,
+    "seed_pred": 0.5,
+    "rf_pred": 0.407
+  },
+  {
+    "timestamp": "2026-03-19T15:06:52.404536+00:00",
+    "type": "daily_summary",
+    "title": "Day Summary \u2014 2026-03-17",
+    "commentary": "Day complete: 0/1 correct (0%). 0 upset(s). Today's average Brier: 0.3877. Rough day \u2014 upsets took their toll.",
+    "date": "2026-03-17"
+  }
+]

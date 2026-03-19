@@ -45,12 +45,13 @@ ESPN_SCOREBOARD = {
 
 # 2026 tournament window
 TOURNEY_DATES = {
-    'M': (datetime(2026, 3, 18), datetime(2026, 4, 7)),
+    'M': (datetime(2026, 3, 17), datetime(2026, 4, 7)),
     'W': (datetime(2026, 3, 19), datetime(2026, 4, 7)),
 }
 
 # ESPN headline → round name
 ROUND_MAP = {
+    'first four': 'Play-In',
     '1st round': 'R64',
     'first round': 'R64',
     '2nd round': 'R32',
@@ -64,7 +65,6 @@ ROUND_MAP = {
     'national semifinal': 'Final Four',
     'national championship': 'Championship',
     'championship': 'Championship',
-    'first four': 'Play-In',
 }
 
 
@@ -76,7 +76,8 @@ class TeamMapper:
     """Maps ESPN team names/abbreviations to Kaggle TeamIDs."""
 
     def __init__(self):
-        self.name_to_id = {}
+        # Store lists of IDs per name to handle men's/women's overlap
+        self.name_to_ids = {}
         self._load()
 
     def _load(self):
@@ -84,7 +85,8 @@ class TeamMapper:
             # Team names
             teams = pd.read_csv(os.path.join(DATA_DIR, f'{prefix}Teams.csv'))
             for _, r in teams.iterrows():
-                self.name_to_id[r['TeamName'].lower().strip()] = r['TeamID']
+                name = r['TeamName'].lower().strip()
+                self.name_to_ids.setdefault(name, []).append(r['TeamID'])
 
             # Spellings (many alternate names per team)
             path = os.path.join(DATA_DIR, f'{prefix}TeamSpellings.csv')
@@ -92,7 +94,7 @@ class TeamMapper:
                 sp = pd.read_csv(path, encoding='latin-1')
                 for _, r in sp.iterrows():
                     name = str(r['TeamNameSpelling']).lower().strip()
-                    self.name_to_id[name] = int(r['TeamID'])
+                    self.name_to_ids.setdefault(name, []).append(int(r['TeamID']))
 
     # ESPN location/abbrev -> Kaggle spelling for tricky teams
     MANUAL_MAP = {
@@ -144,9 +146,9 @@ class TeamMapper:
 
         # Try each candidate against the spelling database
         for name in candidates:
-            tid = self.name_to_id.get(name)
-            if tid and id_range[0] <= tid <= id_range[1]:
-                return tid
+            for tid in self.name_to_ids.get(name, []):
+                if tid and id_range[0] <= tid <= id_range[1]:
+                    return tid
 
         return None
 
