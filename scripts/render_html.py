@@ -108,37 +108,62 @@ def compute_brier(data):
         return None
 
     records = []
+    # Separate cumulative trackers for Kaggle-scored games (non-Play-In) and Play-In
     cum = {'v7': 0, 'seed': 0, 'rf': 0}
+    cum_playin = {'v7': 0, 'seed': 0, 'rf': 0}
+    n_kaggle = 0
+    n_playin = 0
+
     for i, r in enumerate(results):
         w, l = r['winner_id'], r['loser_id']
         low = min(w, l)
         actual = 1.0 if w == low else 0.0
         m = mid(w, l)
+        is_playin = r['round'] == 'Play-In'
 
+        game_brier = {}
         for name, preds in [('v7', data['v7']), ('seed', data['seed']), ('rf', data['rf'])]:
             p = preds.get(m, 0.5)
-            cum[name] += (p - actual) ** 2
+            game_brier[name] = (p - actual) ** 2
 
-        n = i + 1
+        if is_playin:
+            for name in cum_playin:
+                cum_playin[name] += game_brier[name]
+            n_playin += 1
+        else:
+            for name in cum:
+                cum[name] += game_brier[name]
+            n_kaggle += 1
+
         ws = data['seed_info'].get(w, ('?', 99))[1]
         ls = data['seed_info'].get(l, ('?', 99))[1]
         is_upset = isinstance(ws, int) and isinstance(ls, int) and ws > ls
 
-        records.append({
-            'game_num': n,
+        rec = {
+            'game_num': i + 1,
+            'kaggle_game_num': n_kaggle,
             'label': f"{team_label(w, data)} def. {team_label(l, data)}",
             'round': r['round'], 'date': r['date'], 'gender': r['gender'],
             'winner': w, 'loser': l,
             'w_score': r['winner_score'], 'l_score': r['loser_score'],
             'is_upset': is_upset,
-            'v7_brier': cum['v7'] / n,
-            'seed_brier': cum['seed'] / n,
-            'rf_brier': cum['rf'] / n,
+            'is_playin': is_playin,
             'v7_pred': get_pred(w, l, data['v7']),
             'v7_correct': get_pred(w, l, data['v7']) >= 0.5,
             'seed_correct': get_pred(w, l, data['seed']) >= 0.5,
             'rf_correct': get_pred(w, l, data['rf']) >= 0.5,
-        })
+        }
+
+        if is_playin:
+            rec['v7_brier'] = cum_playin['v7'] / n_playin
+            rec['seed_brier'] = cum_playin['seed'] / n_playin
+            rec['rf_brier'] = cum_playin['rf'] / n_playin
+        else:
+            rec['v7_brier'] = cum['v7'] / n_kaggle
+            rec['seed_brier'] = cum['seed'] / n_kaggle
+            rec['rf_brier'] = cum['rf'] / n_kaggle
+
+        records.append(rec)
     return records
 
 
@@ -147,17 +172,21 @@ def compute_brier(data):
 # ═══════════════════════════════════════════════════
 
 def brier_chart_json(brier_data):
-    """Build Plotly chart data as JSON for embedding."""
+    """Build Plotly chart data as JSON for embedding. Only charts Kaggle-scored games (non-Play-In)."""
     if not brier_data:
+        return 'null', 'null'
+
+    kaggle = [r for r in brier_data if not r['is_playin']]
+    if not kaggle:
         return 'null', 'null'
 
     traces = []
 
     # v7
     traces.append({
-        'x': [r['game_num'] for r in brier_data],
-        'y': [round(r['v7_brier'], 5) for r in brier_data],
-        'text': [r['label'] for r in brier_data],
+        'x': [r['kaggle_game_num'] for r in kaggle],
+        'y': [round(r['v7_brier'], 5) for r in kaggle],
+        'text': [r['label'] for r in kaggle],
         'name': 'v7 (LGB+LR Blend)',
         'type': 'scatter', 'mode': 'lines',
         'line': {'color': '#2563eb', 'width': 3},
@@ -166,8 +195,8 @@ def brier_chart_json(brier_data):
 
     # Seed
     traces.append({
-        'x': [r['game_num'] for r in brier_data],
-        'y': [round(r['seed_brier'], 5) for r in brier_data],
+        'x': [r['kaggle_game_num'] for r in kaggle],
+        'y': [round(r['seed_brier'], 5) for r in kaggle],
         'name': 'Seed Baseline',
         'type': 'scatter', 'mode': 'lines',
         'line': {'color': '#9ca3af', 'width': 2, 'dash': 'dash'},
@@ -176,8 +205,8 @@ def brier_chart_json(brier_data):
 
     # RF
     traces.append({
-        'x': [r['game_num'] for r in brier_data],
-        'y': [round(r['rf_brier'], 5) for r in brier_data],
+        'x': [r['kaggle_game_num'] for r in kaggle],
+        'y': [round(r['rf_brier'], 5) for r in kaggle],
         'name': 'R Model (RF)',
         'type': 'scatter', 'mode': 'lines',
         'line': {'color': '#f59e0b', 'width': 2, 'dash': 'dot'},
@@ -185,10 +214,10 @@ def brier_chart_json(brier_data):
     })
 
     # Upset markers
-    upsets = [r for r in brier_data if r['is_upset']]
+    upsets = [r for r in kaggle if r['is_upset']]
     if upsets:
         traces.append({
-            'x': [r['game_num'] for r in upsets],
+            'x': [r['kaggle_game_num'] for r in upsets],
             'y': [round(r['v7_brier'], 5) for r in upsets],
             'text': [r['label'] for r in upsets],
             'name': 'Upset',
@@ -198,8 +227,8 @@ def brier_chart_json(brier_data):
         })
 
     layout = {
-        'title': {'text': 'Cumulative Brier Score by Game', 'font': {'size': 18}},
-        'xaxis': {'title': 'Games Completed'},
+        'title': {'text': 'Cumulative Brier Score (Kaggle-Scored Games)', 'font': {'size': 18}},
+        'xaxis': {'title': 'Tournament Games (excl. First Four)'},
         'yaxis': {'title': 'Brier Score (lower = better)', 'rangemode': 'tozero'},
         'template': 'plotly_white',
         'height': 420,
@@ -441,16 +470,21 @@ def render(data=None):
     now = datetime.now().strftime('%b %d, %Y %I:%M %p')
     n_games = len(data['results'])
 
-    # Stats
+    # Stats — separate Kaggle-scored (non-Play-In) from Play-In
     if brier_data:
-        last = brier_data[-1]
-        v7c = sum(1 for r in brier_data if r['v7_correct'])
-        sc = sum(1 for r in brier_data if r['seed_correct'])
-        rfc = sum(1 for r in brier_data if r['rf_correct'])
-        ups = sum(1 for r in brier_data if r['is_upset'])
-        ups_caught = sum(1 for r in brier_data if r['is_upset'] and r['v7_correct'])
+        kaggle_games = [r for r in brier_data if not r['is_playin']]
+        playin_games = [r for r in brier_data if r['is_playin']]
+        last_kaggle = kaggle_games[-1] if kaggle_games else None
+        last_playin = playin_games[-1] if playin_games else None
+        v7c = sum(1 for r in kaggle_games if r['v7_correct'])
+        n_kaggle = len(kaggle_games)
+        pi_v7c = sum(1 for r in playin_games if r['v7_correct'])
+        n_playin = len(playin_games)
+        ups = sum(1 for r in kaggle_games if r['is_upset'])
+        ups_caught = sum(1 for r in kaggle_games if r['is_upset'] and r['v7_correct'])
     else:
-        last = None
+        last_kaggle = None
+        last_playin = None
 
     # Chart
     traces_json, layout_json = brier_chart_json(brier_data)
@@ -477,13 +511,19 @@ def render(data=None):
 
     # Scoreboard
     if brier_data:
+        kaggle_brier_str = f"{last_kaggle['v7_brier']:.4f}" if last_kaggle else '—'
+        kaggle_seed_str = f"{last_kaggle['seed_brier']:.4f}" if last_kaggle else '—'
+        kaggle_rf_str = f"{last_kaggle['rf_brier']:.4f}" if last_kaggle else '—'
+        playin_str = f"{last_playin['v7_brier']:.4f}" if last_playin else '—'
+        playin_record = f"{pi_v7c}/{n_playin}" if n_playin else '—'
         scoreboard = f'''
         <div class="sb">
-          <div class="sc-card accent"><div class="sc-val">{last['v7_brier']:.4f}</div><div class="sc-lbl">v7 Brier</div></div>
-          <div class="sc-card"><div class="sc-val">{v7c}/{n_games}</div><div class="sc-lbl">v7 Correct</div></div>
-          <div class="sc-card"><div class="sc-val">{last['seed_brier']:.4f}</div><div class="sc-lbl">Seed Brier</div></div>
-          <div class="sc-card"><div class="sc-val">{last['rf_brier']:.4f}</div><div class="sc-lbl">RF Brier</div></div>
+          <div class="sc-card accent"><div class="sc-val">{kaggle_brier_str}</div><div class="sc-lbl">v7 Kaggle Brier</div></div>
+          <div class="sc-card"><div class="sc-val">{v7c}/{n_kaggle}</div><div class="sc-lbl">v7 Correct</div></div>
+          <div class="sc-card"><div class="sc-val">{kaggle_seed_str}</div><div class="sc-lbl">Seed Brier</div></div>
+          <div class="sc-card"><div class="sc-val">{kaggle_rf_str}</div><div class="sc-lbl">RF Brier</div></div>
           <div class="sc-card"><div class="sc-val">{ups}</div><div class="sc-lbl">Upsets ({ups_caught} caught)</div></div>
+          <div class="sc-card"><div class="sc-val">{playin_str}</div><div class="sc-lbl">First Four Brier ({playin_record})</div></div>
         </div>'''
     else:
         scoreboard = '''
@@ -495,7 +535,8 @@ def render(data=None):
         </div>'''
 
     # Chart section
-    if brier_data:
+    has_kaggle_chart = brier_data and any(not r['is_playin'] for r in brier_data)
+    if has_kaggle_chart:
         chart_section = '<div id="brier-chart" style="width:100%;margin-bottom:24px"></div>'
     else:
         chart_section = '''

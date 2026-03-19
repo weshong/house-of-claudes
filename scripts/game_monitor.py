@@ -543,13 +543,17 @@ class GameMonitor:
                   f"[{game['round']}] — {status}")
 
         # Check if any date's games are all done (for daily summary)
+        # Remove stale summaries for dates with new games, then regenerate
         dates_in_new = {g['date'][:10] for g in new_games}
-        existing_summary_dates = {e['date'] for e in self.liveblog if e['type'] == 'daily_summary'}
         for date_str in dates_in_new:
-            # Simple heuristic: if the date is yesterday or earlier, generate summary
             try:
                 game_date = datetime.strptime(date_str, '%Y-%m-%d')
-                if game_date.date() < datetime.now().date() and date_str not in existing_summary_dates:
+                if game_date.date() < datetime.now().date():
+                    # Remove existing summary for this date (may be stale)
+                    self.liveblog = [
+                        e for e in self.liveblog
+                        if not (e['type'] == 'daily_summary' and e['date'] == date_str)
+                    ]
                     summary = self.commentary.generate_daily_summary(self.results, date_str)
                     if summary:
                         self.liveblog.append(summary)

@@ -28,13 +28,6 @@
     "rf_pred": 0.471
   },
   {
-    "timestamp": "2026-03-19T15:05:06.924467+00:00",
-    "type": "daily_summary",
-    "title": "Day Summary \u2014 2026-03-18",
-    "commentary": "Day complete: 1/1 correct (100%). 0 upset(s). Today's average Brier: 0.0424. Excellent day for the model.",
-    "date": "2026-03-18"
-  },
-  {
     "timestamp": "2026-03-19T15:06:52.404242+00:00",
     "type": "game",
     "title": "(11) Texas 68, (11) NC State 66",
@@ -63,10 +56,17 @@
     "rf_pred": 0.407
   },
   {
-    "timestamp": "2026-03-19T15:06:52.404536+00:00",
+    "timestamp": "2026-03-19T15:32:42.122784+00:00",
     "type": "daily_summary",
     "title": "Day Summary \u2014 2026-03-17",
     "commentary": "Day complete: 0/1 correct (0%). 0 upset(s). Today's average Brier: 0.3877. Rough day \u2014 upsets took their toll.",
     "date": "2026-03-17"
+  },
+  {
+    "timestamp": "2026-03-19T15:32:42.122820+00:00",
+    "type": "daily_summary",
+    "title": "Day Summary \u2014 2026-03-18",
+    "commentary": "Day complete: 1/2 correct (50%). 0 upset(s). Today's average Brier: 0.2860. Rough day \u2014 upsets took their toll.",
+    "date": "2026-03-18"
   }
 ]
