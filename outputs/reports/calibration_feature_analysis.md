@@ -1,30 +1,47 @@
-# Calibration, Upset & Feature Importance Analysis: v5 vs v7
+# Calibration, Upset & Feature Importance Analysis: RF (original) vs v5 vs v7
 
 Generated 2026-03-18. Leave-season-out CV on 2022-2025 tournaments.
+
+**Models compared:**
+- **RF**: Original R model ported to Python. Random Forest (1000 trees), box score features (shooting %, rebounds, assists, TO, efficiency, four factors). Training window 2003+.
+- **v5**: 55% LightGBM + 45% Logistic Regression blend. Ordinal aggregates + Torvik + TRank clone + disagreement features. Training window 2015+ (M) / 2003+ (W).
+- **v7**: 40% LightGBM + 60% Logistic Regression blend. PCA ordinals + Torvik + TRank clone + disagreement features. Training window 2015+ (M) / 2003+ (W).
 
 ---
 # Men's
 
 ## Overall Scores
-| Model | Brier | Accuracy | N |
-|-------|-------|----------|---|
-| v5 | 0.1334 | 81.3% | 268 |
-| v7 | 0.1266 | 82.5% | 268 |
-| delta | -0.0068 | +1.1% | |
+| Model | Brier | Accuracy | N | Features |
+|-------|-------|----------|---|----------|
+| RF (original) | 0.1943 | 70.9% | 268 | 47 |
+| v5 | 0.1334 | 81.3% | 268 | 31 |
+| v7 | 0.1266 | 82.5% | 268 | 22 |
 
 ## Per-Season Breakdown
-| Season | v5 Brier | v7 Brier | Delta | v5 Acc | v7 Acc |
-|--------|----------|----------|-------|--------|--------|
-| 2022 | 0.1257 | 0.1230 | -0.0027 | 83.6% | 85.1% |
-| 2023 | 0.1478 | 0.1442 | -0.0036 | 76.1% | 79.1% |
-| 2024 | 0.1499 | 0.1383 | -0.0116 | 79.1% | 80.6% |
-| 2025 | 0.1104 | 0.1011 | -0.0093 | 86.6% | 85.1% |
+| Season | RF Brier | v5 Brier | v7 Brier | RF Acc | v5 Acc | v7 Acc |
+|--------|----------|----------|----------|--------|--------|--------|
+| 2022 | 0.2200 | 0.1257 | 0.1230 | 65.7% | 83.6% | 85.1% |
+| 2023 | 0.2001 | 0.1478 | 0.1442 | 71.6% | 76.1% | 79.1% |
+| 2024 | 0.1919 | 0.1499 | 0.1383 | 70.1% | 79.1% | 80.6% |
+| 2025 | 0.1651 | 0.1104 | 0.1011 | 76.1% | 86.6% | 85.1% |
 
 ## Calibration by Seed Matchup (First Round)
 
 Pred fav win% = model's average predicted probability that the favorite wins.
 Actual fav win% = how often the favorite actually won in CV data.
 Calibration error = |predicted - actual|. Direction: overconf = model too confident in favorite, underconf = model doesn't trust favorite enough.
+
+### RF (original)
+| Matchup | N | Pred Fav% | Actual Fav% | Cal Error | Direction | Upsets | Upset% | Brier |
+|---------|---|-----------|-------------|-----------|-----------|--------|--------|-------|
+| 1v16 | 16 | 89.7% | 93.8% | 0.040 | underconf | 1 | 6.2% | 0.0558 |
+| 2v15 | 16 | 83.4% | 87.5% | 0.041 | underconf | 2 | 12.5% | 0.1189 |
+| 3v14 | 16 | 78.2% | 93.8% | 0.155 | underconf | 1 | 6.2% | 0.0875 |
+| 4v13 | 16 | 72.4% | 87.5% | 0.151 | underconf | 2 | 12.5% | 0.1529 |
+| 5v12 | 16 | 64.9% | 62.5% | 0.024 | overconf | 6 | 37.5% | 0.2394 |
+| 6v11 | 16 | 60.5% | 50.0% | 0.105 | overconf | 8 | 50.0% | 0.2851 |
+| 7v10 | 16 | 57.5% | 68.8% | 0.112 | underconf | 5 | 31.2% | 0.2360 |
+| 8v9 | 16 | 53.9% | 37.5% | 0.164 | overconf | 10 | 62.5% | 0.2335 |
 
 ### v5
 | Matchup | N | Pred Fav% | Actual Fav% | Cal Error | Direction | Upsets | Upset% | Brier |
@@ -50,21 +67,41 @@ Calibration error = |predicted - actual|. Direction: overconf = model too confid
 | 7v10 | 16 | 55.8% | 68.8% | 0.129 | underconf | 5 | 31.2% | 0.2020 |
 | 8v9 | 16 | 46.5% | 37.5% | 0.090 | overconf | 10 | 62.5% | 0.1640 |
 
-### Calibration Comparison (v5 vs v7)
-| Matchup | v5 Cal Error | v7 Cal Error | v5 Dir | v7 Dir | v5 Brier | v7 Brier | Better |
-|---------|-------------|-------------|--------|--------|----------|----------|--------|
-| 1v16 | 0.024 | 0.007 | overconf | overconf | 0.0570 | 0.0254 | v7 |
-| 2v15 | 0.002 | 0.012 | overconf | overconf | 0.0372 | 0.0411 | v5 |
-| 3v14 | 0.020 | 0.021 | underconf | underconf | 0.0483 | 0.0496 | v5 |
-| 4v13 | 0.004 | 0.012 | underconf | underconf | 0.1300 | 0.1297 | v7 |
-| 5v12 | 0.144 | 0.160 | overconf | overconf | 0.1950 | 0.2091 | v5 |
-| 6v11 | 0.022 | 0.004 | overconf | overconf | 0.1468 | 0.1540 | v5 |
-| 7v10 | 0.131 | 0.129 | underconf | underconf | 0.2225 | 0.2020 | v7 |
-| 8v9 | 0.076 | 0.090 | overconf | overconf | 0.1897 | 0.1640 | v7 |
+### Calibration Comparison (RF vs v5 vs v7)
+| Matchup | RF Cal Err | v5 Cal Err | v7 Cal Err | RF Dir | v5 Dir | v7 Dir | RF Brier | v5 Brier | v7 Brier | Best |
+|---------|-----------|-----------|-----------|--------|--------|--------|----------|----------|----------|------|
+| 1v16 | 0.040 | 0.024 | 0.007 | underconf | overconf | overconf | 0.0558 | 0.0570 | 0.0254 | v7 |
+| 2v15 | 0.041 | 0.002 | 0.012 | underconf | overconf | overconf | 0.1189 | 0.0372 | 0.0411 | v5 |
+| 3v14 | 0.155 | 0.020 | 0.021 | underconf | underconf | underconf | 0.0875 | 0.0483 | 0.0496 | v5 |
+| 4v13 | 0.151 | 0.004 | 0.012 | underconf | underconf | underconf | 0.1529 | 0.1300 | 0.1297 | v7 |
+| 5v12 | 0.024 | 0.144 | 0.160 | overconf | overconf | overconf | 0.2394 | 0.1950 | 0.2091 | v5 |
+| 6v11 | 0.105 | 0.022 | 0.004 | overconf | overconf | overconf | 0.2851 | 0.1468 | 0.1540 | v5 |
+| 7v10 | 0.112 | 0.131 | 0.129 | underconf | underconf | underconf | 0.2360 | 0.2225 | 0.2020 | v7 |
+| 8v9 | 0.164 | 0.076 | 0.090 | overconf | overconf | overconf | 0.2335 | 0.1897 | 0.1640 | v7 |
 
 ## 5v12 Matchup Deep Dive
 
 5-12 matchups are historically the most volatile first-round pairing (upsets ~35% of the time).
+
+### RF (original) game-by-game predictions
+| Season | 5-seed | 12-seed | Pred(5wins) | 5won? | Upset? |
+|--------|--------|---------|-------------|-------|--------|
+| 2022 | Connecticut | New Mexico St | 0.755 | N | **YES** |
+| 2022 | Iowa | Richmond | 0.800 | N | **YES** |
+| 2022 | St Mary's CA | Indiana | 0.724 | Y | no |
+| 2022 | Houston | UAB | 0.709 | Y | no |
+| 2023 | Duke | Oral Roberts | 0.620 | Y | no |
+| 2023 | San Diego St | Col Charleston | 0.605 | Y | no |
+| 2023 | Miami FL | Drake | 0.741 | Y | no |
+| 2023 | St Mary's CA | VCU | 0.742 | Y | no |
+| 2024 | Gonzaga | McNeese St | 0.677 | Y | no |
+| 2024 | St Mary's CA | Grand Canyon | 0.634 | N | **YES** |
+| 2024 | Wisconsin | James Madison | 0.530 | N | **YES** |
+| 2024 | San Diego St | UAB | 0.740 | Y | no |
+| 2025 | Clemson | McNeese St | 0.639 | N | **YES** |
+| 2025 | Michigan | UC San Diego | 0.470 | Y | no |
+| 2025 | Memphis | Colorado St | 0.487 | N | **YES** |
+| 2025 | Oregon | Liberty | 0.505 | Y | no |
 
 ### v5 game-by-game predictions
 | Season | 5-seed | 12-seed | Pred(5wins) | 5won? | Upset? |
@@ -106,29 +143,53 @@ Calibration error = |predicted - actual|. Direction: overconf = model too confid
 | 2025 | Memphis | Colorado St | 0.210 | N | **YES** |
 | 2025 | Oregon | Liberty | 0.724 | Y | no |
 
-### v5 vs v7 prediction comparison on 5-12 games
-| Season | 5-seed | 12-seed | v5 Pred | v7 Pred | Delta | Result | Comment |
-|--------|--------|---------|---------|---------|-------|--------|---------|
-| 2022 | Connecticut | New Mexico St | 0.683 | 0.664 | -0.019 | **12-SEED UPSET** | v7 better (lower fav confidence) |
-| 2022 | Houston | UAB | 0.973 | 0.975 | +0.002 | 5-seed won | v7 better (higher fav confidence) |
-| 2022 | Iowa | Richmond | 0.950 | 0.945 | -0.005 | **12-SEED UPSET** | v7 better (lower fav confidence) |
-| 2022 | St Mary's CA | Indiana | 0.486 | 0.551 | +0.065 | 5-seed won | v7 better (higher fav confidence) |
-| 2023 | Duke | Oral Roberts | 0.975 | 0.975 | +0.000 | 5-seed won | v5 better (higher fav confidence) |
-| 2023 | Miami FL | Drake | 0.805 | 0.826 | +0.021 | 5-seed won | v7 better (higher fav confidence) |
-| 2023 | San Diego St | Col Charleston | 0.913 | 0.905 | -0.008 | 5-seed won | v5 better (higher fav confidence) |
-| 2023 | St Mary's CA | VCU | 0.946 | 0.878 | -0.068 | 5-seed won | v5 better (higher fav confidence) |
-| 2024 | Gonzaga | McNeese St | 0.970 | 0.964 | -0.006 | 5-seed won | v5 better (higher fav confidence) |
-| 2024 | San Diego St | UAB | 0.877 | 0.860 | -0.017 | 5-seed won | v5 better (higher fav confidence) |
-| 2024 | St Mary's CA | Grand Canyon | 0.760 | 0.837 | +0.077 | **12-SEED UPSET** | v5 better (lower fav confidence) |
-| 2024 | Wisconsin | James Madison | 0.776 | 0.841 | +0.065 | **12-SEED UPSET** | v5 better (lower fav confidence) |
-| 2025 | Clemson | McNeese St | 0.383 | 0.451 | +0.068 | **12-SEED UPSET** | v5 better (lower fav confidence) |
-| 2025 | Memphis | Colorado St | 0.124 | 0.210 | +0.086 | **12-SEED UPSET** | v5 better (lower fav confidence) |
-| 2025 | Michigan | UC San Diego | 0.966 | 0.950 | -0.016 | 5-seed won | v5 better (higher fav confidence) |
-| 2025 | Oregon | Liberty | 0.723 | 0.724 | +0.001 | 5-seed won | v7 better (higher fav confidence) |
+### RF vs v5 vs v7 prediction comparison on 5-12 games
+| Season | 5-seed | 12-seed | RF Pred | v5 Pred | v7 Pred | Result | Best |
+|--------|--------|---------|---------|---------|---------|--------|------|
+| 2022 | Connecticut | New Mexico St | 0.755 | 0.683 | 0.664 | **12-UPSET** | v7 |
+| 2022 | Houston | UAB | 0.709 | 0.973 | 0.975 | 5-seed won | v7 |
+| 2022 | Iowa | Richmond | 0.800 | 0.950 | 0.945 | **12-UPSET** | RF |
+| 2022 | St Mary's CA | Indiana | 0.724 | 0.486 | 0.551 | 5-seed won | RF |
+| 2023 | Duke | Oral Roberts | 0.620 | 0.975 | 0.975 | 5-seed won | v5 |
+| 2023 | Miami FL | Drake | 0.741 | 0.805 | 0.826 | 5-seed won | v7 |
+| 2023 | San Diego St | Col Charleston | 0.605 | 0.913 | 0.905 | 5-seed won | v5 |
+| 2023 | St Mary's CA | VCU | 0.742 | 0.946 | 0.878 | 5-seed won | v5 |
+| 2024 | Gonzaga | McNeese St | 0.677 | 0.970 | 0.964 | 5-seed won | v5 |
+| 2024 | San Diego St | UAB | 0.740 | 0.877 | 0.860 | 5-seed won | v5 |
+| 2024 | St Mary's CA | Grand Canyon | 0.634 | 0.760 | 0.837 | **12-UPSET** | RF |
+| 2024 | Wisconsin | James Madison | 0.530 | 0.776 | 0.841 | **12-UPSET** | RF |
+| 2025 | Clemson | McNeese St | 0.639 | 0.383 | 0.451 | **12-UPSET** | v5 |
+| 2025 | Memphis | Colorado St | 0.487 | 0.124 | 0.210 | **12-UPSET** | v5 |
+| 2025 | Michigan | UC San Diego | 0.470 | 0.966 | 0.950 | 5-seed won | v5 |
+| 2025 | Oregon | Liberty | 0.505 | 0.723 | 0.724 | 5-seed won | v7 |
 
 ## Calibration Curves (20-bin)
 
-ECE: v5=0.1093, v7=0.0769
+ECE: RF=0.0835, v5=0.1093, v7=0.0769
+
+### RF (original) calibration
+| Bin | N | Mean Pred | Actual Rate | Error |
+|-----|---|-----------|-------------|-------|
+| 0.03 | 2 | 0.042 | 0.000 | 0.042 |
+| 0.08 | 6 | 0.077 | 0.000 | 0.077 |
+| 0.12 | 8 | 0.129 | 0.000 | 0.129 |
+| 0.18 | 8 | 0.175 | 0.250 | 0.075 |
+| 0.23 | 7 | 0.228 | 0.286 | 0.057 |
+| 0.28 | 8 | 0.276 | 0.125 | 0.151 |
+| 0.33 | 18 | 0.325 | 0.333 | 0.008 |
+| 0.38 | 17 | 0.372 | 0.471 | 0.098 |
+| 0.43 | 20 | 0.423 | 0.450 | 0.027 |
+| 0.47 | 24 | 0.474 | 0.542 | 0.067 |
+| 0.53 | 22 | 0.526 | 0.500 | 0.026 |
+| 0.58 | 15 | 0.571 | 1.000 | 0.429 |
+| 0.62 | 15 | 0.627 | 0.600 | 0.027 |
+| 0.68 | 23 | 0.679 | 0.870 | 0.191 |
+| 0.73 | 22 | 0.727 | 0.727 | 0.001 |
+| 0.78 | 25 | 0.772 | 0.760 | 0.012 |
+| 0.83 | 12 | 0.817 | 0.667 | 0.150 |
+| 0.88 | 7 | 0.868 | 0.857 | 0.011 |
+| 0.93 | 6 | 0.918 | 1.000 | 0.082 |
+| 0.98 | 3 | 0.959 | 1.000 | 0.041 |
 
 ### v5 calibration
 | Bin | N | Mean Pred | Actual Rate | Error |
@@ -182,40 +243,94 @@ ECE: v5=0.1093, v7=0.0769
 
 | Model | Total Upsets | Predicted Correctly | Detection Rate |
 |-------|-------------|--------------------|--------------------|
+| RF | 53 | 7 | 13.2% |
 | v5 | 53 | 26 | 49.1% |
 | v7 | 53 | 26 | 49.1% |
 
 ### Upsets by seed matchup
-| Matchup | v5 Upsets | v5 Caught | v7 Upsets | v7 Caught |
-|---------|----------|-----------|----------|-----------|
-| 1v5 | 3 | 2 | 3 | 2 |
-| 1v16 | 1 | 0 | 1 | 0 |
-| 1v4 | 3 | 0 | 3 | 0 |
-| 1v8 | 2 | 1 | 2 | 1 |
-| 2v8 | 1 | 1 | 1 | 0 |
-| 2v5 | 1 | 0 | 1 | 1 |
-| 2v10 | 2 | 1 | 2 | 1 |
-| 2v6 | 1 | 0 | 1 | 0 |
-| 2v7 | 1 | 0 | 1 | 0 |
-| 2v15 | 2 | 1 | 2 | 1 |
-| 2v11 | 1 | 0 | 1 | 0 |
-| 3v15 | 1 | 0 | 1 | 0 |
-| 3v6 | 4 | 3 | 4 | 3 |
-| 3v9 | 1 | 1 | 1 | 1 |
-| 3v14 | 1 | 0 | 1 | 0 |
-| 3v11 | 2 | 1 | 2 | 1 |
-| 4v8 | 1 | 1 | 1 | 1 |
-| 4v11 | 1 | 0 | 1 | 0 |
-| 4v13 | 2 | 0 | 2 | 0 |
-| 4v9 | 1 | 0 | 1 | 0 |
-| 5v12 | 6 | 2 | 6 | 2 |
-| 6v11 | 8 | 7 | 8 | 7 |
-| 7v15 | 2 | 2 | 2 | 2 |
-| 7v10 | 5 | 3 | 5 | 3 |
+| Matchup | RF Upsets | RF Caught | v5 Upsets | v5 Caught | v7 Upsets | v7 Caught |
+|---------|----------|-----------|----------|-----------|----------|-----------|
+| 1v16 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 1v8 | 2 | 0 | 2 | 1 | 2 | 1 |
+| 1v5 | 3 | 1 | 3 | 2 | 3 | 2 |
+| 1v4 | 3 | 1 | 3 | 0 | 3 | 0 |
+| 2v15 | 2 | 0 | 2 | 1 | 2 | 1 |
+| 2v5 | 1 | 1 | 1 | 0 | 1 | 1 |
+| 2v7 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 2v11 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 2v8 | 1 | 0 | 1 | 1 | 1 | 0 |
+| 2v6 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 2v10 | 2 | 0 | 2 | 1 | 2 | 1 |
+| 3v15 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 3v9 | 1 | 1 | 1 | 1 | 1 | 1 |
+| 3v6 | 4 | 1 | 4 | 3 | 4 | 3 |
+| 3v14 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 3v11 | 2 | 0 | 2 | 1 | 2 | 1 |
+| 4v8 | 1 | 0 | 1 | 1 | 1 | 1 |
+| 4v13 | 2 | 0 | 2 | 0 | 2 | 0 |
+| 4v9 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 4v11 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 5v12 | 6 | 1 | 6 | 2 | 6 | 2 |
+| 6v11 | 8 | 0 | 8 | 7 | 8 | 7 |
+| 7v10 | 5 | 1 | 5 | 3 | 5 | 3 |
+| 7v15 | 2 | 0 | 2 | 2 | 2 | 2 |
 
 ## Feature Importance
 
-### v5 features (importance = avg across CV folds)
+### RF (original) features
+RF uses Gini importance (mean decrease in impurity). Higher = more important.
+
+| Rank | Feature | Importance |
+|------|---------|------------|
+| 1 | seed_diff | 0.0735 |
+| 2 | seed_a | 0.0507 |
+| 3 | owp_diff | 0.0470 |
+| 4 | oeff_diff | 0.0354 |
+| 5 | seed_b | 0.0342 |
+| 6 | wp_diff | 0.0324 |
+| 7 | deff_diff | 0.0231 |
+| 8 | orebpct_diff | 0.0226 |
+| 9 | fgm_avg_diff | 0.0226 |
+| 10 | blk_diff | 0.0218 |
+| 11 | ast_diff | 0.0210 |
+| 12 | oppfg3_diff | 0.0201 |
+| 13 | ft_diff | 0.0190 |
+| 14 | oppeffFG_diff | 0.0189 |
+| 15 | oppfg_diff | 0.0189 |
+| 16 | pt_diff | 0.0189 |
+| 17 | oppdreb_diff | 0.0189 |
+| 18 | topct_diff | 0.0187 |
+| 19 | pf_diff | 0.0184 |
+| 20 | stl_diff | 0.0183 |
+| 21 | fg_diff | 0.0182 |
+| 22 | oppfgm3_avg_diff | 0.0181 |
+| 23 | opppt_diff | 0.0180 |
+| 24 | opporeb_diff | 0.0177 |
+| 25 | oppstl_diff | 0.0175 |
+| 26 | oppft_diff | 0.0174 |
+| 27 | ftr_diff | 0.0174 |
+| 28 | opporebpct_diff | 0.0174 |
+| 29 | to_diff | 0.0173 |
+| 30 | effFG_diff | 0.0172 |
+| 31 | oppast_diff | 0.0170 |
+| 32 | oreb_diff | 0.0169 |
+| 33 | opppf_diff | 0.0169 |
+| 34 | opptopct_diff | 0.0165 |
+| 35 | fga_avg_diff | 0.0164 |
+| 36 | fgm3_avg_diff | 0.0163 |
+| 37 | oppfta_avg_diff | 0.0162 |
+| 38 | fg3_diff | 0.0161 |
+| 39 | fta_avg_diff | 0.0161 |
+| 40 | oppblk_diff | 0.0160 |
+| 41 | oppftr_diff | 0.0158 |
+| 42 | oppto_diff | 0.0157 |
+| 43 | oppfgm_avg_diff | 0.0155 |
+| 44 | dreb_diff | 0.0153 |
+| 45 | oppfga_avg_diff | 0.0150 |
+| 46 | pos_diff | 0.0141 |
+| 47 | opppos_diff | 0.0137 |
+
+### v5 features
 For blended models: LGB uses split-based importance weighted by blend weight, LR uses |coefficient| weighted by blend weight.
 
 | Rank | Feature | Importance |
@@ -278,7 +393,7 @@ For blended models: LGB uses split-based importance weighted by blend weight, LR
 | 21 | seed_b | 2.9139 |
 | 22 | Seed_diff | 2.2728 |
 
-### Feature comparison
+### Feature comparison (v5 vs v7)
 
 **Features only in v5**: Ord_COL_diff, Ord_DOL_diff, Ord_MOR_diff, Ord_POM_diff, Ord_RPI_diff, Ord_WLK_diff, OrdinalMean_diff, OrdinalStd_diff, elo_ordinal_agreement, seed_ordinal_agreement, seed_ordinal_mismatch
 **Features only in v7**: OrdPCA_0_diff, OrdPCA_1_diff
@@ -311,19 +426,19 @@ For blended models: LGB uses split-based importance weighted by blend weight, LR
 # Women's
 
 ## Overall Scores
-| Model | Brier | Accuracy | N |
-|-------|-------|----------|---|
-| v5 | 0.1366 | 80.2% | 268 |
-| v7 | 0.1335 | 81.0% | 268 |
-| delta | -0.0030 | +0.7% | |
+| Model | Brier | Accuracy | N | Features |
+|-------|-------|----------|---|----------|
+| RF (original) | 0.1496 | 76.5% | 268 | 47 |
+| v5 | 0.1366 | 80.2% | 268 | 7 |
+| v7 | 0.1335 | 81.0% | 268 | 9 |
 
 ## Per-Season Breakdown
-| Season | v5 Brier | v7 Brier | Delta | v5 Acc | v7 Acc |
-|--------|----------|----------|-------|--------|--------|
-| 2022 | 0.1499 | 0.1501 | +0.0001 | 80.6% | 79.1% |
-| 2023 | 0.1725 | 0.1691 | -0.0034 | 74.6% | 76.1% |
-| 2024 | 0.1161 | 0.1134 | -0.0027 | 82.1% | 83.6% |
-| 2025 | 0.1078 | 0.1015 | -0.0062 | 83.6% | 85.1% |
+| Season | RF Brier | v5 Brier | v7 Brier | RF Acc | v5 Acc | v7 Acc |
+|--------|----------|----------|----------|--------|--------|--------|
+| 2022 | 0.1666 | 0.1500 | 0.1501 | 76.1% | 80.6% | 79.1% |
+| 2023 | 0.1852 | 0.1725 | 0.1691 | 70.1% | 74.6% | 76.1% |
+| 2024 | 0.1280 | 0.1161 | 0.1134 | 79.1% | 82.1% | 83.6% |
+| 2025 | 0.1185 | 0.1078 | 0.1015 | 80.6% | 83.6% | 85.1% |
 
 ## Calibration by Seed Matchup (First Round)
 
@@ -331,16 +446,28 @@ Pred fav win% = model's average predicted probability that the favorite wins.
 Actual fav win% = how often the favorite actually won in CV data.
 Calibration error = |predicted - actual|. Direction: overconf = model too confident in favorite, underconf = model doesn't trust favorite enough.
 
+### RF (original)
+| Matchup | N | Pred Fav% | Actual Fav% | Cal Error | Direction | Upsets | Upset% | Brier |
+|---------|---|-----------|-------------|-----------|-----------|--------|--------|-------|
+| 1v16 | 16 | 93.4% | 100.0% | 0.066 | underconf | 0 | 0.0% | 0.0051 |
+| 2v15 | 16 | 90.5% | 100.0% | 0.095 | underconf | 0 | 0.0% | 0.0121 |
+| 3v14 | 16 | 88.5% | 100.0% | 0.115 | underconf | 0 | 0.0% | 0.0168 |
+| 4v13 | 16 | 83.2% | 100.0% | 0.167 | underconf | 0 | 0.0% | 0.0357 |
+| 5v12 | 16 | 78.0% | 75.0% | 0.030 | overconf | 4 | 25.0% | 0.1792 |
+| 6v11 | 16 | 67.6% | 75.0% | 0.074 | underconf | 4 | 25.0% | 0.2022 |
+| 7v10 | 16 | 61.7% | 62.5% | 0.008 | underconf | 6 | 37.5% | 0.2761 |
+| 8v9 | 16 | 50.2% | 62.5% | 0.123 | underconf | 6 | 37.5% | 0.2566 |
+
 ### v5
 | Matchup | N | Pred Fav% | Actual Fav% | Cal Error | Direction | Upsets | Upset% | Brier |
 |---------|---|-----------|-------------|-----------|-----------|--------|--------|-------|
 | 1v16 | 16 | 97.5% | 100.0% | 0.025 | underconf | 0 | 0.0% | 0.0006 |
 | 2v15 | 16 | 97.5% | 100.0% | 0.025 | underconf | 0 | 0.0% | 0.0006 |
 | 3v14 | 16 | 95.8% | 100.0% | 0.042 | underconf | 0 | 0.0% | 0.0023 |
-| 4v13 | 16 | 91.0% | 100.0% | 0.090 | underconf | 0 | 0.0% | 0.0097 |
+| 4v13 | 16 | 91.0% | 100.0% | 0.090 | underconf | 0 | 0.0% | 0.0096 |
 | 5v12 | 16 | 83.0% | 75.0% | 0.080 | overconf | 4 | 25.0% | 0.1827 |
 | 6v11 | 16 | 75.0% | 75.0% | 0.000 | underconf | 4 | 25.0% | 0.1958 |
-| 7v10 | 16 | 66.3% | 62.5% | 0.038 | overconf | 6 | 37.5% | 0.2326 |
+| 7v10 | 16 | 66.3% | 62.5% | 0.038 | overconf | 6 | 37.5% | 0.2327 |
 | 8v9 | 16 | 50.5% | 62.5% | 0.120 | underconf | 6 | 37.5% | 0.2470 |
 
 ### v7
@@ -355,21 +482,41 @@ Calibration error = |predicted - actual|. Direction: overconf = model too confid
 | 7v10 | 16 | 66.8% | 62.5% | 0.043 | overconf | 6 | 37.5% | 0.2338 |
 | 8v9 | 16 | 50.3% | 62.5% | 0.122 | underconf | 6 | 37.5% | 0.2310 |
 
-### Calibration Comparison (v5 vs v7)
-| Matchup | v5 Cal Error | v7 Cal Error | v5 Dir | v7 Dir | v5 Brier | v7 Brier | Better |
-|---------|-------------|-------------|--------|--------|----------|----------|--------|
-| 1v16 | 0.025 | 0.025 | underconf | underconf | 0.0006 | 0.0006 | tie |
-| 2v15 | 0.025 | 0.025 | underconf | underconf | 0.0006 | 0.0007 | v5 |
-| 3v14 | 0.042 | 0.041 | underconf | underconf | 0.0023 | 0.0020 | v7 |
-| 4v13 | 0.090 | 0.079 | underconf | underconf | 0.0097 | 0.0071 | v7 |
-| 5v12 | 0.080 | 0.086 | overconf | overconf | 0.1827 | 0.1779 | v7 |
-| 6v11 | 0.000 | 0.015 | underconf | overconf | 0.1958 | 0.1932 | v7 |
-| 7v10 | 0.038 | 0.043 | overconf | overconf | 0.2326 | 0.2338 | v5 |
-| 8v9 | 0.120 | 0.122 | underconf | underconf | 0.2470 | 0.2310 | v7 |
+### Calibration Comparison (RF vs v5 vs v7)
+| Matchup | RF Cal Err | v5 Cal Err | v7 Cal Err | RF Dir | v5 Dir | v7 Dir | RF Brier | v5 Brier | v7 Brier | Best |
+|---------|-----------|-----------|-----------|--------|--------|--------|----------|----------|----------|------|
+| 1v16 | 0.066 | 0.025 | 0.025 | underconf | underconf | underconf | 0.0051 | 0.0006 | 0.0006 | v5 |
+| 2v15 | 0.095 | 0.025 | 0.025 | underconf | underconf | underconf | 0.0121 | 0.0006 | 0.0007 | v5 |
+| 3v14 | 0.115 | 0.042 | 0.041 | underconf | underconf | underconf | 0.0168 | 0.0023 | 0.0020 | v7 |
+| 4v13 | 0.167 | 0.090 | 0.079 | underconf | underconf | underconf | 0.0357 | 0.0096 | 0.0071 | v7 |
+| 5v12 | 0.030 | 0.080 | 0.086 | overconf | overconf | overconf | 0.1792 | 0.1827 | 0.1779 | v7 |
+| 6v11 | 0.074 | 0.000 | 0.015 | underconf | underconf | overconf | 0.2022 | 0.1958 | 0.1932 | v7 |
+| 7v10 | 0.008 | 0.038 | 0.043 | underconf | overconf | overconf | 0.2761 | 0.2327 | 0.2338 | v5 |
+| 8v9 | 0.123 | 0.120 | 0.122 | underconf | underconf | underconf | 0.2566 | 0.2470 | 0.2310 | v7 |
 
 ## 5v12 Matchup Deep Dive
 
 5-12 matchups are historically the most volatile first-round pairing (upsets ~35% of the time).
+
+### RF (original) game-by-game predictions
+| Season | 5-seed | 12-seed | Pred(5wins) | 5won? | Upset? |
+|--------|--------|---------|-------------|-------|--------|
+| 2022 | Virginia Tech | FGCU | 0.651 | N | **YES** |
+| 2022 | Oregon | Belmont | 0.906 | N | **YES** |
+| 2022 | North Carolina | SF Austin | 0.822 | Y | no |
+| 2022 | Notre Dame | Massachusetts | 0.765 | Y | no |
+| 2023 | Washington St | FGCU | 0.603 | N | **YES** |
+| 2023 | Louisville | Drake | 0.603 | Y | no |
+| 2023 | Oklahoma | Portland | 0.785 | Y | no |
+| 2023 | Iowa St | Toledo | 0.808 | N | **YES** |
+| 2024 | Baylor | Vanderbilt | 0.836 | Y | no |
+| 2024 | Colorado | Drake | 0.731 | Y | no |
+| 2024 | Oklahoma | FGCU | 0.721 | Y | no |
+| 2024 | Utah | S Dakota St | 0.749 | Y | no |
+| 2025 | Kansas St | Fairfield | 0.918 | Y | no |
+| 2025 | Mississippi | Ball St | 0.883 | Y | no |
+| 2025 | Tennessee | South Florida | 0.923 | Y | no |
+| 2025 | Alabama | WI Green Bay | 0.780 | Y | no |
 
 ### v5 game-by-game predictions
 | Season | 5-seed | 12-seed | Pred(5wins) | 5won? | Upset? |
@@ -411,29 +558,53 @@ Calibration error = |predicted - actual|. Direction: overconf = model too confid
 | 2025 | Tennessee | South Florida | 0.901 | Y | no |
 | 2025 | Alabama | WI Green Bay | 0.888 | Y | no |
 
-### v5 vs v7 prediction comparison on 5-12 games
-| Season | 5-seed | 12-seed | v5 Pred | v7 Pred | Delta | Result | Comment |
-|--------|--------|---------|---------|---------|-------|--------|---------|
-| 2022 | North Carolina | SF Austin | 0.872 | 0.875 | +0.003 | 5-seed won | v7 better (higher fav confidence) |
-| 2022 | Notre Dame | Massachusetts | 0.826 | 0.838 | +0.012 | 5-seed won | v7 better (higher fav confidence) |
-| 2022 | Oregon | Belmont | 0.830 | 0.843 | +0.013 | **12-SEED UPSET** | v5 better (lower fav confidence) |
-| 2022 | Virginia Tech | FGCU | 0.788 | 0.803 | +0.015 | **12-SEED UPSET** | v5 better (lower fav confidence) |
-| 2023 | Iowa St | Toledo | 0.898 | 0.890 | -0.008 | **12-SEED UPSET** | v7 better (lower fav confidence) |
-| 2023 | Louisville | Drake | 0.842 | 0.857 | +0.015 | 5-seed won | v7 better (higher fav confidence) |
-| 2023 | Oklahoma | Portland | 0.868 | 0.882 | +0.014 | 5-seed won | v7 better (higher fav confidence) |
-| 2023 | Washington St | FGCU | 0.690 | 0.638 | -0.052 | **12-SEED UPSET** | v7 better (lower fav confidence) |
-| 2024 | Baylor | Vanderbilt | 0.864 | 0.882 | +0.018 | 5-seed won | v7 better (higher fav confidence) |
-| 2024 | Colorado | Drake | 0.827 | 0.827 | +0.000 | 5-seed won | v5 better (higher fav confidence) |
-| 2024 | Oklahoma | FGCU | 0.747 | 0.754 | +0.007 | 5-seed won | v7 better (higher fav confidence) |
-| 2024 | Utah | S Dakota St | 0.760 | 0.783 | +0.023 | 5-seed won | v7 better (higher fav confidence) |
-| 2025 | Alabama | WI Green Bay | 0.884 | 0.888 | +0.004 | 5-seed won | v7 better (higher fav confidence) |
-| 2025 | Kansas St | Fairfield | 0.828 | 0.841 | +0.013 | 5-seed won | v7 better (higher fav confidence) |
-| 2025 | Mississippi | Ball St | 0.868 | 0.878 | +0.010 | 5-seed won | v7 better (higher fav confidence) |
-| 2025 | Tennessee | South Florida | 0.888 | 0.901 | +0.013 | 5-seed won | v7 better (higher fav confidence) |
+### RF vs v5 vs v7 prediction comparison on 5-12 games
+| Season | 5-seed | 12-seed | RF Pred | v5 Pred | v7 Pred | Result | Best |
+|--------|--------|---------|---------|---------|---------|--------|------|
+| 2022 | North Carolina | SF Austin | 0.822 | 0.872 | 0.875 | 5-seed won | v7 |
+| 2022 | Notre Dame | Massachusetts | 0.765 | 0.826 | 0.838 | 5-seed won | v7 |
+| 2022 | Oregon | Belmont | 0.906 | 0.830 | 0.843 | **12-UPSET** | v5 |
+| 2022 | Virginia Tech | FGCU | 0.651 | 0.788 | 0.803 | **12-UPSET** | RF |
+| 2023 | Iowa St | Toledo | 0.808 | 0.898 | 0.890 | **12-UPSET** | RF |
+| 2023 | Louisville | Drake | 0.603 | 0.842 | 0.857 | 5-seed won | v7 |
+| 2023 | Oklahoma | Portland | 0.785 | 0.868 | 0.882 | 5-seed won | v7 |
+| 2023 | Washington St | FGCU | 0.603 | 0.690 | 0.638 | **12-UPSET** | RF |
+| 2024 | Baylor | Vanderbilt | 0.836 | 0.864 | 0.882 | 5-seed won | v7 |
+| 2024 | Colorado | Drake | 0.731 | 0.827 | 0.827 | 5-seed won | v5 |
+| 2024 | Oklahoma | FGCU | 0.721 | 0.747 | 0.754 | 5-seed won | v7 |
+| 2024 | Utah | S Dakota St | 0.749 | 0.760 | 0.783 | 5-seed won | v7 |
+| 2025 | Alabama | WI Green Bay | 0.780 | 0.884 | 0.888 | 5-seed won | v7 |
+| 2025 | Kansas St | Fairfield | 0.918 | 0.828 | 0.841 | 5-seed won | RF |
+| 2025 | Mississippi | Ball St | 0.883 | 0.868 | 0.878 | 5-seed won | RF |
+| 2025 | Tennessee | South Florida | 0.923 | 0.888 | 0.901 | 5-seed won | RF |
 
 ## Calibration Curves (20-bin)
 
-ECE: v5=0.0587, v7=0.0726
+ECE: RF=0.0839, v5=0.0587, v7=0.0726
+
+### RF (original) calibration
+| Bin | N | Mean Pred | Actual Rate | Error |
+|-----|---|-----------|-------------|-------|
+| 0.03 | 9 | 0.032 | 0.000 | 0.032 |
+| 0.08 | 27 | 0.075 | 0.037 | 0.038 |
+| 0.12 | 16 | 0.123 | 0.062 | 0.060 |
+| 0.18 | 11 | 0.170 | 0.000 | 0.170 |
+| 0.23 | 15 | 0.227 | 0.133 | 0.093 |
+| 0.28 | 16 | 0.271 | 0.250 | 0.021 |
+| 0.33 | 9 | 0.325 | 0.444 | 0.120 |
+| 0.38 | 14 | 0.383 | 0.357 | 0.026 |
+| 0.43 | 14 | 0.422 | 0.286 | 0.137 |
+| 0.47 | 11 | 0.471 | 0.636 | 0.165 |
+| 0.53 | 19 | 0.531 | 0.421 | 0.110 |
+| 0.58 | 12 | 0.570 | 0.500 | 0.070 |
+| 0.62 | 17 | 0.621 | 0.588 | 0.033 |
+| 0.68 | 18 | 0.674 | 0.778 | 0.104 |
+| 0.73 | 9 | 0.728 | 0.667 | 0.061 |
+| 0.78 | 14 | 0.778 | 1.000 | 0.222 |
+| 0.83 | 12 | 0.828 | 0.917 | 0.089 |
+| 0.88 | 8 | 0.880 | 0.750 | 0.130 |
+| 0.93 | 15 | 0.918 | 0.933 | 0.015 |
+| 0.98 | 2 | 0.966 | 1.000 | 0.034 |
 
 ### v5 calibration
 | Bin | N | Mean Pred | Actual Rate | Error |
@@ -441,7 +612,7 @@ ECE: v5=0.0587, v7=0.0726
 | 0.03 | 34 | 0.030 | 0.000 | 0.030 |
 | 0.08 | 15 | 0.080 | 0.000 | 0.080 |
 | 0.12 | 17 | 0.124 | 0.118 | 0.006 |
-| 0.18 | 18 | 0.175 | 0.222 | 0.047 |
+| 0.18 | 18 | 0.175 | 0.222 | 0.048 |
 | 0.23 | 13 | 0.219 | 0.154 | 0.065 |
 | 0.28 | 13 | 0.278 | 0.231 | 0.048 |
 | 0.33 | 7 | 0.315 | 0.286 | 0.029 |
@@ -487,63 +658,117 @@ ECE: v5=0.0587, v7=0.0726
 
 | Model | Total Upsets | Predicted Correctly | Detection Rate |
 |-------|-------------|--------------------|--------------------|
+| RF | 23 | 1 | 4.3% |
 | v5 | 23 | 0 | 0.0% |
 | v7 | 23 | 0 | 0.0% |
 
 ### Upsets by seed matchup
-| Matchup | v5 Upsets | v5 Caught | v7 Upsets | v7 Caught |
-|---------|----------|-----------|----------|-----------|
-| 1v9 | 1 | 0 | 1 | 0 |
-| 1v8 | 1 | 0 | 1 | 0 |
-| 2v10 | 2 | 0 | 2 | 0 |
-| 2v7 | 1 | 0 | 1 | 0 |
-| 3v6 | 2 | 0 | 2 | 0 |
-| 3v10 | 1 | 0 | 1 | 0 |
-| 4v9 | 1 | 0 | 1 | 0 |
-| 5v12 | 4 | 0 | 4 | 0 |
-| 6v11 | 4 | 0 | 4 | 0 |
-| 7v10 | 6 | 0 | 6 | 0 |
+| Matchup | RF Upsets | RF Caught | v5 Upsets | v5 Caught | v7 Upsets | v7 Caught |
+|---------|----------|-----------|----------|-----------|----------|-----------|
+| 1v8 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 1v9 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 2v10 | 2 | 0 | 2 | 0 | 2 | 0 |
+| 2v7 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 3v10 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 3v6 | 2 | 0 | 2 | 0 | 2 | 0 |
+| 4v9 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 5v12 | 4 | 0 | 4 | 0 | 4 | 0 |
+| 6v11 | 4 | 0 | 4 | 0 | 4 | 0 |
+| 7v10 | 6 | 1 | 6 | 0 | 6 | 0 |
 
 ## Feature Importance
 
-### v5 features (importance = avg across CV folds)
+### RF (original) features
+RF uses Gini importance (mean decrease in impurity). Higher = more important.
+
+| Rank | Feature | Importance |
+|------|---------|------------|
+| 1 | seed_diff | 0.1118 |
+| 2 | owp_diff | 0.0726 |
+| 3 | seed_a | 0.0585 |
+| 4 | seed_b | 0.0501 |
+| 5 | fgm_avg_diff | 0.0463 |
+| 6 | oeff_diff | 0.0347 |
+| 7 | fg_diff | 0.0346 |
+| 8 | pt_diff | 0.0272 |
+| 9 | blk_diff | 0.0260 |
+| 10 | oppdreb_diff | 0.0225 |
+| 11 | ast_diff | 0.0211 |
+| 12 | deff_diff | 0.0206 |
+| 13 | wp_diff | 0.0205 |
+| 14 | orebpct_diff | 0.0204 |
+| 15 | effFG_diff | 0.0175 |
+| 16 | fga_avg_diff | 0.0164 |
+| 17 | opppt_diff | 0.0144 |
+| 18 | oppfta_avg_diff | 0.0144 |
+| 19 | oppeffFG_diff | 0.0143 |
+| 20 | oppfg_diff | 0.0142 |
+| 21 | oppftr_diff | 0.0142 |
+| 22 | topct_diff | 0.0139 |
+| 23 | oppft_diff | 0.0136 |
+| 24 | fg3_diff | 0.0134 |
+| 25 | pf_diff | 0.0133 |
+| 26 | opporebpct_diff | 0.0132 |
+| 27 | oreb_diff | 0.0131 |
+| 28 | opporeb_diff | 0.0131 |
+| 29 | oppfg3_diff | 0.0130 |
+| 30 | fgm3_avg_diff | 0.0130 |
+| 31 | ft_diff | 0.0130 |
+| 32 | oppast_diff | 0.0129 |
+| 33 | oppstl_diff | 0.0129 |
+| 34 | oppfga_avg_diff | 0.0129 |
+| 35 | dreb_diff | 0.0128 |
+| 36 | oppfgm_avg_diff | 0.0128 |
+| 37 | oppblk_diff | 0.0126 |
+| 38 | ftr_diff | 0.0126 |
+| 39 | stl_diff | 0.0125 |
+| 40 | oppfgm3_avg_diff | 0.0124 |
+| 41 | to_diff | 0.0122 |
+| 42 | fta_avg_diff | 0.0120 |
+| 43 | pos_diff | 0.0115 |
+| 44 | opppos_diff | 0.0115 |
+| 45 | opppf_diff | 0.0114 |
+| 46 | opptopct_diff | 0.0114 |
+| 47 | oppto_diff | 0.0109 |
+
+### v5 features
 For blended models: LGB uses split-based importance weighted by blend weight, LR uses |coefficient| weighted by blend weight.
 
 | Rank | Feature | Importance |
 |------|---------|------------|
-| 1 | Elo_diff | 0.9068 |
-| 2 | Seed_diff | 0.8650 |
-| 3 | TRank_adjde_diff | 0.4379 |
-| 4 | TRank_adjoe_diff | 0.3813 |
-| 5 | seed_b | 0.0290 |
-| 6 | TRank_barthag_diff | 0.0028 |
+| 1 | Elo_diff | 0.9066 |
+| 2 | Seed_diff | 0.8653 |
+| 3 | TRank_adjde_diff | 0.4381 |
+| 4 | TRank_adjoe_diff | 0.3815 |
+| 5 | seed_b | 0.0289 |
+| 6 | TRank_barthag_diff | 0.0026 |
 | 7 | seed_a | 0.0000 |
 
 ### v7 features
 | Rank | Feature | Importance |
 |------|---------|------------|
-| 1 | Seed_diff | 0.9504 |
-| 2 | Elo_diff | 0.6798 |
-| 3 | TRank_adjoe_diff | 0.4070 |
+| 1 | Seed_diff | 0.9499 |
+| 2 | Elo_diff | 0.6807 |
+| 3 | TRank_adjoe_diff | 0.4069 |
 | 4 | TRank_adjde_diff | 0.3797 |
-| 5 | PointDiff_diff | 0.0894 |
-| 6 | seed_b | 0.0179 |
+| 5 | PointDiff_diff | 0.0890 |
+| 6 | seed_b | 0.0178 |
 | 7 | seed_a | 0.0021 |
 | 8 | TRank_tempo_diff | 0.0000 |
 | 9 | TRank_barthag_diff | 0.0000 |
 
-### Feature comparison
+### Feature comparison (v5 vs v7)
 
 **Features only in v7**: PointDiff_diff, TRank_tempo_diff
 
 **Importance shift for common features (v7 - v5)**:
 | Feature | v5 Imp | v7 Imp | Delta | Direction |
 |---------|--------|--------|-------|-----------|
-| Elo_diff | 0.9068 | 0.6798 | -0.2270 | decreased |
-| Seed_diff | 0.8650 | 0.9504 | +0.0854 | increased |
-| TRank_adjde_diff | 0.4379 | 0.3797 | -0.0582 | decreased |
-| TRank_adjoe_diff | 0.3813 | 0.4070 | +0.0257 | increased |
-| seed_b | 0.0290 | 0.0179 | -0.0111 | decreased |
-| TRank_barthag_diff | 0.0028 | 0.0000 | -0.0028 | decreased |
+| Elo_diff | 0.9066 | 0.6807 | -0.2259 | decreased |
+| Seed_diff | 0.8653 | 0.9499 | +0.0846 | increased |
+| TRank_adjde_diff | 0.4381 | 0.3797 | -0.0583 | decreased |
+| TRank_adjoe_diff | 0.3815 | 0.4069 | +0.0254 | increased |
+| seed_b | 0.0289 | 0.0178 | -0.0111 | decreased |
+| TRank_barthag_diff | 0.0026 | 0.0000 | -0.0026 | decreased |
 | seed_a | 0.0000 | 0.0021 | +0.0021 | increased |
 

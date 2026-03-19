@@ -1,4 +1,4 @@
-"""Deep calibration, upset, and feature importance analysis comparing v5 and v7 models.
+"""Deep calibration, upset, and feature importance analysis comparing RF (original R model), v5, and v7.
 
 Generates outputs/reports/calibration_feature_analysis.md
 """
@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler, QuantileTransformer
 from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestClassifier
 from lightgbm import LGBMClassifier
 
 from marchmadness.data_loader import load_all
@@ -25,6 +26,9 @@ from marchmadness.features import seeds, ordinals, elo, season_stats, efficiency
 from marchmadness.features.trank_clone import compute as compute_trank
 from marchmadness.config import CV_SEASONS, PREDICTION_CLIP
 from marchmadness.evaluation.metrics import brier_score, calibration_error, compute_accuracy
+
+# Import R model port feature builder
+from exp_r_model_port import compute_r_model_team_features, build_r_style_diff_features
 
 # ============================================================
 # V5 and V7 configs
@@ -298,9 +302,60 @@ def run_cv_with_details(df, model_fn, blend_configs=None):
     return oof_preds, y, seasons, df, feat_cols, avg_imp
 
 
+def build_rf_training(data, seasons, gender):
+    """Build training data using R model's feature set (box score stats + seeds)."""
+    from marchmadness.features.seeds import parse_seed
+    seeds_key = f"{gender}NCAATourneySeeds"
+    tourney_key = f"{gender}NCAATourneyCompactResults"
+
+    seeds_df = data[seeds_key]
+    tourney = data[tourney_key]
+
+    all_rows = []
+    for season in seasons:
+        team_features = compute_r_model_team_features(data, season, gender)
+        if team_features.empty:
+            continue
+
+        season_seeds = seeds_df[seeds_df["Season"] == season].copy()
+        season_seeds["SeedNum"] = season_seeds["Seed"].apply(parse_seed)
+        seed_map = dict(zip(season_seeds["TeamID"], season_seeds["SeedNum"]))
+
+        season_tourney = tourney[tourney["Season"] == season]
+        for _, game in season_tourney.iterrows():
+            w_id, l_id = game["WTeamID"], game["LTeamID"]
+            team_a, team_b = min(w_id, l_id), max(w_id, l_id)
+            label = 1 if w_id == team_a else 0
+
+            seed_a = seed_map.get(team_a, 99)
+            seed_b = seed_map.get(team_b, 99)
+
+            matchup = build_r_style_diff_features(team_features, team_a, team_b, seed_a, seed_b)
+            if not matchup:
+                continue
+
+            matchup["Season"] = season
+            matchup["Label"] = label
+            matchup["DayNum"] = game["DayNum"]
+            matchup["SampleWeight"] = 6.0
+            matchup["seed_a_raw"] = seed_a
+            matchup["seed_b_raw"] = seed_b
+            matchup["TeamA"] = team_a
+            matchup["TeamB"] = team_b
+            all_rows.append(matchup)
+
+    if not all_rows:
+        return pd.DataFrame()
+    return pd.DataFrame(all_rows)
+
+
 def extract_importance(model, feat_cols, all_importances, weight):
-    """Extract feature importance from a model (LGB or Pipeline with LR)."""
+    """Extract feature importance from a model (LGB, RF, or Pipeline with LR)."""
     if isinstance(model, LGBMClassifier):
+        imp = model.feature_importances_
+        for j, col in enumerate(feat_cols):
+            all_importances[col].append(imp[j] * weight)
+    elif isinstance(model, RandomForestClassifier):
         imp = model.feature_importances_
         for j, col in enumerate(feat_cols):
             all_importances[col].append(imp[j] * weight)
@@ -512,9 +567,14 @@ def main():
     def w(line=""):
         report.write(line + "\n")
 
-    w("# Calibration, Upset & Feature Importance Analysis: v5 vs v7")
+    w("# Calibration, Upset & Feature Importance Analysis: RF (original) vs v5 vs v7")
     w()
     w("Generated 2026-03-18. Leave-season-out CV on 2022-2025 tournaments.")
+    w()
+    w("**Models compared:**")
+    w("- **RF**: Original R model ported to Python. Random Forest (1000 trees), box score features (shooting %, rebounds, assists, TO, efficiency, four factors). Training window 2003+.")
+    w("- **v5**: 55% LightGBM + 45% Logistic Regression blend. Ordinal aggregates + Torvik + TRank clone + disagreement features. Training window 2015+ (M) / 2003+ (W).")
+    w("- **v7**: 40% LightGBM + 60% Logistic Regression blend. PCA ordinals + Torvik + TRank clone + disagreement features. Training window 2015+ (M) / 2003+ (W).")
     w()
 
     for gender, gender_label in [("M", "Men's"), ("W", "Women's")]:
@@ -522,12 +582,21 @@ def main():
         w(f"# {gender_label}")
         w()
 
-        # Build data for v5 and v7
+        # Build data for RF, v5, and v7
         if gender == "M":
             start_year = 2015
         else:
             start_year = 2003
         seasons_list = list(range(start_year, 2026))
+        rf_seasons = list(range(2003, 2026))
+
+        print(f"Building {gender_label} RF data...")
+        rf_df = build_rf_training(data, rf_seasons, gender)
+        # Drop rows with NaN in feature columns for RF (needs detailed results)
+        rf_feat_cols = [c for c in rf_df.columns if c not in
+                        {"Season", "Label", "DayNum", "SampleWeight", "TeamA", "TeamB",
+                         "seed_a_raw", "seed_b_raw"}]
+        rf_df = rf_df.dropna(subset=rf_feat_cols)
 
         print(f"Building {gender_label} v5 data...")
         v5_df = build_training(data, seasons_list, gender, build_v5_team_features)
@@ -535,6 +604,8 @@ def main():
         v7_df = build_training(data, seasons_list, gender, build_v7_team_features)
 
         # Define model configs
+        rf_model = lambda: RandomForestClassifier(n_estimators=1000, random_state=313, n_jobs=-1)
+
         if gender == "M":
             # v5: 55% LGB + 45% L2 LR
             v5_blend = [
@@ -552,6 +623,8 @@ def main():
                 (lambda: Pipeline([("s", StandardScaler()),
                                    ("lr", LogisticRegression(C=100.0, penalty='l2', solver='lbfgs', max_iter=2000))]), 0.60),
             ]
+            print(f"  Running RF CV...")
+            rf_preds, rf_y, rf_seasons_arr, rf_full, rf_feats, rf_imp = run_cv_with_details(rf_df, rf_model)
             print(f"  Running v5 CV (blend)...")
             v5_preds, v5_y, v5_seasons, v5_full, v5_feats, v5_imp = run_cv_with_details(v5_df, None, v5_blend)
             print(f"  Running v7 CV (blend)...")
@@ -563,41 +636,49 @@ def main():
             # v7: QT + L1 LR C=0.20
             v7_model = lambda: Pipeline([("q", QuantileTransformer(output_distribution='normal', n_quantiles=50)),
                                           ("lr", LogisticRegression(C=0.20, penalty='l1', solver='liblinear', max_iter=2000))])
+            print(f"  Running RF CV...")
+            rf_preds, rf_y, rf_seasons_arr, rf_full, rf_feats, rf_imp = run_cv_with_details(rf_df, rf_model)
             print(f"  Running v5 CV...")
             v5_preds, v5_y, v5_seasons, v5_full, v5_feats, v5_imp = run_cv_with_details(v5_df, v5_model)
             print(f"  Running v7 CV...")
             v7_preds, v7_y, v7_seasons, v7_full, v7_feats, v7_imp = run_cv_with_details(v7_df, v7_model)
 
         # Overall scores
+        rf_valid = ~np.isnan(rf_preds)
         v5_valid = ~np.isnan(v5_preds)
         v7_valid = ~np.isnan(v7_preds)
+        rf_brier = brier_score(rf_y[rf_valid], rf_preds[rf_valid])
         v5_brier = brier_score(v5_y[v5_valid], v5_preds[v5_valid])
         v7_brier = brier_score(v7_y[v7_valid], v7_preds[v7_valid])
 
         w(f"## Overall Scores")
-        w(f"| Model | Brier | Accuracy | N |")
-        w(f"|-------|-------|----------|---|")
+        w(f"| Model | Brier | Accuracy | N | Features |")
+        w(f"|-------|-------|----------|---|----------|")
+        rf_acc = compute_accuracy(rf_y[rf_valid], rf_preds[rf_valid])
         v5_acc = compute_accuracy(v5_y[v5_valid], v5_preds[v5_valid])
         v7_acc = compute_accuracy(v7_y[v7_valid], v7_preds[v7_valid])
-        w(f"| v5 | {v5_brier:.4f} | {v5_acc:.1%} | {v5_valid.sum()} |")
-        w(f"| v7 | {v7_brier:.4f} | {v7_acc:.1%} | {v7_valid.sum()} |")
-        w(f"| delta | {v7_brier - v5_brier:+.4f} | {v7_acc - v5_acc:+.1%} | |")
+        w(f"| RF (original) | {rf_brier:.4f} | {rf_acc:.1%} | {rf_valid.sum()} | {len(rf_feats)} |")
+        w(f"| v5 | {v5_brier:.4f} | {v5_acc:.1%} | {v5_valid.sum()} | {len(v5_feats)} |")
+        w(f"| v7 | {v7_brier:.4f} | {v7_acc:.1%} | {v7_valid.sum()} | {len(v7_feats)} |")
         w()
 
         # Per-season breakdown
         w(f"## Per-Season Breakdown")
-        w(f"| Season | v5 Brier | v7 Brier | Delta | v5 Acc | v7 Acc |")
-        w(f"|--------|----------|----------|-------|--------|--------|")
+        w(f"| Season | RF Brier | v5 Brier | v7 Brier | RF Acc | v5 Acc | v7 Acc |")
+        w(f"|--------|----------|----------|----------|--------|--------|--------|")
         for s in CV_SEASONS:
+            sr_mask = rf_valid & (rf_seasons_arr == s)
             s5_mask = v5_valid & (v5_seasons == s)
             s7_mask = v7_valid & (v7_seasons == s)
-            if s5_mask.sum() == 0 or s7_mask.sum() == 0:
+            if sr_mask.sum() == 0 or s5_mask.sum() == 0 or s7_mask.sum() == 0:
                 continue
+            br = brier_score(rf_y[sr_mask], rf_preds[sr_mask])
             b5 = brier_score(v5_y[s5_mask], v5_preds[s5_mask])
             b7 = brier_score(v7_y[s7_mask], v7_preds[s7_mask])
+            ar = compute_accuracy(rf_y[sr_mask], rf_preds[sr_mask])
             a5 = compute_accuracy(v5_y[s5_mask], v5_preds[s5_mask])
             a7 = compute_accuracy(v7_y[s7_mask], v7_preds[s7_mask])
-            w(f"| {s} | {b5:.4f} | {b7:.4f} | {b7-b5:+.4f} | {a5:.1%} | {a7:.1%} |")
+            w(f"| {s} | {br:.4f} | {b5:.4f} | {b7:.4f} | {ar:.1%} | {a5:.1%} | {a7:.1%} |")
         w()
 
         # ============================================================
@@ -610,33 +691,31 @@ def main():
         w(f"Calibration error = |predicted - actual|. Direction: overconf = model too confident in favorite, underconf = model doesn't trust favorite enough.")
         w()
 
-        w(f"### v5")
+        rf_cal = seed_matchup_calibration(rf_preds, rf_y, rf_df, "RF")
         v5_cal = seed_matchup_calibration(v5_preds, v5_y, v5_df, "v5")
-        w(f"| Matchup | N | Pred Fav% | Actual Fav% | Cal Error | Direction | Upsets | Upset% | Brier |")
-        w(f"|---------|---|-----------|-------------|-----------|-----------|--------|--------|-------|")
-        for r in v5_cal:
-            w(f"| {r['matchup']} | {r['n']} | {r['pred_fav_win%']} | {r['actual_fav_win%']} | {r['cal_error']} | {r['cal_direction']} | {r['upsets']} | {r['upset_rate']} | {r['brier']} |")
-        w()
-
-        w(f"### v7")
         v7_cal = seed_matchup_calibration(v7_preds, v7_y, v7_df, "v7")
-        w(f"| Matchup | N | Pred Fav% | Actual Fav% | Cal Error | Direction | Upsets | Upset% | Brier |")
-        w(f"|---------|---|-----------|-------------|-----------|-----------|--------|--------|-------|")
-        for r in v7_cal:
-            w(f"| {r['matchup']} | {r['n']} | {r['pred_fav_win%']} | {r['actual_fav_win%']} | {r['cal_error']} | {r['cal_direction']} | {r['upsets']} | {r['upset_rate']} | {r['brier']} |")
-        w()
+
+        for model_name, cal_data in [("RF (original)", rf_cal), ("v5", v5_cal), ("v7", v7_cal)]:
+            w(f"### {model_name}")
+            w(f"| Matchup | N | Pred Fav% | Actual Fav% | Cal Error | Direction | Upsets | Upset% | Brier |")
+            w(f"|---------|---|-----------|-------------|-----------|-----------|--------|--------|-------|")
+            for r in cal_data:
+                w(f"| {r['matchup']} | {r['n']} | {r['pred_fav_win%']} | {r['actual_fav_win%']} | {r['cal_error']} | {r['cal_direction']} | {r['upsets']} | {r['upset_rate']} | {r['brier']} |")
+            w()
 
         # Side-by-side comparison
-        w(f"### Calibration Comparison (v5 vs v7)")
+        w(f"### Calibration Comparison (RF vs v5 vs v7)")
+        rf_map = {r['matchup']: r for r in rf_cal}
         v5_map = {r['matchup']: r for r in v5_cal}
         v7_map = {r['matchup']: r for r in v7_cal}
-        w(f"| Matchup | v5 Cal Error | v7 Cal Error | v5 Dir | v7 Dir | v5 Brier | v7 Brier | Better |")
-        w(f"|---------|-------------|-------------|--------|--------|----------|----------|--------|")
+        w(f"| Matchup | RF Cal Err | v5 Cal Err | v7 Cal Err | RF Dir | v5 Dir | v7 Dir | RF Brier | v5 Brier | v7 Brier | Best |")
+        w(f"|---------|-----------|-----------|-----------|--------|--------|--------|----------|----------|----------|------|")
         for mu in ["1v16", "2v15", "3v14", "4v13", "5v12", "6v11", "7v10", "8v9"]:
-            if mu in v5_map and mu in v7_map:
-                r5, r7 = v5_map[mu], v7_map[mu]
-                better = "v7" if float(r7['brier']) < float(r5['brier']) else "v5" if float(r5['brier']) < float(r7['brier']) else "tie"
-                w(f"| {mu} | {r5['cal_error']} | {r7['cal_error']} | {r5['cal_direction']} | {r7['cal_direction']} | {r5['brier']} | {r7['brier']} | {better} |")
+            if mu in rf_map and mu in v5_map and mu in v7_map:
+                rr, r5, r7 = rf_map[mu], v5_map[mu], v7_map[mu]
+                briers = {"RF": float(rr['brier']), "v5": float(r5['brier']), "v7": float(r7['brier'])}
+                best = min(briers, key=briers.get)
+                w(f"| {mu} | {rr['cal_error']} | {r5['cal_error']} | {r7['cal_error']} | {rr['cal_direction']} | {r5['cal_direction']} | {r7['cal_direction']} | {rr['brier']} | {r5['brier']} | {r7['brier']} | {best} |")
         w()
 
         # ============================================================
@@ -647,55 +726,47 @@ def main():
         w(f"5-12 matchups are historically the most volatile first-round pairing (upsets ~35% of the time).")
         w()
 
-        w(f"### v5 game-by-game predictions")
+        rf_512 = five_twelve_deep_dive(rf_preds, rf_y, rf_df, rf_seasons_arr, "RF")
         v5_512 = five_twelve_deep_dive(v5_preds, v5_y, v5_df, v5_seasons, "v5")
-        w(f"| Season | 5-seed | 12-seed | Pred(5wins) | 5won? | Upset? |")
-        w(f"|--------|--------|---------|-------------|-------|--------|")
-        for g in sorted(v5_512, key=lambda x: x["season"]):
-            s5 = team_names.get(g["5seed_team"], str(g["5seed_team"]))
-            s12 = team_names.get(g["12seed_team"], str(g["12seed_team"]))
-            w(f"| {g['season']} | {s5} | {s12} | {g['pred_5seed']} | {'Y' if g['5seed_won'] else 'N'} | {'**YES**' if g['upset'] else 'no'} |")
-        w()
-
-        w(f"### v7 game-by-game predictions")
         v7_512 = five_twelve_deep_dive(v7_preds, v7_y, v7_df, v7_seasons, "v7")
-        w(f"| Season | 5-seed | 12-seed | Pred(5wins) | 5won? | Upset? |")
-        w(f"|--------|--------|---------|-------------|-------|--------|")
-        for g in sorted(v7_512, key=lambda x: x["season"]):
-            s5 = team_names.get(g["5seed_team"], str(g["5seed_team"]))
-            s12 = team_names.get(g["12seed_team"], str(g["12seed_team"]))
-            w(f"| {g['season']} | {s5} | {s12} | {g['pred_5seed']} | {'Y' if g['5seed_won'] else 'N'} | {'**YES**' if g['upset'] else 'no'} |")
-        w()
 
-        # Compare v5 vs v7 on specific 5-12 games
-        if v5_512 and v7_512:
-            w(f"### v5 vs v7 prediction comparison on 5-12 games")
-            # Match by season + teams
+        for model_name, games_512 in [("RF (original)", rf_512), ("v5", v5_512), ("v7", v7_512)]:
+            w(f"### {model_name} game-by-game predictions")
+            w(f"| Season | 5-seed | 12-seed | Pred(5wins) | 5won? | Upset? |")
+            w(f"|--------|--------|---------|-------------|-------|--------|")
+            for g in sorted(games_512, key=lambda x: x["season"]):
+                s5 = team_names.get(g["5seed_team"], str(g["5seed_team"]))
+                s12 = team_names.get(g["12seed_team"], str(g["12seed_team"]))
+                w(f"| {g['season']} | {s5} | {s12} | {g['pred_5seed']} | {'Y' if g['5seed_won'] else 'N'} | {'**YES**' if g['upset'] else 'no'} |")
+            w()
+
+        # 3-way comparison on 5-12 games
+        if rf_512 and v5_512 and v7_512:
+            w(f"### RF vs v5 vs v7 prediction comparison on 5-12 games")
+            rf_by_key = {(g["season"], g["5seed_team"], g["12seed_team"]): g for g in rf_512}
             v5_by_key = {(g["season"], g["5seed_team"], g["12seed_team"]): g for g in v5_512}
             v7_by_key = {(g["season"], g["5seed_team"], g["12seed_team"]): g for g in v7_512}
-            common = set(v5_by_key.keys()) & set(v7_by_key.keys())
+            common = set(rf_by_key.keys()) & set(v5_by_key.keys()) & set(v7_by_key.keys())
             if common:
-                w(f"| Season | 5-seed | 12-seed | v5 Pred | v7 Pred | Delta | Result | Comment |")
-                w(f"|--------|--------|---------|---------|---------|-------|--------|---------|")
+                w(f"| Season | 5-seed | 12-seed | RF Pred | v5 Pred | v7 Pred | Result | Best |")
+                w(f"|--------|--------|---------|---------|---------|---------|--------|------|")
                 for key in sorted(common):
-                    g5, g7 = v5_by_key[key], v7_by_key[key]
+                    gr, g5, g7 = rf_by_key[key], v5_by_key[key], v7_by_key[key]
                     s5 = team_names.get(key[1], str(key[1]))
                     s12 = team_names.get(key[2], str(key[2]))
+                    pr = float(gr["pred_5seed"])
                     p5 = float(g5["pred_5seed"])
                     p7 = float(g7["pred_5seed"])
-                    delta = p7 - p5
-                    result = "5-seed won" if g5["5seed_won"] else "**12-SEED UPSET**"
+                    result = "5-seed won" if g5["5seed_won"] else "**12-UPSET**"
                     if g5["upset"]:
-                        if p7 < p5:
-                            comment = "v7 better (lower fav confidence)"
-                        else:
-                            comment = "v5 better (lower fav confidence)"
+                        # Lower confidence in favorite = better for upsets
+                        preds = {"RF": pr, "v5": p5, "v7": p7}
+                        best = min(preds, key=preds.get)
                     else:
-                        if p7 > p5:
-                            comment = "v7 better (higher fav confidence)"
-                        else:
-                            comment = "v5 better (higher fav confidence)"
-                    w(f"| {key[0]} | {s5} | {s12} | {p5:.3f} | {p7:.3f} | {delta:+.3f} | {result} | {comment} |")
+                        # Higher confidence in favorite = better for non-upsets
+                        preds = {"RF": pr, "v5": p5, "v7": p7}
+                        best = max(preds, key=preds.get)
+                    w(f"| {key[0]} | {s5} | {s12} | {pr:.3f} | {p5:.3f} | {p7:.3f} | {result} | {best} |")
                 w()
 
         # ============================================================
@@ -704,25 +775,20 @@ def main():
         w(f"## Calibration Curves (20-bin)")
         w()
 
+        rf_ece, rf_bins = calibration_by_confidence(rf_preds, rf_y)
         v5_ece, v5_bins = calibration_by_confidence(v5_preds, v5_y)
         v7_ece, v7_bins = calibration_by_confidence(v7_preds, v7_y)
 
-        w(f"ECE: v5={v5_ece:.4f}, v7={v7_ece:.4f}")
+        w(f"ECE: RF={rf_ece:.4f}, v5={v5_ece:.4f}, v7={v7_ece:.4f}")
         w()
 
-        w(f"### v5 calibration")
-        w(f"| Bin | N | Mean Pred | Actual Rate | Error |")
-        w(f"|-----|---|-----------|-------------|-------|")
-        for r in v5_bins:
-            w(f"| {r['bin']} | {r['n']} | {r['mean_pred']} | {r['actual_rate']} | {r['error']} |")
-        w()
-
-        w(f"### v7 calibration")
-        w(f"| Bin | N | Mean Pred | Actual Rate | Error |")
-        w(f"|-----|---|-----------|-------------|-------|")
-        for r in v7_bins:
-            w(f"| {r['bin']} | {r['n']} | {r['mean_pred']} | {r['actual_rate']} | {r['error']} |")
-        w()
+        for model_name, bins_data in [("RF (original)", rf_bins), ("v5", v5_bins), ("v7", v7_bins)]:
+            w(f"### {model_name} calibration")
+            w(f"| Bin | N | Mean Pred | Actual Rate | Error |")
+            w(f"|-----|---|-----------|-------------|-------|")
+            for r in bins_data:
+                w(f"| {r['bin']} | {r['n']} | {r['mean_pred']} | {r['actual_rate']} | {r['error']} |")
+            w()
 
         # ============================================================
         # UPSET ANALYSIS
@@ -730,30 +796,36 @@ def main():
         w(f"## Upset Analysis (seed diff >= 3)")
         w()
 
+        rf_upsets = upset_deep_dive(rf_preds, rf_y, rf_df, rf_seasons_arr)
         v5_upsets = upset_deep_dive(v5_preds, v5_y, v5_df, v5_seasons)
         v7_upsets = upset_deep_dive(v7_preds, v7_y, v7_df, v7_seasons)
 
+        rf_caught = sum(1 for u in rf_upsets if u["predicted_upset"])
         v5_caught = sum(1 for u in v5_upsets if u["predicted_upset"])
         v7_caught = sum(1 for u in v7_upsets if u["predicted_upset"])
 
         w(f"| Model | Total Upsets | Predicted Correctly | Detection Rate |")
         w(f"|-------|-------------|--------------------|--------------------|")
+        rf_det = f"{rf_caught/len(rf_upsets):.1%}" if len(rf_upsets) > 0 else "N/A"
+        w(f"| RF | {len(rf_upsets)} | {rf_caught} | {rf_det} |")
         w(f"| v5 | {len(v5_upsets)} | {v5_caught} | {v5_caught/len(v5_upsets):.1%} |")
         w(f"| v7 | {len(v7_upsets)} | {v7_caught} | {v7_caught/len(v7_upsets):.1%} |")
         w()
 
         w(f"### Upsets by seed matchup")
         from collections import Counter
+        rf_by_mu = Counter(u["matchup"] for u in rf_upsets)
         v5_by_mu = Counter(u["matchup"] for u in v5_upsets)
         v7_by_mu = Counter(u["matchup"] for u in v7_upsets)
+        rf_caught_by = Counter(u["matchup"] for u in rf_upsets if u["predicted_upset"])
         v5_caught_by = Counter(u["matchup"] for u in v5_upsets if u["predicted_upset"])
         v7_caught_by = Counter(u["matchup"] for u in v7_upsets if u["predicted_upset"])
-        all_mu = sorted(set(list(v5_by_mu.keys()) + list(v7_by_mu.keys())),
+        all_mu = sorted(set(list(rf_by_mu.keys()) + list(v5_by_mu.keys()) + list(v7_by_mu.keys())),
                         key=lambda x: int(x.split("v")[0]))
-        w(f"| Matchup | v5 Upsets | v5 Caught | v7 Upsets | v7 Caught |")
-        w(f"|---------|----------|-----------|----------|-----------|")
+        w(f"| Matchup | RF Upsets | RF Caught | v5 Upsets | v5 Caught | v7 Upsets | v7 Caught |")
+        w(f"|---------|----------|-----------|----------|-----------|----------|-----------|")
         for mu in all_mu:
-            w(f"| {mu} | {v5_by_mu.get(mu,0)} | {v5_caught_by.get(mu,0)} | {v7_by_mu.get(mu,0)} | {v7_caught_by.get(mu,0)} |")
+            w(f"| {mu} | {rf_by_mu.get(mu,0)} | {rf_caught_by.get(mu,0)} | {v5_by_mu.get(mu,0)} | {v5_caught_by.get(mu,0)} | {v7_by_mu.get(mu,0)} | {v7_caught_by.get(mu,0)} |")
         w()
 
         # ============================================================
@@ -762,26 +834,24 @@ def main():
         w(f"## Feature Importance")
         w()
 
-        w(f"### v5 features (importance = avg across CV folds)")
-        w(f"For blended models: LGB uses split-based importance weighted by blend weight, LR uses |coefficient| weighted by blend weight.")
-        w()
-        v5_sorted = sorted(v5_imp.items(), key=lambda x: -x[1])
-        w(f"| Rank | Feature | Importance |")
-        w(f"|------|---------|------------|")
-        for rank, (feat, imp) in enumerate(v5_sorted, 1):
-            w(f"| {rank} | {feat} | {imp:.4f} |")
-        w()
+        for model_name, imp_data, note in [
+            ("RF (original)", rf_imp, "RF uses Gini importance (mean decrease in impurity). Higher = more important."),
+            ("v5", v5_imp, "For blended models: LGB uses split-based importance weighted by blend weight, LR uses |coefficient| weighted by blend weight."),
+            ("v7", v7_imp, ""),
+        ]:
+            w(f"### {model_name} features")
+            if note:
+                w(note)
+                w()
+            sorted_imp = sorted(imp_data.items(), key=lambda x: -x[1])
+            w(f"| Rank | Feature | Importance |")
+            w(f"|------|---------|------------|")
+            for rank, (feat, imp) in enumerate(sorted_imp, 1):
+                w(f"| {rank} | {feat} | {imp:.4f} |")
+            w()
 
-        w(f"### v7 features")
-        v7_sorted = sorted(v7_imp.items(), key=lambda x: -x[1])
-        w(f"| Rank | Feature | Importance |")
-        w(f"|------|---------|------------|")
-        for rank, (feat, imp) in enumerate(v7_sorted, 1):
-            w(f"| {rank} | {feat} | {imp:.4f} |")
-        w()
-
-        # Feature comparison
-        w(f"### Feature comparison")
+        # Feature comparison v5 vs v7
+        w(f"### Feature comparison (v5 vs v7)")
         w()
         v5_set = set(v5_imp.keys())
         v7_set = set(v7_imp.keys())
