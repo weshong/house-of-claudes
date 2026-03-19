@@ -7,6 +7,20 @@ Generated 2026-03-18. Leave-season-out CV on 2022-2025 tournaments.
 - **v5**: 55% LightGBM + 45% Logistic Regression blend. Ordinal aggregates + Torvik + TRank clone + disagreement features. Training window 2015+ (M) / 2003+ (W).
 - **v7**: 40% LightGBM + 60% Logistic Regression blend. PCA ordinals + Torvik + TRank clone + disagreement features. Training window 2015+ (M) / 2003+ (W).
 
+## Key Takeaways
+
+**The RF model has the best 5-12 calibration by far** (cal error 0.024 vs v5's 0.144 and v7's 0.160). It predicts 64.9% favorite win rate on 5-12 games, nearly matching the 62.5% actual rate. But its overall Brier is terrible (0.1943 vs v7's 0.1266) because it's underconfident on every other matchup tier — it can't separate a 1v16 blowout from a 5v12 toss-up.
+
+**This is not good calibration — it's poor discrimination.** The RF doesn't "know" upsets are coming; it just can't distinguish strong 5-seeds from weak ones, so all its 5-12 predictions cluster in a narrow 0.55–0.75 band. That coincidentally looks well-calibrated for a matchup tier with ~35% upsets, but it leaves massive Brier points on the table when the 5-seed is genuinely dominant (e.g., Houston vs UAB: RF gave 0.709, v7 gave 0.975).
+
+**v5 and v7 have the opposite problem**: they discriminate well (correctly assigning 0.97 to Houston/UAB) but can't tell which 5-seeds will get upset, so they're systematically overconfident on the tier as a whole. v7 is actually *worse* than v5 here because the shift from 55/45 to 40/60 LGB/LR blend weight leans harder on the linear model that trusts ratings more literally.
+
+**Brier score is not misleading, but it does mask the tradeoff.** Improving overall Brier from v5 to v7 came partly by becoming more confident on favorites — which helps on the ~70% of games where favorites win but hurts on the ~30% where they don't. The 5-12 tier is where this tradeoff is most acute because it has the highest upset rate of any first-round matchup.
+
+**The women's models catch 0/23 upsets** (both v5 and v7). They are effectively seed models with extra steps — L1 regularization zeros out most features, and neither model ever predicts an underdog to win. The RF does no better (0/23 as well).
+
+**Practical implication**: The 5-12 overconfidence is real but unfixable without features that capture *why* specific 5-seeds are upset-prone (e.g., game-to-game variance, matchup style, momentum). Matchup-tier-specific calibration hacks would overfit to 16 games. The honest answer is: with current features, the models correctly optimize overall Brier at the cost of 5-12 calibration, and that is the right tradeoff for the competition metric.
+
 ---
 # Men's
 
@@ -162,6 +176,17 @@ Calibration error = |predicted - actual|. Direction: overconf = model too confid
 | 2025 | Memphis | Colorado St | 0.487 | 0.124 | 0.210 | **12-UPSET** | v5 |
 | 2025 | Michigan | UC San Diego | 0.470 | 0.966 | 0.950 | 5-seed won | v5 |
 | 2025 | Oregon | Liberty | 0.505 | 0.723 | 0.724 | 5-seed won | v7 |
+
+### 5-12 Commentary
+
+The game-by-game comparison tells the story clearly:
+
+- **Iowa/Richmond 2022 upset**: RF gave 0.800, v5 gave 0.950, v7 gave 0.945. RF was least wrong, but only because it never trusted Iowa much to begin with — not because it saw the upset coming.
+- **Wisconsin/James Madison 2024 upset**: RF gave 0.530 (near coin flip), v5 gave 0.776, v7 gave 0.841. RF's uncertainty happened to be right, but it also gave Wisconsin/James Madison the same confidence as Michigan/UC San Diego (0.470) — a game the 5-seed won easily.
+- **Houston/UAB 2022 (5-seed won)**: RF gave 0.709, v7 gave 0.975. The RF's inability to distinguish a dominant Houston team from a vulnerable Iowa cost it dearly. v7 correctly identified Houston as a near-lock.
+- **Clemson/McNeese St and Memphis/Colorado St 2025**: v5 actually predicted these upsets (0.383 and 0.124), catching what the ratings saw — these 12-seeds were genuinely strong. v7 was closer to 0.5 but still on the right side. RF gave ~0.55-0.64, less wrong than v7 on Clemson but worse than v5.
+
+The pattern: RF's 5-12 predictions are compressed into a narrow band (0.47–0.80), while v5/v7 spread from 0.12 to 0.975. The wider spread means v5/v7 are more right when they're right and more wrong when they're wrong — but overall, the wider spread wins on Brier because most 5-seeds do win and the model is rewarded for confidently backing them.
 
 ## Calibration Curves (20-bin)
 
