@@ -420,31 +420,9 @@ def game_html(g, data):
 # ═══════════════════════════════════════════════════
 
 def liveblog_html(data):
-    entries = []
-    for entry in reversed(data['liveblog']):
-        etype = entry.get('type', 'game')
-        ok = entry.get('model_correct', True)
-
-        if etype == 'daily_summary':
-            icon, cls = '&#128202;', 'bl-note'
-        elif ok:
-            icon, cls = '&#10003;', 'bl-ok'
-        else:
-            icon, cls = '&#10007;', 'bl-x'
-
-        meta = ' &middot; '.join(
-            x for x in [entry.get('round', ''), entry.get('gender', ''), entry.get('date', '')] if x)
-
-        entries.append(
-            f'<div class="bl-e {cls}">'
-            f'<div class="bl-h"><span class="bl-i">{icon}</span>'
-            f'<span class="bl-t">{entry.get("title", "")}</span>'
-            f'<span class="bl-r">{meta}</span></div>'
-            f'<div class="bl-c">{entry.get("commentary", "")}</div></div>'
-        )
-
-    if not entries:
-        entries.append(
+    blog = data['liveblog']
+    if not blog:
+        return (
             '<div class="bl-e bl-note" style="text-align:center;padding:30px;">'
             '<div class="bl-c" style="color:#94a3b8;">'
             '<b>Waiting for tournament to begin...</b><br><br>'
@@ -455,7 +433,57 @@ def liveblog_html(data):
             '</div></div>'
         )
 
-    return '\n'.join(entries)
+    # Group entries by date, reverse chronological
+    from collections import OrderedDict
+    by_date = {}
+    for entry in blog:
+        d = entry.get('date', '?')
+        by_date.setdefault(d, []).append(entry)
+
+    parts = []
+    for date_str in sorted(by_date.keys(), reverse=True):
+        day_entries = by_date[date_str]
+
+        # Date header with day record
+        games = [e for e in day_entries if e.get('type', 'game') == 'game']
+        summary = next((e for e in day_entries if e['type'] == 'daily_summary'), None)
+        n_correct = sum(1 for g in games if g.get('model_correct'))
+        day_label = datetime.strptime(date_str, '%Y-%m-%d').strftime('%A, %b %d') if date_str != '?' else '?'
+        record_str = f' &mdash; {n_correct}/{len(games)}' if games else ''
+        parts.append(
+            f'<div class="bl-date">'
+            f'<span>{day_label}</span><span class="bl-date-r">{record_str}</span>'
+            f'</div>'
+        )
+
+        # Daily summary first if present
+        if summary:
+            parts.append(
+                f'<div class="bl-e bl-note">'
+                f'<div class="bl-h"><span class="bl-i">&#128202;</span>'
+                f'<span class="bl-t">{summary["title"]}</span></div>'
+                f'<div class="bl-c">{summary["commentary"]}</div></div>'
+            )
+
+        # Then game entries in reverse order (latest first within the day)
+        for entry in reversed(games):
+            ok = entry.get('model_correct', True)
+            icon = '&#10003;' if ok else '&#10007;'
+            cls = 'bl-ok' if ok else 'bl-x'
+            icls = 'i-ok' if ok else 'i-x'
+
+            meta = ' &middot; '.join(
+                x for x in [entry.get('round', ''), entry.get('gender', '')] if x)
+
+            parts.append(
+                f'<div class="bl-e {cls}">'
+                f'<div class="bl-h"><span class="bl-i">{icon}</span>'
+                f'<span class="bl-t">{entry.get("title", "")}</span>'
+                f'<span class="bl-r">{meta}</span></div>'
+                f'<div class="bl-c">{entry.get("commentary", "")}</div></div>'
+            )
+
+    return '\n'.join(parts)
 
 
 # ═══════════════════════════════════════════════════
@@ -611,6 +639,8 @@ header .sub{{font-size:12px;color:#94a3b8;margin-top:4px}}
 .bl-t{{font-weight:600;font-size:12px;color:#1e293b}}
 .bl-r{{font-size:10px;color:#94a3b8;margin-left:auto}}
 .bl-c{{font-size:11px;color:#475569;margin-top:4px;line-height:1.5}}
+.bl-date{{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#f1f5f9;font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;position:sticky;top:40px;z-index:1}}
+.bl-date-r{{font-weight:600;color:#64748b}}
 </style>
 </head>
 <body>
