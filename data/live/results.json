@@ -370,5 +370,17 @@
     "espn_event_id": "401856502",
     "winner_name": "Washington Huskies",
     "loser_name": "South Dakota State Jackrabbits"
+  },
+  {
+    "winner_id": 3268,
+    "loser_id": 3293,
+    "winner_score": 99,
+    "loser_score": 67,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856468",
+    "winner_name": "Maryland Terrapins",
+    "loser_name": "Murray State Racers"
   }
 ]
