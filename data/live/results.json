@@ -46,5 +46,113 @@
     "espn_event_id": "401856435",
     "winner_name": "Howard Bison",
     "loser_name": "UMBC Retrievers"
+  },
+  {
+    "winner_id": 1181,
+    "loser_id": 1373,
+    "winner_score": 71,
+    "loser_score": 65,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856478",
+    "winner_name": "Duke Blue Devils",
+    "loser_name": "Siena Saints"
+  },
+  {
+    "winner_id": 1277,
+    "loser_id": 1295,
+    "winner_score": 92,
+    "loser_score": 67,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856483",
+    "winner_name": "Michigan State Spartans",
+    "loser_name": "North Dakota State Bison"
+  },
+  {
+    "winner_id": 1304,
+    "loser_id": 1407,
+    "winner_score": 76,
+    "loser_score": 47,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856489",
+    "winner_name": "Nebraska Cornhuskers",
+    "loser_name": "Troy Trojans"
+  },
+  {
+    "winner_id": 1116,
+    "loser_id": 1218,
+    "winner_score": 97,
+    "loser_score": 78,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856481",
+    "winner_name": "Arkansas Razorbacks",
+    "loser_name": "Hawai'i Rainbow Warriors"
+  },
+  {
+    "winner_id": 1219,
+    "loser_id": 1458,
+    "winner_score": 83,
+    "loser_score": 82,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856480",
+    "winner_name": "High Point Panthers",
+    "loser_name": "Wisconsin Badgers"
+  },
+  {
+    "winner_id": 1435,
+    "loser_id": 1270,
+    "winner_score": 78,
+    "loser_score": 68,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856488",
+    "winner_name": "Vanderbilt Commodores",
+    "loser_name": "McNeese Cowboys"
+  },
+  {
+    "winner_id": 1257,
+    "loser_id": 1378,
+    "winner_score": 83,
+    "loser_score": 79,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856482",
+    "winner_name": "Louisville Cardinals",
+    "loser_name": "South Florida Bulls"
+  },
+  {
+    "winner_id": 1395,
+    "loser_id": 1326,
+    "winner_score": 66,
+    "loser_score": 64,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856479",
+    "winner_name": "TCU Horned Frogs",
+    "loser_name": "Ohio State Buckeyes"
+  },
+  {
+    "winner_id": 3380,
+    "loser_id": 3359,
+    "winner_score": 65,
+    "loser_score": 53,
+    "round": "Play-In",
+    "date": "2026-03-19",
+    "gender": "W",
+    "espn_event_id": "401859471",
+    "winner_name": "Southern Jaguars",
+    "loser_name": "Samford Bulldogs"
   }
 ]
