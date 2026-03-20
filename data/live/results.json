@@ -418,5 +418,17 @@
     "espn_event_id": "401856470",
     "winner_name": "Ole Miss Rebels",
     "loser_name": "Gonzaga Bulldogs"
+  },
+  {
+    "winner_id": 3400,
+    "loser_id": 3283,
+    "winner_score": 87,
+    "loser_score": 45,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856475",
+    "winner_name": "Texas Longhorns",
+    "loser_name": "Missouri State Lady Bears"
   }
 ]
