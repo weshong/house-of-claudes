@@ -346,5 +346,29 @@
     "espn_event_id": "401856526",
     "winner_name": "Virginia Cavaliers",
     "loser_name": "Wright State Raiders"
+  },
+  {
+    "winner_id": 3124,
+    "loser_id": 3304,
+    "winner_score": 67,
+    "loser_score": 62,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856472",
+    "winner_name": "Baylor Bears",
+    "loser_name": "Nebraska Cornhuskers"
+  },
+  {
+    "winner_id": 3449,
+    "loser_id": 3355,
+    "winner_score": 72,
+    "loser_score": 54,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856502",
+    "winner_name": "Washington Huskies",
+    "loser_name": "South Dakota State Jackrabbits"
   }
 ]
