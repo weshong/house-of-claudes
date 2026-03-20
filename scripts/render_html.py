@@ -347,12 +347,49 @@ class BracketTracker:
         return games
 
 
+def _bracket_slot_order(slot):
+    """Return a sort key that gives proper bracket visual ordering.
+
+    NCAA bracket structure (per region):
+      R64: 1v16, 8v9, 5v12, 4v13, 6v11, 3v14, 7v10, 2v15
+      R32: (1/16 vs 8/9), (4/13 vs 5/12), (6/11 vs 3/14), (7/10 vs 2/15)
+      S16: top-half vs bottom-half top, top-half vs bottom-half bottom
+      E8:  region final
+
+    Slot naming: R1W1=1v16, R1W2=2v15, ..., R1W8=8v9
+                 R2W1=R1W1+R1W8, R2W2=R1W2+R1W7, R2W3=R1W3+R1W6, R2W4=R1W4+R1W5
+                 R3W1=R2W1+R2W4, R3W2=R2W2+R2W3
+    """
+    # Extract the round prefix and slot number
+    # Slots look like: R1W1, R2W3, R3X1, R4Z1, etc.
+    # Play-in slots don't start with R (e.g., X16, Y11)
+    if len(slot) < 4 or slot[0] != 'R':
+        return (0, slot)  # Play-in games first, alpha order
+
+    rnd = int(slot[1])
+    suffix = int(slot[3:]) if slot[3:].isdigit() else 0
+
+    # Bracket-correct ordering per round
+    r64_order = {1: 0, 8: 1, 5: 2, 4: 3, 6: 4, 3: 5, 7: 6, 2: 7}
+    r32_order = {1: 0, 4: 1, 3: 2, 2: 3}
+    s16_order = {1: 0, 2: 1}
+
+    if rnd == 1:
+        return (1, r64_order.get(suffix, suffix))
+    elif rnd == 2:
+        return (2, r32_order.get(suffix, suffix))
+    elif rnd == 3:
+        return (3, s16_order.get(suffix, suffix))
+    else:
+        return (rnd, suffix)
+
+
 def bracket_region_html(tracker, region, region_name, data):
     games = tracker.get_games()
     rg = [g for g in games if g['region'] == region]
 
     round_order = ['Play-In', 'R64', 'R32', 'Sweet 16', 'Elite 8']
-    rounds = {r: sorted([g for g in rg if g['round'] == r], key=lambda g: g['slot'])
+    rounds = {r: sorted([g for g in rg if g['round'] == r], key=lambda g: _bracket_slot_order(g['slot']))
               for r in round_order}
 
     h = f'<div class="region"><div class="region-hdr">Region {region} \u2014 {region_name}</div>'
