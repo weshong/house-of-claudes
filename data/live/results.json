@@ -298,5 +298,17 @@
     "espn_event_id": "401856525",
     "winner_name": "Kentucky Wildcats",
     "loser_name": "Santa Clara Broncos"
+  },
+  {
+    "winner_id": 1403,
+    "loser_id": 1103,
+    "winner_score": 91,
+    "loser_score": 71,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856520",
+    "winner_name": "Texas Tech Red Raiders",
+    "loser_name": "Akron Zips"
   }
 ]
