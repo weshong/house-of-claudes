@@ -564,7 +564,7 @@ def render(data=None):
         pi_v7c = sum(1 for r in playin_games if r['v7_correct'])
         n_playin = len(playin_games)
         ups = sum(1 for r in kaggle_games if r['is_upset'])
-        ups_caught = sum(1 for r in kaggle_games if r['is_upset'] and r['v7_correct'])
+        ups_caught = sum(1 for r in kaggle_games if r['is_upset'] and 0.4 <= r['v7_pred'] <= 0.6)
     else:
         last_kaggle = None
         last_playin = None
