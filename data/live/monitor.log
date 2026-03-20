@@ -126,3 +126,14 @@ Press Ctrl+C to stop.
   Pushing to GitHub...
   Pushed to GitHub.
   Next check: 18:50:45
+
+[2026-03-19 18:50:45] Checking ESPN for new tournament games...
+  Found 2 new game(s):
+    NEW: (1) Michigan 101, (16) Howard 80 [R64] — CORRECT
+    NEW: (10) Texas A&M 63, (7) St Mary's CA 50 [R64] — MISS
+  Saved: 16 total results, 18 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (82 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 19:05:47

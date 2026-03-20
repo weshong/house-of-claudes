@@ -190,5 +190,17 @@
     "espn_event_id": "401856492",
     "winner_name": "Texas A&M Aggies",
     "loser_name": "Saint Mary's Gaels"
+  },
+  {
+    "winner_id": 1400,
+    "loser_id": 1140,
+    "winner_score": 79,
+    "loser_score": 71,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856484",
+    "winner_name": "Texas Longhorns",
+    "loser_name": "BYU Cougars"
   }
 ]

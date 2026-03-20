@@ -236,5 +236,19 @@
     "v7_pred": 0.4698,
     "seed_pred": 0.2299,
     "rf_pred": 0.378
+  },
+  {
+    "timestamp": "2026-03-20T02:05:47.785803+00:00",
+    "type": "game",
+    "title": "(11) Texas 79, (6) BYU 71",
+    "commentary": "(11) Texas takes it over (6) BYU, winning by 8. Model leaned wrong at 63% for (6) BYU. Moderate miss. UPSET: 11-seed over 6-seed! Per-game Brier contribution: 0.399 (ouch).",
+    "round": "R64",
+    "gender": "M",
+    "date": "2026-03-19",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.3684,
+    "seed_pred": 0.1177,
+    "rf_pred": 0.447
   }
 ]
