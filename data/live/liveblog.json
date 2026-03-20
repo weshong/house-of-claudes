@@ -516,5 +516,33 @@
     "v7_pred": 0.975,
     "seed_pred": 0.975,
     "rf_pred": 0.909
+  },
+  {
+    "timestamp": "2026-03-20T22:37:26.214917+00:00",
+    "type": "game",
+    "title": "(6) Tennessee 78, (11) Miami OH 56",
+    "commentary": "Blowout. (6) Tennessee cruised past (11) Miami OH by 22. Model had this at 95% \u2014 easy call. Per-game Brier contribution: 0.003 (great).",
+    "round": "R64",
+    "gender": "M",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9497,
+    "seed_pred": 0.8823,
+    "rf_pred": 0.541
+  },
+  {
+    "timestamp": "2026-03-20T22:37:26.214957+00:00",
+    "type": "game",
+    "title": "(9) Utah St 86, (8) Villanova 76",
+    "commentary": "Comfortable win for (9) Utah St, up 10 over (8) Villanova. Close call \u2014 model gave 56%. We'll take it. UPSET: 9-seed over 8-seed! [Got it: v7, RF | Missed: Seed] Per-game Brier contribution: 0.190 (ouch).",
+    "round": "R64",
+    "gender": "M",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": true,
+    "v7_pred": 0.5642,
+    "seed_pred": 0.4006,
+    "rf_pred": 0.548
   }
 ]

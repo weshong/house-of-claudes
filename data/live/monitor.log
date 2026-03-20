@@ -390,3 +390,17 @@ Press Ctrl+C to stop.
 [2026-03-20 14:58:20] Checking ESPN for new tournament games...
   No new games. (35 total results)
   Next check: 15:13:21
+
+[2026-03-20 15:13:21] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (1) Texas 87, (16) Missouri St 45 [R64] — CORRECT
+  Saved: 36 total results, 38 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (119 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 15:28:23
+
+[2026-03-20 15:28:23] Checking ESPN for new tournament games...
+  No new games. (36 total results)
+  Next check: 15:43:24

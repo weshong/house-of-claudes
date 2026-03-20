@@ -430,5 +430,29 @@
     "espn_event_id": "401856475",
     "winner_name": "Texas Longhorns",
     "loser_name": "Missouri State Lady Bears"
+  },
+  {
+    "winner_id": 1397,
+    "loser_id": 1275,
+    "winner_score": 78,
+    "loser_score": 56,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856527",
+    "winner_name": "Tennessee Volunteers",
+    "loser_name": "Miami (OH) RedHawks"
+  },
+  {
+    "winner_id": 1429,
+    "loser_id": 1437,
+    "winner_score": 86,
+    "loser_score": 76,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856528",
+    "winner_name": "Utah State Aggies",
+    "loser_name": "Villanova Wildcats"
   }
 ]
