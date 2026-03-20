@@ -303,3 +303,11 @@ Press Ctrl+C to stop.
   Pushing to GitHub...
   Pushed to GitHub.
   Next check: 12:13:05
+
+[2026-03-20 12:13:05] Checking ESPN for new tournament games...
+  No new games. (26 total results)
+  Next check: 12:28:06
+
+[2026-03-20 12:28:06] Checking ESPN for new tournament games...
+  No new games. (26 total results)
+  Next check: 12:43:06
