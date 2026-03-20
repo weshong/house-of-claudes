@@ -250,5 +250,17 @@
     "espn_event_id": "401856493",
     "winner_name": "Houston Cougars",
     "loser_name": "Idaho Vandals"
+  },
+  {
+    "winner_id": 1211,
+    "loser_id": 1244,
+    "winner_score": 73,
+    "loser_score": 64,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856485",
+    "winner_name": "Gonzaga Bulldogs",
+    "loser_name": "Kennesaw State Owls"
   }
 ]
