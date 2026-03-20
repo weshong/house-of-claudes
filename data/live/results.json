@@ -226,5 +226,29 @@
     "espn_event_id": "401856491",
     "winner_name": "Illinois Fighting Illini",
     "loser_name": "Pennsylvania Quakers"
+  },
+  {
+    "winner_id": 1387,
+    "loser_id": 1208,
+    "winner_score": 102,
+    "loser_score": 77,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856487",
+    "winner_name": "Saint Louis Billikens",
+    "loser_name": "Georgia Bulldogs"
+  },
+  {
+    "winner_id": 1222,
+    "loser_id": 1225,
+    "winner_score": 78,
+    "loser_score": 47,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856493",
+    "winner_name": "Houston Cougars",
+    "loser_name": "Idaho Vandals"
   }
 ]
