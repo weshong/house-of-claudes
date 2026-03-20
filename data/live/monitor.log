@@ -293,3 +293,13 @@ Press Ctrl+C to stop.
   Pushing to GitHub...
   Pushed to GitHub.
   Next check: 11:58:03
+
+[2026-03-20 11:58:03] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (5) Texas Tech 91, (12) Akron 71 [R64] — CORRECT
+  Saved: 26 total results, 28 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (112 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 12:13:05

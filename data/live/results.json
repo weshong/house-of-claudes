@@ -310,5 +310,29 @@
     "espn_event_id": "401856520",
     "winner_name": "Texas Tech Red Raiders",
     "loser_name": "Akron Zips"
+  },
+  {
+    "winner_id": 1112,
+    "loser_id": 1254,
+    "winner_score": 92,
+    "loser_score": 58,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856529",
+    "winner_name": "Arizona Wildcats",
+    "loser_name": "Long Island University Sharks"
+  },
+  {
+    "winner_id": 3332,
+    "loser_id": 3439,
+    "winner_score": 70,
+    "loser_score": 60,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856476",
+    "winner_name": "Oregon Ducks",
+    "loser_name": "Virginia Tech Hokies"
   }
 ]
