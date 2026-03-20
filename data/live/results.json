@@ -382,5 +382,29 @@
     "espn_event_id": "401856468",
     "winner_name": "Maryland Terrapins",
     "loser_name": "Murray State Racers"
+  },
+  {
+    "winner_id": 1235,
+    "loser_id": 1398,
+    "winner_score": 108,
+    "loser_score": 74,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856524",
+    "winner_name": "Iowa State Cyclones",
+    "loser_name": "Tennessee State Tigers"
+  },
+  {
+    "winner_id": 1104,
+    "loser_id": 1220,
+    "winner_score": 90,
+    "loser_score": 70,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856521",
+    "winner_name": "Alabama Crimson Tide",
+    "loser_name": "Hofstra Pride"
   }
 ]
