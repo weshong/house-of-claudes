@@ -202,5 +202,17 @@
     "espn_event_id": "401856484",
     "winner_name": "Texas Longhorns",
     "loser_name": "BYU Cougars"
+  },
+  {
+    "winner_id": 3438,
+    "loser_id": 3113,
+    "winner_score": 57,
+    "loser_score": 55,
+    "round": "Play-In",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401859472",
+    "winner_name": "Virginia Cavaliers",
+    "loser_name": "Arizona State Sun Devils"
   }
 ]

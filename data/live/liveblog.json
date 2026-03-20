@@ -250,5 +250,19 @@
     "v7_pred": 0.3684,
     "seed_pred": 0.1177,
     "rf_pred": 0.447
+  },
+  {
+    "timestamp": "2026-03-20T03:20:51.261994+00:00",
+    "type": "game",
+    "title": "(10) Virginia 57, (10) Arizona St 55",
+    "commentary": "Nail-biter! (10) Virginia edges (10) Arizona St by just 2. Coin flip at 51%. Got lucky on this one. Per-game Brier contribution: 0.243 (ouch).",
+    "round": "Play-In",
+    "gender": "W",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.5067,
+    "seed_pred": 0.5,
+    "rf_pred": 0.556
   }
 ]
