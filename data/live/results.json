@@ -406,5 +406,17 @@
     "espn_event_id": "401856521",
     "winner_name": "Alabama Crimson Tide",
     "loser_name": "Hofstra Pride"
+  },
+  {
+    "winner_id": 3279,
+    "loser_id": 3211,
+    "winner_score": 81,
+    "loser_score": 66,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856470",
+    "winner_name": "Ole Miss Rebels",
+    "loser_name": "Gonzaga Bulldogs"
   }
 ]
