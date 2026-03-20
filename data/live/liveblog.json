@@ -544,5 +544,19 @@
     "v7_pred": 0.5642,
     "seed_pred": 0.4006,
     "rf_pred": 0.548
+  },
+  {
+    "timestamp": "2026-03-20T23:22:29.569711+00:00",
+    "type": "game",
+    "title": "(2) Michigan 83, (15) Holy Cross 48",
+    "commentary": "Blowout. (2) Michigan cruised past (15) Holy Cross by 35. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.975,
+    "seed_pred": 0.975,
+    "rf_pred": 0.937
   }
 ]

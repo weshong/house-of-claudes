@@ -454,5 +454,17 @@
     "espn_event_id": "401856528",
     "winner_name": "Utah State Aggies",
     "loser_name": "Villanova Wildcats"
+  },
+  {
+    "winner_id": 3276,
+    "loser_id": 3221,
+    "winner_score": 83,
+    "loser_score": 48,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856477",
+    "winner_name": "Michigan Wolverines",
+    "loser_name": "Holy Cross Crusaders"
   }
 ]

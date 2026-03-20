@@ -404,3 +404,36 @@ Press Ctrl+C to stop.
 [2026-03-20 15:28:23] Checking ESPN for new tournament games...
   No new games. (36 total results)
   Next check: 15:43:24
+Starting game monitor (polling every 900s / 15min)
+Results file: C:\Users\wesho\Projects\house-of-claudes\data\live\results.json
+Liveblog file: C:\Users\wesho\Projects\house-of-claudes\data\live\liveblog.json
+Existing results: 36
+Press Ctrl+C to stop.
+
+
+[2026-03-20 15:37:25] Checking ESPN for new tournament games...
+  Found 2 new game(s):
+    NEW: (6) Tennessee 78, (11) Miami OH 56 [R64] — CORRECT
+    NEW: (9) Utah St 86, (8) Villanova 76 [R64] — CORRECT
+  Saved: 38 total results, 40 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (121 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 15:52:27
+
+[2026-03-20 15:52:27] Checking ESPN for new tournament games...
+  No new games. (38 total results)
+  Next check: 16:07:28
+
+[2026-03-20 16:07:28] Checking ESPN for new tournament games...
+  No new games. (38 total results)
+  Next check: 16:22:28
+
+[2026-03-20 16:22:28] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (2) Michigan 83, (15) Holy Cross 48 [R64] — CORRECT
+  Saved: 39 total results, 41 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (121 KB)
+  Pushing to GitHub...
