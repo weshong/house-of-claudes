@@ -266,7 +266,7 @@
     "rf_pred": 0.556
   },
   {
-    "timestamp": "2026-03-20T03:56:41.013725+00:00",
+    "timestamp": "2026-03-20T03:57:14.625169+00:00",
     "type": "game",
     "title": "(3) Illinois 105, (14) Penn 70",
     "commentary": "Blowout. (3) Illinois cruised past (14) Penn by 35. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
@@ -280,7 +280,7 @@
     "rf_pred": 0.701
   },
   {
-    "timestamp": "2026-03-20T04:26:43.553607+00:00",
+    "timestamp": "2026-03-20T04:27:17.026598+00:00",
     "type": "game",
     "title": "(9) St Louis 102, (8) Georgia 77",
     "commentary": "Blowout. (9) St Louis cruised past (8) Georgia by 25. Model leaned wrong at 60% for (8) Georgia. Moderate miss. UPSET: 9-seed over 8-seed! [Got it: RF | Missed: v7, Seed] Per-game Brier contribution: 0.366 (ouch).",
@@ -294,7 +294,7 @@
     "rf_pred": 0.536
   },
   {
-    "timestamp": "2026-03-20T04:26:43.553749+00:00",
+    "timestamp": "2026-03-20T04:27:17.026632+00:00",
     "type": "game",
     "title": "(2) Houston 78, (15) Idaho 47",
     "commentary": "Blowout. (2) Houston cruised past (15) Idaho by 31. Model had this at 96% \u2014 easy call. Per-game Brier contribution: 0.002 (great).",
