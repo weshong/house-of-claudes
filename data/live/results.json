@@ -274,5 +274,17 @@
     "espn_event_id": "401856471",
     "winner_name": "Duke Blue Devils",
     "loser_name": "Charleston Cougars"
+  },
+  {
+    "winner_id": 3395,
+    "loser_id": 3471,
+    "winner_score": 86,
+    "loser_score": 40,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856501",
+    "winner_name": "TCU Horned Frogs",
+    "loser_name": "UC San Diego Tritons"
   }
 ]
