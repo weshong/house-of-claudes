@@ -334,5 +334,17 @@
     "espn_event_id": "401856476",
     "winner_name": "Oregon Ducks",
     "loser_name": "Virginia Tech Hokies"
+  },
+  {
+    "winner_id": 1438,
+    "loser_id": 1460,
+    "winner_score": 82,
+    "loser_score": 73,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856526",
+    "winner_name": "Virginia Cavaliers",
+    "loser_name": "Wright State Raiders"
   }
 ]
