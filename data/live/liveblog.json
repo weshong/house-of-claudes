@@ -558,5 +558,19 @@
     "v7_pred": 0.975,
     "seed_pred": 0.975,
     "rf_pred": 0.937
+  },
+  {
+    "timestamp": "2026-03-20T23:37:31.644381+00:00",
+    "type": "game",
+    "title": "(4) North Carolina 82, (13) W Illinois 51",
+    "commentary": "Blowout. (4) North Carolina cruised past (13) W Illinois by 31. Model had this at 96% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9619,
+    "seed_pred": 0.9741,
+    "rf_pred": 0.855
   }
 ]

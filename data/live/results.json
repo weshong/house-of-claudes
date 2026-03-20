@@ -466,5 +466,17 @@
     "espn_event_id": "401856477",
     "winner_name": "Michigan Wolverines",
     "loser_name": "Holy Cross Crusaders"
+  },
+  {
+    "winner_id": 3314,
+    "loser_id": 3442,
+    "winner_score": 82,
+    "loser_score": 51,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856467",
+    "winner_name": "North Carolina Tar Heels",
+    "loser_name": "Western Illinois Leathernecks"
   }
 ]
