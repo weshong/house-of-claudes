@@ -154,5 +154,17 @@
     "espn_event_id": "401859471",
     "winner_name": "Southern Jaguars",
     "loser_name": "Samford Bulldogs"
+  },
+  {
+    "winner_id": 1433,
+    "loser_id": 1314,
+    "winner_score": 82,
+    "loser_score": 78,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856490",
+    "winner_name": "VCU Rams",
+    "loser_name": "North Carolina Tar Heels"
   }
 ]
