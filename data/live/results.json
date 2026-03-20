@@ -166,5 +166,29 @@
     "espn_event_id": "401856490",
     "winner_name": "VCU Rams",
     "loser_name": "North Carolina Tar Heels"
+  },
+  {
+    "winner_id": 1276,
+    "loser_id": 1224,
+    "winner_score": 101,
+    "loser_score": 80,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856486",
+    "winner_name": "Michigan Wolverines",
+    "loser_name": "Howard Bison"
+  },
+  {
+    "winner_id": 1401,
+    "loser_id": 1388,
+    "winner_score": 63,
+    "loser_score": 50,
+    "round": "R64",
+    "date": "2026-03-19",
+    "gender": "M",
+    "espn_event_id": "401856492",
+    "winner_name": "Texas A&M Aggies",
+    "loser_name": "Saint Mary's Gaels"
   }
 ]

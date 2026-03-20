@@ -112,3 +112,17 @@ Press Ctrl+C to stop.
   Pushing to GitHub...
   Pushed to GitHub.
   Next check: 18:20:42
+
+[2026-03-19 18:20:42] Checking ESPN for new tournament games...
+  No new games. (13 total results)
+  Next check: 18:35:43
+
+[2026-03-19 18:35:43] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (11) VCU 82, (6) North Carolina 78 [R64] — MISS
+  Saved: 14 total results, 16 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (81 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 18:50:45

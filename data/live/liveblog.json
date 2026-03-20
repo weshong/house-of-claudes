@@ -208,5 +208,33 @@
     "v7_pred": 0.2687,
     "seed_pred": 0.1177,
     "rf_pred": 0.325
+  },
+  {
+    "timestamp": "2026-03-20T01:50:45.969668+00:00",
+    "type": "game",
+    "title": "(1) Michigan 101, (16) Howard 80",
+    "commentary": "Blowout. (1) Michigan cruised past (16) Howard by 21. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R64",
+    "gender": "M",
+    "date": "2026-03-19",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.975,
+    "seed_pred": 0.975,
+    "rf_pred": 0.904
+  },
+  {
+    "timestamp": "2026-03-20T01:50:45.969723+00:00",
+    "type": "game",
+    "title": "(10) Texas A&M 63, (7) St Mary's CA 50",
+    "commentary": "Comfortable win for (10) Texas A&M, up 13 over (7) St Mary's CA. Essentially a toss-up miss (53%). Minimal Brier damage. UPSET: 10-seed over 7-seed! Per-game Brier contribution: 0.281 (ouch).",
+    "round": "R64",
+    "gender": "M",
+    "date": "2026-03-19",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.4698,
+    "seed_pred": 0.2299,
+    "rf_pred": 0.378
   }
 ]
