@@ -65,13 +65,14 @@ def load_all_data():
     v7 = load_preds('submission_stage2_v7_lgb40-lr60-blend_qtl1w_20260318_202646.csv')
     seed = load_preds('baseline_seed_2026.csv')
     rf = load_preds('baseline_rf_2026.csv')
+    kaito = load_preds('kaito510_goto_winning.csv')
 
     results = load_json(os.path.join(LIVE_DIR, 'results.json'), [])
     liveblog = load_json(os.path.join(LIVE_DIR, 'liveblog.json'), [])
 
     return {
         'team_name': team_name, 'seed_info': seed_info,
-        'v7': v7, 'seed': seed, 'rf': rf,
+        'v7': v7, 'seed': seed, 'rf': rf, 'kaito': kaito,
         'results': results, 'liveblog': liveblog,
         'seeds_m': seeds_m, 'seeds_w': seeds_w,
         'slots_m': slots_m, 'slots_w': slots_w,
@@ -109,8 +110,8 @@ def compute_brier(data):
 
     records = []
     # Separate cumulative trackers for Kaggle-scored games (non-Play-In) and Play-In
-    cum = {'v7': 0, 'seed': 0, 'rf': 0}
-    cum_playin = {'v7': 0, 'seed': 0, 'rf': 0}
+    cum = {'v7': 0, 'seed': 0, 'rf': 0, 'kaito': 0}
+    cum_playin = {'v7': 0, 'seed': 0, 'rf': 0, 'kaito': 0}
     n_kaggle = 0
     n_playin = 0
 
@@ -122,7 +123,7 @@ def compute_brier(data):
         is_playin = r['round'] == 'Play-In'
 
         game_brier = {}
-        for name, preds in [('v7', data['v7']), ('seed', data['seed']), ('rf', data['rf'])]:
+        for name, preds in [('v7', data['v7']), ('seed', data['seed']), ('rf', data['rf']), ('kaito', data['kaito'])]:
             p = preds.get(m, 0.5)
             game_brier[name] = (p - actual) ** 2
 
@@ -152,16 +153,19 @@ def compute_brier(data):
             'v7_correct': get_pred(w, l, data['v7']) >= 0.5,
             'seed_correct': get_pred(w, l, data['seed']) >= 0.5,
             'rf_correct': get_pred(w, l, data['rf']) >= 0.5,
+            'kaito_correct': get_pred(w, l, data['kaito']) >= 0.5,
         }
 
         if is_playin:
             rec['v7_brier'] = cum_playin['v7'] / n_playin
             rec['seed_brier'] = cum_playin['seed'] / n_playin
             rec['rf_brier'] = cum_playin['rf'] / n_playin
+            rec['kaito_brier'] = cum_playin['kaito'] / n_playin
         else:
             rec['v7_brier'] = cum['v7'] / n_kaggle
             rec['seed_brier'] = cum['seed'] / n_kaggle
             rec['rf_brier'] = cum['rf'] / n_kaggle
+            rec['kaito_brier'] = cum['kaito'] / n_kaggle
 
         records.append(rec)
     return records
@@ -211,6 +215,16 @@ def brier_chart_json(brier_data):
         'type': 'scatter', 'mode': 'lines',
         'line': {'color': '#f59e0b', 'width': 2, 'dash': 'dot'},
         'hovertemplate': 'Game %{x}<br>Brier: %{y:.4f}<extra>RF</extra>',
+    })
+
+    # kaito510 (goto winning solution)
+    traces.append({
+        'x': [r['kaggle_game_num'] for r in kaggle],
+        'y': [round(r['kaito_brier'], 5) for r in kaggle],
+        'name': 'kaito510 (goto)',
+        'type': 'scatter', 'mode': 'lines',
+        'line': {'color': '#8b5cf6', 'width': 2, 'dash': 'dashdot'},
+        'hovertemplate': 'Game %{x}<br>Brier: %{y:.4f}<extra>kaito510</extra>',
     })
 
     # Upset markers
@@ -566,6 +580,7 @@ def render(data=None):
         ('v7', 'v7 (LGB+LR)', data['v7']),
         ('rf', 'RF Baseline', data['rf']),
         ('seed', 'Seed Baseline', data['seed']),
+        ('kaito', 'kaito510 (goto)', data['kaito']),
     ]
 
     bracket_tabs = '<div class="tab-bar">'
@@ -600,6 +615,7 @@ def render(data=None):
         kaggle_brier_str = f"{last_kaggle['v7_brier']:.4f}" if last_kaggle else '—'
         kaggle_seed_str = f"{last_kaggle['seed_brier']:.4f}" if last_kaggle else '—'
         kaggle_rf_str = f"{last_kaggle['rf_brier']:.4f}" if last_kaggle else '—'
+        kaggle_kaito_str = f"{last_kaggle['kaito_brier']:.4f}" if last_kaggle else '—'
         playin_str = f"{last_playin['v7_brier']:.4f}" if last_playin else '—'
         playin_record = f"{pi_v7c}/{n_playin}" if n_playin else '—'
         scoreboard = f'''
@@ -608,8 +624,8 @@ def render(data=None):
           <div class="sc-card"><div class="sc-val">{v7c}/{n_kaggle}</div><div class="sc-lbl">v7 Correct</div></div>
           <div class="sc-card"><div class="sc-val">{kaggle_seed_str}</div><div class="sc-lbl">Seed Brier</div></div>
           <div class="sc-card"><div class="sc-val">{kaggle_rf_str}</div><div class="sc-lbl">RF Brier</div></div>
+          <div class="sc-card"><div class="sc-val">{kaggle_kaito_str}</div><div class="sc-lbl">kaito510 Brier</div></div>
           <div class="sc-card"><div class="sc-val">{ups}</div><div class="sc-lbl">Upsets ({ups_caught} caught)</div></div>
-          <div class="sc-card"><div class="sc-val">{playin_str}</div><div class="sc-lbl">First Four Brier ({playin_record})</div></div>
         </div>'''
     else:
         scoreboard = '''
