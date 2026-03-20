@@ -286,5 +286,17 @@
     "espn_event_id": "401856501",
     "winner_name": "TCU Horned Frogs",
     "loser_name": "UC San Diego Tritons"
+  },
+  {
+    "winner_id": 1246,
+    "loser_id": 1365,
+    "winner_score": 89,
+    "loser_score": 84,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856525",
+    "winner_name": "Kentucky Wildcats",
+    "loser_name": "Santa Clara Broncos"
   }
 ]

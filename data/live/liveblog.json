@@ -266,7 +266,7 @@
     "rf_pred": 0.556
   },
   {
-    "timestamp": "2026-03-20T03:57:14.625169+00:00",
+    "timestamp": "2026-03-20T03:56:41.013725+00:00",
     "type": "game",
     "title": "(3) Illinois 105, (14) Penn 70",
     "commentary": "Blowout. (3) Illinois cruised past (14) Penn by 35. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
@@ -280,7 +280,7 @@
     "rf_pred": 0.701
   },
   {
-    "timestamp": "2026-03-20T04:27:17.026598+00:00",
+    "timestamp": "2026-03-20T04:26:43.553607+00:00",
     "type": "game",
     "title": "(9) St Louis 102, (8) Georgia 77",
     "commentary": "Blowout. (9) St Louis cruised past (8) Georgia by 25. Model leaned wrong at 60% for (8) Georgia. Moderate miss. UPSET: 9-seed over 8-seed! [Got it: RF | Missed: v7, Seed] Per-game Brier contribution: 0.366 (ouch).",
@@ -294,7 +294,7 @@
     "rf_pred": 0.536
   },
   {
-    "timestamp": "2026-03-20T04:27:17.026632+00:00",
+    "timestamp": "2026-03-20T04:26:43.553749+00:00",
     "type": "game",
     "title": "(2) Houston 78, (15) Idaho 47",
     "commentary": "Blowout. (2) Houston cruised past (15) Idaho by 31. Model had this at 96% \u2014 easy call. Per-game Brier contribution: 0.002 (great).",
@@ -308,7 +308,7 @@
     "rf_pred": 0.749
   },
   {
-    "timestamp": "2026-03-20T04:42:18.783760+00:00",
+    "timestamp": "2026-03-20T04:41:45.397801+00:00",
     "type": "game",
     "title": "(3) Gonzaga 73, (14) Kennesaw 64",
     "commentary": "(3) Gonzaga takes it over (14) Kennesaw, winning by 9. Model had this at 94% \u2014 easy call. Per-game Brier contribution: 0.003 (great).",
@@ -322,7 +322,7 @@
     "rf_pred": 0.821
   },
   {
-    "timestamp": "2026-03-20T17:42:56.944835+00:00",
+    "timestamp": "2026-03-20T17:42:21.951188+00:00",
     "type": "game",
     "title": "(3) Duke 81, (14) Col Charleston 64",
     "commentary": "Comfortable win for (3) Duke, up 17 over (14) Col Charleston. Model had this at 97% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
@@ -336,7 +336,7 @@
     "rf_pred": 0.85
   },
   {
-    "timestamp": "2026-03-20T17:57:59.170864+00:00",
+    "timestamp": "2026-03-20T17:57:24.340422+00:00",
     "type": "game",
     "title": "(3) TCU 86, (14) UC San Diego 40",
     "commentary": "Blowout. (3) TCU cruised past (14) UC San Diego by 46. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
@@ -348,5 +348,19 @@
     "v7_pred": 0.975,
     "seed_pred": 0.975,
     "rf_pred": 0.904
+  },
+  {
+    "timestamp": "2026-03-20T18:42:27.724969+00:00",
+    "type": "game",
+    "title": "(7) Kentucky 89, (10) Santa Clara 84",
+    "commentary": "(7) Kentucky takes it over (10) Santa Clara, winning by 5. Significant miss \u2014 we had 80% on (10) Santa Clara. Hurts the Brier. [Got it: Seed, RF | Missed: v7] Per-game Brier contribution: 0.647 (ouch).",
+    "round": "R64",
+    "gender": "M",
+    "date": "2026-03-20",
+    "model_correct": false,
+    "is_upset": false,
+    "v7_pred": 0.1953,
+    "seed_pred": 0.7701,
+    "rf_pred": 0.513
   }
 ]

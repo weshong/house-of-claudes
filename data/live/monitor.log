@@ -255,3 +255,23 @@ Press Ctrl+C to stop.
 [2026-03-20 10:27:55] Checking ESPN for new tournament games...
   No new games. (22 total results)
   Next check: 10:42:56
+
+[2026-03-20 10:42:56] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (3) Duke 81, (14) Col Charleston 64 [R64] — CORRECT
+  Saved: 23 total results, 25 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (110 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 10:57:58
+
+[2026-03-20 10:57:58] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (3) TCU 86, (14) UC San Diego 40 [R64] — CORRECT
+  Saved: 24 total results, 26 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (111 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 11:13:00
