@@ -698,5 +698,19 @@
     "v7_pred": 0.9726,
     "seed_pred": 0.975,
     "rf_pred": 0.816
+  },
+  {
+    "timestamp": "2026-03-21T04:09:04.170515+00:00",
+    "type": "game",
+    "title": "(2) Purdue 104, (15) Queens NC 71",
+    "commentary": "Blowout. (2) Purdue cruised past (15) Queens NC by 33. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R64",
+    "gender": "M",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.975,
+    "seed_pred": 0.975,
+    "rf_pred": 0.671
   }
 ]
