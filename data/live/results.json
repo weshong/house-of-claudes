@@ -706,5 +706,17 @@
     "espn_event_id": "401856510",
     "winner_name": "Virginia Cavaliers",
     "loser_name": "Georgia Lady Bulldogs"
+  },
+  {
+    "winner_id": 3323,
+    "loser_id": 3193,
+    "winner_score": 79,
+    "loser_score": 60,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856517",
+    "winner_name": "Notre Dame Fighting Irish",
+    "loser_name": "Fairfield Stags"
   }
 ]

@@ -845,5 +845,19 @@
     "v7_pred": 0.2385,
     "seed_pred": 0.2299,
     "rf_pred": 0.488
+  },
+  {
+    "timestamp": "2026-03-21T20:13:47.185016+00:00",
+    "type": "game",
+    "title": "(6) Notre Dame 79, (11) Fairfield 60",
+    "commentary": "Comfortable win for (6) Notre Dame, up 19 over (11) Fairfield. Model correctly favored the winner at 81%.",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8054,
+    "seed_pred": 0.8823,
+    "rf_pred": 0.694
   }
 ]
