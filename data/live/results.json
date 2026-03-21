@@ -574,17 +574,5 @@
     "espn_event_id": "401856473",
     "winner_name": "Texas Tech Lady Raiders",
     "loser_name": "Villanova Wildcats"
-  },
-  {
-    "winner_id": 1345,
-    "loser_id": 1474,
-    "winner_score": 104,
-    "loser_score": 71,
-    "round": "R64",
-    "date": "2026-03-20",
-    "gender": "M",
-    "espn_event_id": "401856519",
-    "winner_name": "Purdue Boilermakers",
-    "loser_name": "Queens University Royals"
   }
 ]
