@@ -742,5 +742,17 @@
     "espn_event_id": "401856513",
     "winner_name": "Alabama Crimson Tide",
     "loser_name": "Rhode Island Rams"
+  },
+  {
+    "winner_id": 3163,
+    "loser_id": 3427,
+    "winner_score": 90,
+    "loser_score": 52,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856503",
+    "winner_name": "UConn Huskies",
+    "loser_name": "UTSA Roadrunners"
   }
 ]
