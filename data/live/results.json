@@ -682,5 +682,17 @@
     "espn_event_id": "401856518",
     "winner_name": "Miami Hurricanes",
     "loser_name": "Missouri Tigers"
+  },
+  {
+    "winner_id": 3376,
+    "loser_id": 3380,
+    "winner_score": 103,
+    "loser_score": 34,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856512",
+    "winner_name": "South Carolina Gamecocks",
+    "loser_name": "Southern Jaguars"
   }
 ]

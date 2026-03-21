@@ -857,3 +857,21 @@ Press Ctrl+C to stop.
   Pushing to GitHub...
   Pushed to GitHub.
   Next check: 11:58:27
+Starting game monitor (polling every 900s / 15min)
+Results file: C:\Users\wesho\Projects\house-of-claudes\data\live\results.json
+Liveblog file: C:\Users\wesho\Projects\house-of-claudes\data\live\liveblog.json
+Existing results: 57
+Press Ctrl+C to stop.
+
+
+[2026-03-21 11:43:36] Checking ESPN for new tournament games...
+  No new games. Rendering initial dashboard...
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (135 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 11:58:38
+
+[2026-03-21 11:58:38] Checking ESPN for new tournament games...
+  No new games. (57 total results)
+  Next check: 12:13:39

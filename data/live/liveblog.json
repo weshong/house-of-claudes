@@ -817,5 +817,19 @@
     "title": "Day Summary \u2014 2026-03-20",
     "commentary": "Day complete: 34/37 correct (92%). 3 upset(s). Today's average Brier: 0.0743. Excellent day for the model.",
     "date": "2026-03-20"
+  },
+  {
+    "timestamp": "2026-03-21T19:13:40.683520+00:00",
+    "type": "game",
+    "title": "(1) South Carolina 103, (16) Southern Univ 34",
+    "commentary": "Blowout. (1) South Carolina cruised past (16) Southern Univ by 69. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.975,
+    "seed_pred": 0.975,
+    "rf_pred": 0.922
   }
 ]
