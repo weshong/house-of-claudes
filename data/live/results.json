@@ -790,5 +790,17 @@
     "espn_event_id": "401856509",
     "winner_name": "Iowa Hawkeyes",
     "loser_name": "Fairleigh Dickinson Knights"
+  },
+  {
+    "winner_id": 3452,
+    "loser_id": 3275,
+    "winner_score": 82,
+    "loser_score": 54,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856507",
+    "winner_name": "West Virginia Mountaineers",
+    "loser_name": "Miami (OH) RedHawks"
   }
 ]

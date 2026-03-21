@@ -943,5 +943,19 @@
     "v7_pred": 0.975,
     "seed_pred": 0.975,
     "rf_pred": 0.844
+  },
+  {
+    "timestamp": "2026-03-21T22:59:06.170051+00:00",
+    "type": "game",
+    "title": "(4) West Virginia 82, (13) Miami OH 54",
+    "commentary": "Blowout. (4) West Virginia cruised past (13) Miami OH by 28. Model had this at 95% \u2014 easy call. Per-game Brier contribution: 0.003 (great).",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9461,
+    "seed_pred": 0.9741,
+    "rf_pred": 0.826
   }
 ]
