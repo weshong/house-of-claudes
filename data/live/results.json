@@ -754,5 +754,17 @@
     "espn_event_id": "401856503",
     "winner_name": "UConn Huskies",
     "loser_name": "UTSA Roadrunners"
+  },
+  {
+    "winner_id": 1277,
+    "loser_id": 1257,
+    "winner_score": 77,
+    "loser_score": 69,
+    "round": "R32",
+    "date": "2026-03-21",
+    "gender": "M",
+    "espn_event_id": "401856531",
+    "winner_name": "Michigan State Spartans",
+    "loser_name": "Louisville Cardinals"
   }
 ]
