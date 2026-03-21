@@ -686,17 +686,17 @@
     "rf_pred": 0.59
   },
   {
-    "timestamp": "2026-03-21T03:24:26.995740+00:00",
+    "timestamp": "2026-03-21T03:43:36.820096+00:00",
     "type": "game",
-    "title": "(2) Purdue 104, (15) Queens NC 71",
-    "commentary": "Blowout. (2) Purdue cruised past (15) Queens NC by 33. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "title": "(1) Florida 114, (16) Prairie View 55",
+    "commentary": "Blowout. (1) Florida cruised past (16) Prairie View by 59. Model had this at 97% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
     "round": "R64",
     "gender": "M",
     "date": "2026-03-20",
     "model_correct": true,
     "is_upset": false,
-    "v7_pred": 0.975,
+    "v7_pred": 0.9726,
     "seed_pred": 0.975,
-    "rf_pred": 0.671
+    "rf_pred": 0.816
   }
 ]

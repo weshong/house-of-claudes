@@ -576,15 +576,15 @@
     "loser_name": "Villanova Wildcats"
   },
   {
-    "winner_id": 1345,
-    "loser_id": 1474,
-    "winner_score": 104,
-    "loser_score": 71,
+    "winner_id": 1196,
+    "loser_id": 1341,
+    "winner_score": 114,
+    "loser_score": 55,
     "round": "R64",
     "date": "2026-03-20",
     "gender": "M",
-    "espn_event_id": "401856519",
-    "winner_name": "Purdue Boilermakers",
-    "loser_name": "Queens University Royals"
+    "espn_event_id": "401856523",
+    "winner_name": "Florida Gators",
+    "loser_name": "Prairie View A&M Panthers"
   }
 ]
