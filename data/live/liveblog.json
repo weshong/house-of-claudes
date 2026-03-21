@@ -642,5 +642,19 @@
     "v7_pred": 0.8815,
     "seed_pred": 0.9438,
     "rf_pred": 0.827
+  },
+  {
+    "timestamp": "2026-03-21T02:07:50.889749+00:00",
+    "type": "game",
+    "title": "(7) UCLA 75, (10) UCF 71",
+    "commentary": "(7) UCLA takes it over (10) UCF, winning by 4. Model correctly favored the winner at 87%. Per-game Brier contribution: 0.016 (great).",
+    "round": "R64",
+    "gender": "M",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8742,
+    "seed_pred": 0.7701,
+    "rf_pred": 0.575
   }
 ]

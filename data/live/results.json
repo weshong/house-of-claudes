@@ -538,5 +538,17 @@
     "espn_event_id": "401856500",
     "winner_name": "Michigan State Spartans",
     "loser_name": "Colorado State Rams"
+  },
+  {
+    "winner_id": 1417,
+    "loser_id": 1416,
+    "winner_score": 75,
+    "loser_score": 71,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856496",
+    "winner_name": "UCLA Bruins",
+    "loser_name": "UCF Knights"
   }
 ]
