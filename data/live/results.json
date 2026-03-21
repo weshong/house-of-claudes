@@ -730,5 +730,17 @@
     "espn_event_id": "401856508",
     "winner_name": "Kentucky Wildcats",
     "loser_name": "James Madison Dukes"
+  },
+  {
+    "winner_id": 3104,
+    "loser_id": 3348,
+    "winner_score": 68,
+    "loser_score": 55,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856513",
+    "winner_name": "Alabama Crimson Tide",
+    "loser_name": "Rhode Island Rams"
   }
 ]

@@ -873,5 +873,19 @@
     "v7_pred": 0.822,
     "seed_pred": 0.9438,
     "rf_pred": 0.635
+  },
+  {
+    "timestamp": "2026-03-21T20:43:51.686532+00:00",
+    "type": "game",
+    "title": "(6) Alabama 68, (11) Rhode Island 55",
+    "commentary": "Comfortable win for (6) Alabama, up 13 over (11) Rhode Island. Model correctly favored the winner at 79%.",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.7914,
+    "seed_pred": 0.8823,
+    "rf_pred": 0.613
   }
 ]
