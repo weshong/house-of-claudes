@@ -802,5 +802,17 @@
     "espn_event_id": "401856507",
     "winner_name": "West Virginia Mountaineers",
     "loser_name": "Miami (OH) RedHawks"
+  },
+  {
+    "winner_id": 3393,
+    "loser_id": 3235,
+    "winner_score": 72,
+    "loser_score": 63,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856504",
+    "winner_name": "Syracuse Orange",
+    "loser_name": "Iowa State Cyclones"
   }
 ]
