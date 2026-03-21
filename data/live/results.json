@@ -814,5 +814,17 @@
     "espn_event_id": "401856504",
     "winner_name": "Syracuse Orange",
     "loser_name": "Iowa State Cyclones"
+  },
+  {
+    "winner_id": 1181,
+    "loser_id": 1395,
+    "winner_score": 81,
+    "loser_score": 58,
+    "round": "R32",
+    "date": "2026-03-21",
+    "gender": "M",
+    "espn_event_id": "401856530",
+    "winner_name": "Duke Blue Devils",
+    "loser_name": "TCU Horned Frogs"
   }
 ]

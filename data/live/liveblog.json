@@ -971,5 +971,19 @@
     "v7_pred": 0.3759,
     "seed_pred": 0.4006,
     "rf_pred": 0.536
+  },
+  {
+    "timestamp": "2026-03-21T23:44:11.891578+00:00",
+    "type": "game",
+    "title": "(1) Duke 81, (9) TCU 58",
+    "commentary": "Blowout. (1) Duke cruised past (9) TCU by 23. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.975,
+    "seed_pred": 0.9617,
+    "rf_pred": 0.801
   }
 ]
