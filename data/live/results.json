@@ -718,5 +718,17 @@
     "espn_event_id": "401856517",
     "winner_name": "Notre Dame Fighting Irish",
     "loser_name": "Fairfield Stags"
+  },
+  {
+    "winner_id": 3246,
+    "loser_id": 3241,
+    "winner_score": 71,
+    "loser_score": 56,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856508",
+    "winner_name": "Kentucky Wildcats",
+    "loser_name": "James Madison Dukes"
   }
 ]

@@ -859,5 +859,19 @@
     "v7_pred": 0.8054,
     "seed_pred": 0.8823,
     "rf_pred": 0.694
+  },
+  {
+    "timestamp": "2026-03-21T20:28:49.386338+00:00",
+    "type": "game",
+    "title": "(5) Kentucky 71, (12) James Madison 56",
+    "commentary": "Comfortable win for (5) Kentucky, up 15 over (12) James Madison. Model correctly favored the winner at 82%.",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.822,
+    "seed_pred": 0.9438,
+    "rf_pred": 0.635
   }
 ]
