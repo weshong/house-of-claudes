@@ -634,5 +634,17 @@
     "espn_event_id": "401856538",
     "winner_name": "Ohio State Buckeyes",
     "loser_name": "Howard Bison"
+  },
+  {
+    "winner_id": 3257,
+    "loser_id": 3436,
+    "winner_score": 72,
+    "loser_score": 52,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856514",
+    "winner_name": "Louisville Cardinals",
+    "loser_name": "Vermont Catamounts"
   }
 ]
