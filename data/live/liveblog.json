@@ -740,5 +740,19 @@
     "v7_pred": 0.975,
     "seed_pred": 0.975,
     "rf_pred": 0.776
+  },
+  {
+    "timestamp": "2026-03-21T17:29:29.316544+00:00",
+    "type": "game",
+    "title": "(3) Ohio St 75, (14) Howard 54",
+    "commentary": "Blowout. (3) Ohio St cruised past (14) Howard by 21. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.975,
+    "seed_pred": 0.975,
+    "rf_pred": 0.934
   }
 ]

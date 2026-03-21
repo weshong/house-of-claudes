@@ -622,5 +622,17 @@
     "espn_event_id": "401856497",
     "winner_name": "UConn Huskies",
     "loser_name": "Furman Paladins"
+  },
+  {
+    "winner_id": 3326,
+    "loser_id": 3224,
+    "winner_score": 75,
+    "loser_score": 54,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856538",
+    "winner_name": "Ohio State Buckeyes",
+    "loser_name": "Howard Bison"
   }
 ]
