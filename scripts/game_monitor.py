@@ -254,7 +254,14 @@ def parse_event(event, gender, mapper):
     seeds_key_w = 'WNCAATourneySeeds'
     # We'll do this check in the monitor using seed_info instead
 
-    game_date = comp.get('date', event.get('date', ''))[:10]
+    # ESPN returns UTC timestamps — convert to US Eastern for the game date
+    utc_str = comp.get('date', event.get('date', ''))
+    try:
+        utc_dt = datetime.fromisoformat(utc_str.replace('Z', '+00:00'))
+        eastern = timezone(timedelta(hours=-4))  # EDT during March
+        game_date = utc_dt.astimezone(eastern).strftime('%Y-%m-%d')
+    except (ValueError, AttributeError):
+        game_date = utc_str[:10]
 
     return {
         'winner_id': winner['tid'],
