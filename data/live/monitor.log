@@ -437,3 +437,19 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (121 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 16:37:31
+
+[2026-03-20 16:37:31] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (4) North Carolina 82, (13) W Illinois 51 [R64] — CORRECT
+  Saved: 40 total results, 42 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (122 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 16:52:33
+
+[2026-03-20 16:52:33] Checking ESPN for new tournament games...
+  No new games. (40 total results)
+  Next check: 17:07:33

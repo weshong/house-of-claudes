@@ -478,5 +478,29 @@
     "espn_event_id": "401856467",
     "winner_name": "North Carolina Tar Heels",
     "loser_name": "Western Illinois Leathernecks"
+  },
+  {
+    "winner_id": 3261,
+    "loser_id": 3239,
+    "winner_score": 116,
+    "loser_score": 58,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856474",
+    "winner_name": "LSU Tigers",
+    "loser_name": "Jacksonville Dolphins"
+  },
+  {
+    "winner_id": 3278,
+    "loser_id": 3453,
+    "winner_score": 75,
+    "loser_score": 58,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856469",
+    "winner_name": "Minnesota Golden Gophers",
+    "loser_name": "Green Bay Phoenix"
   }
 ]
