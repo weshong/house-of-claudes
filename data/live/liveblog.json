@@ -915,5 +915,19 @@
     "v7_pred": 0.5706,
     "seed_pred": 0.7701,
     "rf_pred": 0.495
+  },
+  {
+    "timestamp": "2026-03-21T21:58:59.878490+00:00",
+    "type": "game",
+    "title": "(9) USC 71, (8) Clemson 67",
+    "commentary": "(9) USC takes it over (8) Clemson, winning by 4. Close call \u2014 model gave 65%. We'll take it. UPSET: 9-seed over 8-seed! [Got it: v7, RF | Missed: Seed]",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": true,
+    "v7_pred": 0.6541,
+    "seed_pred": 0.4006,
+    "rf_pred": 0.501
   }
 ]

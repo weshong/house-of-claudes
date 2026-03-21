@@ -943,3 +943,29 @@ Press Ctrl+C to stop.
   Pushing to GitHub...
   Pushed to GitHub.
   Next check: 14:13:55
+
+[2026-03-21 14:13:55] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (3) Michigan St 77, (6) Louisville 69 [R32] — CORRECT
+  Saved: 64 total results, 67 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (140 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 14:28:57
+
+[2026-03-21 14:28:57] Checking ESPN for new tournament games...
+  No new games. (64 total results)
+  Next check: 14:43:58
+
+[2026-03-21 14:43:58] Checking ESPN for new tournament games...
+  No new games. (64 total results)
+  Next check: 14:58:59
+
+[2026-03-21 14:58:59] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (9) USC 71, (8) Clemson 67 [R64] — CORRECT
+  Saved: 65 total results, 68 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (141 KB)
+  Pushing to GitHub...

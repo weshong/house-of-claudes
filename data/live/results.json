@@ -766,5 +766,17 @@
     "espn_event_id": "401856531",
     "winner_name": "Michigan State Spartans",
     "loser_name": "Louisville Cardinals"
+  },
+  {
+    "winner_id": 3425,
+    "loser_id": 3155,
+    "winner_score": 71,
+    "loser_score": 67,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856511",
+    "winner_name": "USC Trojans",
+    "loser_name": "Clemson Tigers"
   }
 ]
