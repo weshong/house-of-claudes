@@ -550,5 +550,17 @@
     "espn_event_id": "401856496",
     "winner_name": "UCLA Bruins",
     "loser_name": "UCF Knights"
+  },
+  {
+    "winner_id": 3301,
+    "loser_id": 3397,
+    "winner_score": 76,
+    "loser_score": 61,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856498",
+    "winner_name": "NC State Wolfpack",
+    "loser_name": "Tennessee Lady Volunteers"
   }
 ]
