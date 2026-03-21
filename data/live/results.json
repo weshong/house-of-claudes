@@ -514,5 +514,17 @@
     "espn_event_id": "401856522",
     "winner_name": "Iowa Hawkeyes",
     "loser_name": "Clemson Tigers"
+  },
+  {
+    "winner_id": 1385,
+    "loser_id": 1320,
+    "winner_score": 79,
+    "loser_score": 53,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856494",
+    "winner_name": "St. John's Red Storm",
+    "loser_name": "Northern Iowa Panthers"
   }
 ]

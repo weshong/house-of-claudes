@@ -614,5 +614,19 @@
     "v7_pred": 0.533,
     "seed_pred": 0.4006,
     "rf_pred": 0.494
+  },
+  {
+    "timestamp": "2026-03-21T01:37:46.869103+00:00",
+    "type": "game",
+    "title": "(5) St John's 79, (12) Northern Iowa 53",
+    "commentary": "Blowout. (5) St John's cruised past (12) Northern Iowa by 26. Model had this at 94% \u2014 easy call. Per-game Brier contribution: 0.003 (great).",
+    "round": "R64",
+    "gender": "M",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9449,
+    "seed_pred": 0.9438,
+    "rf_pred": 0.62
   }
 ]
