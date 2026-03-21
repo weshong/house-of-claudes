@@ -526,5 +526,17 @@
     "espn_event_id": "401856494",
     "winner_name": "St. John's Red Storm",
     "loser_name": "Northern Iowa Panthers"
+  },
+  {
+    "winner_id": 3277,
+    "loser_id": 3161,
+    "winner_score": 65,
+    "loser_score": 62,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856500",
+    "winner_name": "Michigan State Spartans",
+    "loser_name": "Colorado State Rams"
   }
 ]

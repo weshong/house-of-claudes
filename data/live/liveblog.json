@@ -628,5 +628,19 @@
     "v7_pred": 0.9449,
     "seed_pred": 0.9438,
     "rf_pred": 0.62
+  },
+  {
+    "timestamp": "2026-03-21T01:52:48.858876+00:00",
+    "type": "game",
+    "title": "(5) Michigan St 65, (12) Colorado St 62",
+    "commentary": "Nail-biter! (5) Michigan St edges (12) Colorado St by just 3. Model correctly favored the winner at 88%. Per-game Brier contribution: 0.014 (great).",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8815,
+    "seed_pred": 0.9438,
+    "rf_pred": 0.827
   }
 ]
