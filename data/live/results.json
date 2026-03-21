@@ -658,5 +658,29 @@
     "espn_event_id": "401856532",
     "winner_name": "Michigan Wolverines",
     "loser_name": "Saint Louis Billikens"
+  },
+  {
+    "winner_id": 1345,
+    "loser_id": 1474,
+    "winner_score": 104,
+    "loser_score": 71,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856519",
+    "winner_name": "Purdue Boilermakers",
+    "loser_name": "Queens University Royals"
+  },
+  {
+    "winner_id": 1274,
+    "loser_id": 1281,
+    "winner_score": 80,
+    "loser_score": 66,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856518",
+    "winner_name": "Miami Hurricanes",
+    "loser_name": "Missouri Tigers"
   }
 ]

@@ -127,6 +127,8 @@ class TeamMapper:
         'siu edwardsville': 'siu edwardsville',
         'unlv': 'unlv',
         'utep': 'utep',
+        'queens university': 'queens nc', 'quc': 'queens nc',
+        'miami': 'miami fl', 'mia': 'miami fl',  # ESPN uses bare "Miami" for Miami FL
     }
 
     def match(self, espn_location, espn_abbrev, espn_display, gender):
@@ -247,6 +249,12 @@ def parse_event(event, gender, mapper):
         winner, loser = teams[0], teams[1]
 
     if winner['tid'] is None or loser['tid'] is None:
+        # Log unmatched teams so we catch mapping gaps immediately
+        for t in [winner, loser]:
+            if t['tid'] is None:
+                print(f"    WARNING: Unmatched team in {gender} tournament game: "
+                      f"loc='{t['location']}' abbr='{t['abbrev']}' disp='{t['display']}' "
+                      f"— add to TeamMapper.MANUAL_MAP!")
         return None
 
     # Verify both teams are in our 2026 tournament seeds
