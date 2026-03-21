@@ -588,15 +588,27 @@
     "loser_name": "Prairie View A&M Panthers"
   },
   {
-    "winner_id": 1345,
-    "loser_id": 1474,
-    "winner_score": 104,
-    "loser_score": 71,
+    "winner_id": 1242,
+    "loser_id": 1465,
+    "winner_score": 68,
+    "loser_score": 60,
     "round": "R64",
     "date": "2026-03-20",
     "gender": "M",
-    "espn_event_id": "401856519",
-    "winner_name": "Purdue Boilermakers",
-    "loser_name": "Queens University Royals"
+    "espn_event_id": "401856495",
+    "winner_name": "Kansas Jayhawks",
+    "loser_name": "California Baptist Lancers"
+  },
+  {
+    "winner_id": 3328,
+    "loser_id": 3225,
+    "winner_score": 89,
+    "loser_score": 59,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856499",
+    "winner_name": "Oklahoma Sooners",
+    "loser_name": "Idaho Vandals"
   }
 ]

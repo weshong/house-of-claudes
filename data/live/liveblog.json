@@ -700,17 +700,31 @@
     "rf_pred": 0.816
   },
   {
-    "timestamp": "2026-03-21T04:09:04.170515+00:00",
+    "timestamp": "2026-03-21T04:28:40.226657+00:00",
     "type": "game",
-    "title": "(2) Purdue 104, (15) Queens NC 71",
-    "commentary": "Blowout. (2) Purdue cruised past (15) Queens NC by 33. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "title": "(4) Kansas 68, (13) Cal Baptist 60",
+    "commentary": "(4) Kansas takes it over (13) Cal Baptist, winning by 8. Model had this at 96% \u2014 easy call. Per-game Brier contribution: 0.002 (great).",
     "round": "R64",
     "gender": "M",
     "date": "2026-03-20",
     "model_correct": true,
     "is_upset": false,
-    "v7_pred": 0.975,
-    "seed_pred": 0.975,
-    "rf_pred": 0.671
+    "v7_pred": 0.9601,
+    "seed_pred": 0.9741,
+    "rf_pred": 0.755
+  },
+  {
+    "timestamp": "2026-03-21T04:28:40.226688+00:00",
+    "type": "game",
+    "title": "(4) Oklahoma 89, (13) Idaho 59",
+    "commentary": "Blowout. (4) Oklahoma cruised past (13) Idaho by 30. Model had this at 96% \u2014 easy call. Per-game Brier contribution: 0.002 (great).",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9551,
+    "seed_pred": 0.9741,
+    "rf_pred": 0.792
   }
 ]
