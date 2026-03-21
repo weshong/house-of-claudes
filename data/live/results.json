@@ -646,5 +646,17 @@
     "espn_event_id": "401856514",
     "winner_name": "Louisville Cardinals",
     "loser_name": "Vermont Catamounts"
+  },
+  {
+    "winner_id": 1276,
+    "loser_id": 1387,
+    "winner_score": 95,
+    "loser_score": 72,
+    "round": "R32",
+    "date": "2026-03-21",
+    "gender": "M",
+    "espn_event_id": "401856532",
+    "winner_name": "Michigan Wolverines",
+    "loser_name": "Saint Louis Billikens"
   }
 ]

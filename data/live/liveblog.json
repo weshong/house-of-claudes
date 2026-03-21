@@ -768,5 +768,19 @@
     "v7_pred": 0.9645,
     "seed_pred": 0.975,
     "rf_pred": 0.78
+  },
+  {
+    "timestamp": "2026-03-21T18:29:35.785755+00:00",
+    "type": "game",
+    "title": "(1) Michigan 95, (9) St Louis 72",
+    "commentary": "Blowout. (1) Michigan cruised past (9) St Louis by 23. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.975,
+    "seed_pred": 0.9617,
+    "rf_pred": 0.689
   }
 ]
