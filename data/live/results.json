@@ -502,5 +502,17 @@
     "espn_event_id": "401856469",
     "winner_name": "Minnesota Golden Gophers",
     "loser_name": "Green Bay Phoenix"
+  },
+  {
+    "winner_id": 1234,
+    "loser_id": 1155,
+    "winner_score": 67,
+    "loser_score": 61,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856522",
+    "winner_name": "Iowa Hawkeyes",
+    "loser_name": "Clemson Tigers"
   }
 ]

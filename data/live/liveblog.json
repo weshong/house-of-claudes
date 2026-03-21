@@ -600,5 +600,19 @@
     "v7_pred": 0.9516,
     "seed_pred": 0.9741,
     "rf_pred": 0.783
+  },
+  {
+    "timestamp": "2026-03-21T01:22:44.669963+00:00",
+    "type": "game",
+    "title": "(9) Iowa 67, (8) Clemson 61",
+    "commentary": "(9) Iowa takes it over (8) Clemson, winning by 6. Coin flip at 53%. Got lucky on this one. UPSET: 9-seed over 8-seed! [Got it: v7 | Missed: Seed, RF] Per-game Brier contribution: 0.218 (ouch).",
+    "round": "R64",
+    "gender": "M",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": true,
+    "v7_pred": 0.533,
+    "seed_pred": 0.4006,
+    "rf_pred": 0.494
   }
 ]
