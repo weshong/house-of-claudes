@@ -694,5 +694,17 @@
     "espn_event_id": "401856512",
     "winner_name": "South Carolina Gamecocks",
     "loser_name": "Southern Jaguars"
+  },
+  {
+    "winner_id": 3438,
+    "loser_id": 3208,
+    "winner_score": 82,
+    "loser_score": 73,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856510",
+    "winner_name": "Virginia Cavaliers",
+    "loser_name": "Georgia Lady Bulldogs"
   }
 ]

@@ -831,5 +831,19 @@
     "v7_pred": 0.975,
     "seed_pred": 0.975,
     "rf_pred": 0.922
+  },
+  {
+    "timestamp": "2026-03-21T19:58:44.921141+00:00",
+    "type": "game",
+    "title": "(10) Virginia 82, (7) Georgia 73",
+    "commentary": "(10) Virginia takes it over (7) Georgia, winning by 9. Significant miss \u2014 we had 76% on (7) Georgia. Hurts the Brier. UPSET: 10-seed over 7-seed! Per-game Brier contribution: 0.580 (ouch).",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-21",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.2385,
+    "seed_pred": 0.2299,
+    "rf_pred": 0.488
   }
 ]

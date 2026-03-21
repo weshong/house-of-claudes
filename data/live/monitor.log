@@ -875,3 +875,29 @@ Press Ctrl+C to stop.
 [2026-03-21 11:58:38] Checking ESPN for new tournament games...
   No new games. (57 total results)
   Next check: 12:13:39
+
+[2026-03-21 12:13:39] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (1) South Carolina 103, (16) Southern Univ 34 [R64] — CORRECT
+  Saved: 58 total results, 61 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (136 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 12:28:42
+
+[2026-03-21 12:28:42] Checking ESPN for new tournament games...
+  No new games. (58 total results)
+  Next check: 12:43:42
+
+[2026-03-21 12:43:42] Checking ESPN for new tournament games...
+  No new games. (58 total results)
+  Next check: 12:58:43
+
+[2026-03-21 12:58:43] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (10) Virginia 82, (7) Georgia 73 [R64] — MISS
+  Saved: 59 total results, 62 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (136 KB)
+  Pushing to GitHub...
