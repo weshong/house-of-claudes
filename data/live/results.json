@@ -778,5 +778,17 @@
     "espn_event_id": "401856511",
     "winner_name": "USC Trojans",
     "loser_name": "Clemson Tigers"
+  },
+  {
+    "winner_id": 3234,
+    "loser_id": 3192,
+    "winner_score": 58,
+    "loser_score": 48,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856509",
+    "winner_name": "Iowa Hawkeyes",
+    "loser_name": "Fairleigh Dickinson Knights"
   }
 ]
