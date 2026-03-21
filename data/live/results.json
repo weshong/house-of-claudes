@@ -562,5 +562,17 @@
     "espn_event_id": "401856498",
     "winner_name": "NC State Wolfpack",
     "loser_name": "Tennessee Lady Volunteers"
+  },
+  {
+    "winner_id": 3403,
+    "loser_id": 3437,
+    "winner_score": 57,
+    "loser_score": 52,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "W",
+    "espn_event_id": "401856473",
+    "winner_name": "Texas Tech Lady Raiders",
+    "loser_name": "Villanova Wildcats"
   }
 ]
