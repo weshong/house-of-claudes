@@ -726,5 +726,19 @@
     "v7_pred": 0.9551,
     "seed_pred": 0.9741,
     "rf_pred": 0.792
+  },
+  {
+    "timestamp": "2026-03-21T04:58:43.053979+00:00",
+    "type": "game",
+    "title": "(2) Connecticut 82, (15) Furman 71",
+    "commentary": "Comfortable win for (2) Connecticut, up 11 over (15) Furman. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R64",
+    "gender": "M",
+    "date": "2026-03-20",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.975,
+    "seed_pred": 0.975,
+    "rf_pred": 0.776
   }
 ]

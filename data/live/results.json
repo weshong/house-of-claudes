@@ -610,5 +610,17 @@
     "espn_event_id": "401856499",
     "winner_name": "Oklahoma Sooners",
     "loser_name": "Idaho Vandals"
+  },
+  {
+    "winner_id": 1163,
+    "loser_id": 1202,
+    "winner_score": 82,
+    "loser_score": 71,
+    "round": "R64",
+    "date": "2026-03-20",
+    "gender": "M",
+    "espn_event_id": "401856497",
+    "winner_name": "UConn Huskies",
+    "loser_name": "Furman Paladins"
   }
 ]
