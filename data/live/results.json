@@ -862,5 +862,17 @@
     "espn_event_id": "401856537",
     "winner_name": "Texas Longhorns",
     "loser_name": "Gonzaga Bulldogs"
+  },
+  {
+    "winner_id": 3329,
+    "loser_id": 3343,
+    "winner_score": 82,
+    "loser_score": 68,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856515",
+    "winner_name": "Oklahoma State Cowgirls",
+    "loser_name": "Princeton Tigers"
   }
 ]

@@ -1027,5 +1027,19 @@
     "v7_pred": 0.0904,
     "seed_pred": 0.0383,
     "rf_pred": 0.266
+  },
+  {
+    "timestamp": "2026-03-22T01:29:24.013284+00:00",
+    "type": "game",
+    "title": "(8) Oklahoma St 82, (9) Princeton 68",
+    "commentary": "Comfortable win for (8) Oklahoma St, up 14 over (9) Princeton. Close call \u2014 model gave 65%. We'll take it. [Got it: v7, Seed | Missed: RF]",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.6524,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.49
   }
 ]
