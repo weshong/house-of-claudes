@@ -1181,5 +1181,19 @@
     "v7_pred": 0.8892,
     "seed_pred": 0.8823,
     "rf_pred": 0.672
+  },
+  {
+    "timestamp": "2026-03-22T21:16:07.612185+00:00",
+    "type": "game",
+    "title": "(2) LSU 101, (7) Texas Tech 47",
+    "commentary": "Blowout. (2) LSU cruised past (7) Texas Tech by 54. Model had this at 94% \u2014 easy call. Per-game Brier contribution: 0.004 (great).",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-22",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9387,
+    "seed_pred": 0.8823,
+    "rf_pred": 0.842
   }
 ]

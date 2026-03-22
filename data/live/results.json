@@ -994,5 +994,17 @@
     "espn_event_id": "401856561",
     "winner_name": "Iowa State Cyclones",
     "loser_name": "Kentucky Wildcats"
+  },
+  {
+    "winner_id": 3261,
+    "loser_id": 3403,
+    "winner_score": 101,
+    "loser_score": 47,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "W",
+    "espn_event_id": "401856545",
+    "winner_name": "LSU Tigers",
+    "loser_name": "Texas Tech Lady Raiders"
   }
 ]
