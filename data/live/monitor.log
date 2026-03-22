@@ -1422,3 +1422,13 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (153 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 13:31:01
+
+[2026-03-22 13:31:01] Checking ESPN for new tournament games...
+  No new games. (82 total results)
+  Next check: 13:46:03
+
+[2026-03-22 13:46:03] Checking ESPN for new tournament games...
+  No new games. (82 total results)
+  Next check: 14:01:04

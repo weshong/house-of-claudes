@@ -982,5 +982,17 @@
     "espn_event_id": "401856544",
     "winner_name": "Minnesota Golden Gophers",
     "loser_name": "Ole Miss Rebels"
+  },
+  {
+    "winner_id": 1235,
+    "loser_id": 1246,
+    "winner_score": 82,
+    "loser_score": 63,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "M",
+    "espn_event_id": "401856561",
+    "winner_name": "Iowa State Cyclones",
+    "loser_name": "Kentucky Wildcats"
   }
 ]

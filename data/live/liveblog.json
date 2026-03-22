@@ -1167,5 +1167,19 @@
     "v7_pred": 0.7058,
     "seed_pred": 0.5994,
     "rf_pred": 0.547
+  },
+  {
+    "timestamp": "2026-03-22T21:01:05.143512+00:00",
+    "type": "game",
+    "title": "(2) Iowa St 82, (7) Kentucky 63",
+    "commentary": "Comfortable win for (2) Iowa St, up 19 over (7) Kentucky. Model correctly favored the winner at 89%. Per-game Brier contribution: 0.012 (great).",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-22",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8892,
+    "seed_pred": 0.8823,
+    "rf_pred": 0.672
   }
 ]
