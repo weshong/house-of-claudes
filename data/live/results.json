@@ -1006,5 +1006,17 @@
     "espn_event_id": "401856545",
     "winner_name": "LSU Tigers",
     "loser_name": "Texas Tech Lady Raiders"
+  },
+  {
+    "winner_id": 3181,
+    "loser_id": 3124,
+    "winner_score": 69,
+    "loser_score": 46,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "W",
+    "espn_event_id": "401856539",
+    "winner_name": "Duke Blue Devils",
+    "loser_name": "Baylor Bears"
   }
 ]
