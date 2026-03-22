@@ -946,5 +946,17 @@
     "espn_event_id": "401856543",
     "winner_name": "North Carolina Tar Heels",
     "loser_name": "Maryland Terrapins"
+  },
+  {
+    "winner_id": 1345,
+    "loser_id": 1274,
+    "winner_score": 79,
+    "loser_score": 69,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "M",
+    "espn_event_id": "401856564",
+    "winner_name": "Purdue Boilermakers",
+    "loser_name": "Miami Hurricanes"
   }
 ]

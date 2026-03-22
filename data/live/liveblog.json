@@ -1125,5 +1125,19 @@
     "v7_pred": 0.4627,
     "seed_pred": 0.5994,
     "rf_pred": 0.529
+  },
+  {
+    "timestamp": "2026-03-22T18:30:50.675741+00:00",
+    "type": "game",
+    "title": "(2) Purdue 79, (7) Miami FL 69",
+    "commentary": "Comfortable win for (2) Purdue, up 10 over (7) Miami FL. Model had this at 95% \u2014 easy call. Per-game Brier contribution: 0.003 (great).",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-22",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9492,
+    "seed_pred": 0.8823,
+    "rf_pred": 0.613
   }
 ]
