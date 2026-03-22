@@ -934,5 +934,17 @@
     "espn_event_id": "401856516",
     "winner_name": "UCLA Bruins",
     "loser_name": "California Baptist Lancers"
+  },
+  {
+    "winner_id": 3314,
+    "loser_id": 3268,
+    "winner_score": 74,
+    "loser_score": 66,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "W",
+    "espn_event_id": "401856543",
+    "winner_name": "North Carolina Tar Heels",
+    "loser_name": "Maryland Terrapins"
   }
 ]

@@ -1111,5 +1111,19 @@
     "v7_pred": 0.975,
     "seed_pred": 0.975,
     "rf_pred": 0.882
+  },
+  {
+    "timestamp": "2026-03-22T18:15:48.016435+00:00",
+    "type": "game",
+    "title": "(4) North Carolina 74, (5) Maryland 66",
+    "commentary": "(4) North Carolina takes it over (5) Maryland, winning by 8. Essentially a toss-up miss (54%). Minimal Brier damage. [Got it: Seed, RF | Missed: v7] Per-game Brier contribution: 0.289 (ouch).",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-22",
+    "model_correct": false,
+    "is_upset": false,
+    "v7_pred": 0.4627,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.529
   }
 ]
