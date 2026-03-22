@@ -958,5 +958,17 @@
     "espn_event_id": "401856564",
     "winner_name": "Purdue Boilermakers",
     "loser_name": "Miami Hurricanes"
+  },
+  {
+    "winner_id": 3276,
+    "loser_id": 3301,
+    "winner_score": 92,
+    "loser_score": 63,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "W",
+    "espn_event_id": "401856542",
+    "winner_name": "Michigan Wolverines",
+    "loser_name": "NC State Wolfpack"
   }
 ]

@@ -1372,3 +1372,19 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (151 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 11:30:49
+
+[2026-03-22 11:30:49] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (2) Purdue 79, (7) Miami FL 69 [R32] — CORRECT
+  Saved: 80 total results, 83 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (152 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 11:45:52
+
+[2026-03-22 11:45:52] Checking ESPN for new tournament games...
+  No new games. (80 total results)
+  Next check: 12:00:53

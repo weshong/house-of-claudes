@@ -1139,5 +1139,19 @@
     "v7_pred": 0.9492,
     "seed_pred": 0.8823,
     "rf_pred": 0.613
+  },
+  {
+    "timestamp": "2026-03-22T19:15:55.192892+00:00",
+    "type": "game",
+    "title": "(2) Michigan 92, (7) NC State 63",
+    "commentary": "Blowout. (2) Michigan cruised past (7) NC State by 29. Model correctly favored the winner at 87%. Per-game Brier contribution: 0.016 (great).",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-22",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8719,
+    "seed_pred": 0.8823,
+    "rf_pred": 0.622
   }
 ]
