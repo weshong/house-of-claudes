@@ -1472,3 +1472,33 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (155 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 15:31:14
+
+[2026-03-22 15:31:14] Checking ESPN for new tournament games...
+  No new games. (85 total results)
+  Next check: 15:46:16
+
+[2026-03-22 15:46:16] Checking ESPN for new tournament games...
+  No new games. (85 total results)
+  Next check: 16:01:17
+
+[2026-03-22 16:01:17] Checking ESPN for new tournament games...
+  No new games. (85 total results)
+  Next check: 16:16:18
+
+[2026-03-22 16:16:18] Checking ESPN for new tournament games...
+  No new games. (85 total results)
+  Next check: 16:31:19
+
+[2026-03-22 16:31:19] Checking ESPN for new tournament games...
+  No new games. (85 total results)
+  Next check: 16:46:20
+
+[2026-03-22 16:46:20] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (5) St John's 67, (4) Kansas 65 [R32] — CORRECT
+  Saved: 86 total results, 89 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (156 KB)
+  Pushing to GitHub...

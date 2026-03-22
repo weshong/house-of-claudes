@@ -1018,5 +1018,17 @@
     "espn_event_id": "401856539",
     "winner_name": "Duke Blue Devils",
     "loser_name": "Baylor Bears"
+  },
+  {
+    "winner_id": 1385,
+    "loser_id": 1242,
+    "winner_score": 67,
+    "loser_score": 65,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "M",
+    "espn_event_id": "401856558",
+    "winner_name": "St. John's Red Storm",
+    "loser_name": "Kansas Jayhawks"
   }
 ]
