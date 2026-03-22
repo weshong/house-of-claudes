@@ -1041,5 +1041,19 @@
     "v7_pred": 0.6524,
     "seed_pred": 0.5994,
     "rf_pred": 0.49
+  },
+  {
+    "timestamp": "2026-03-22T02:29:29.647260+00:00",
+    "type": "game",
+    "title": "(3) Illinois 76, (11) VCU 55",
+    "commentary": "Blowout. (3) Illinois cruised past (11) VCU by 21. Model had this at 97% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9691,
+    "seed_pred": 0.9617,
+    "rf_pred": 0.701
   }
 ]

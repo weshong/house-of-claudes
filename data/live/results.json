@@ -874,5 +874,17 @@
     "espn_event_id": "401856515",
     "winner_name": "Oklahoma State Cowgirls",
     "loser_name": "Princeton Tigers"
+  },
+  {
+    "winner_id": 1228,
+    "loser_id": 1433,
+    "winner_score": 76,
+    "loser_score": 55,
+    "round": "R32",
+    "date": "2026-03-21",
+    "gender": "M",
+    "espn_event_id": "401856533",
+    "winner_name": "Illinois Fighting Illini",
+    "loser_name": "VCU Rams"
   }
 ]
