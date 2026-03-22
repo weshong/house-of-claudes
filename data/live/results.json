@@ -838,5 +838,17 @@
     "espn_event_id": "401856535",
     "winner_name": "Houston Cougars",
     "loser_name": "Texas A&M Aggies"
+  },
+  {
+    "winner_id": 3435,
+    "loser_id": 3219,
+    "winner_score": 102,
+    "loser_score": 61,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856505",
+    "winner_name": "Vanderbilt Commodores",
+    "loser_name": "High Point Panthers"
   }
 ]
