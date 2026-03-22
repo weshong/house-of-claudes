@@ -898,5 +898,17 @@
     "espn_event_id": "401856534",
     "winner_name": "Nebraska Cornhuskers",
     "loser_name": "Vanderbilt Commodores"
+  },
+  {
+    "winner_id": 3228,
+    "loser_id": 3160,
+    "winner_score": 66,
+    "loser_score": 57,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856506",
+    "winner_name": "Illinois Fighting Illini",
+    "loser_name": "Colorado Buffaloes"
   }
 ]
