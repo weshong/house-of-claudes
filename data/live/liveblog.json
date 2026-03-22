@@ -1083,5 +1083,33 @@
     "v7_pred": 0.6073,
     "seed_pred": 0.7701,
     "rf_pred": 0.593
+  },
+  {
+    "timestamp": "2026-03-22T03:59:40.792917+00:00",
+    "type": "game",
+    "title": "(4) Arkansas 94, (12) High Point 88",
+    "commentary": "(4) Arkansas takes it over (12) High Point, winning by 6. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.975,
+    "seed_pred": 0.9617,
+    "rf_pred": 0.664
+  },
+  {
+    "timestamp": "2026-03-22T03:59:40.792942+00:00",
+    "type": "game",
+    "title": "(1) UCLA 96, (16) Cal Baptist 43",
+    "commentary": "Blowout. (1) UCLA cruised past (16) Cal Baptist by 53. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R64",
+    "gender": "W",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.975,
+    "seed_pred": 0.975,
+    "rf_pred": 0.882
   }
 ]

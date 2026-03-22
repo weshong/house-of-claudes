@@ -910,5 +910,29 @@
     "espn_event_id": "401856506",
     "winner_name": "Illinois Fighting Illini",
     "loser_name": "Colorado Buffaloes"
+  },
+  {
+    "winner_id": 1116,
+    "loser_id": 1219,
+    "winner_score": 94,
+    "loser_score": 88,
+    "round": "R32",
+    "date": "2026-03-21",
+    "gender": "M",
+    "espn_event_id": "401856536",
+    "winner_name": "Arkansas Razorbacks",
+    "loser_name": "High Point Panthers"
+  },
+  {
+    "winner_id": 3417,
+    "loser_id": 3465,
+    "winner_score": 96,
+    "loser_score": 43,
+    "round": "R64",
+    "date": "2026-03-21",
+    "gender": "W",
+    "espn_event_id": "401856516",
+    "winner_name": "UCLA Bruins",
+    "loser_name": "California Baptist Lancers"
   }
 ]
