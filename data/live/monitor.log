@@ -1388,3 +1388,37 @@ Press Ctrl+C to stop.
 [2026-03-22 11:45:52] Checking ESPN for new tournament games...
   No new games. (80 total results)
   Next check: 12:00:53
+
+[2026-03-22 12:00:53] Checking ESPN for new tournament games...
+  No new games. (80 total results)
+  Next check: 12:15:54
+
+[2026-03-22 12:15:54] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (2) Michigan 92, (7) NC State 63 [R32] — CORRECT
+  Saved: 81 total results, 84 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (153 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 12:30:56
+
+[2026-03-22 12:30:56] Checking ESPN for new tournament games...
+  No new games. (81 total results)
+  Next check: 12:45:57
+
+[2026-03-22 12:45:57] Checking ESPN for new tournament games...
+  No new games. (81 total results)
+  Next check: 13:00:58
+
+[2026-03-22 13:00:58] Checking ESPN for new tournament games...
+  No new games. (81 total results)
+  Next check: 13:15:59
+
+[2026-03-22 13:15:59] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (4) Minnesota 65, (5) Mississippi 63 [R32] — CORRECT
+  Saved: 82 total results, 85 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (153 KB)
+  Pushing to GitHub...

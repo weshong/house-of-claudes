@@ -1153,5 +1153,19 @@
     "v7_pred": 0.8719,
     "seed_pred": 0.8823,
     "rf_pred": 0.622
+  },
+  {
+    "timestamp": "2026-03-22T20:16:00.506159+00:00",
+    "type": "game",
+    "title": "(4) Minnesota 65, (5) Mississippi 63",
+    "commentary": "Nail-biter! (4) Minnesota edges (5) Mississippi by just 2. Model correctly favored the winner at 71%.",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-22",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.7058,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.547
   }
 ]
