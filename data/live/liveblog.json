@@ -1055,5 +1055,19 @@
     "v7_pred": 0.9691,
     "seed_pred": 0.9617,
     "rf_pred": 0.701
+  },
+  {
+    "timestamp": "2026-03-22T03:14:34.385106+00:00",
+    "type": "game",
+    "title": "(4) Nebraska 74, (5) Vanderbilt 72",
+    "commentary": "Nail-biter! (4) Nebraska edges (5) Vanderbilt by just 2. Brutal miss. Model was 86% on (5) Vanderbilt. This is a Brier score killer. [Got it: Seed | Missed: v7, RF] Per-game Brier contribution: 0.748 (ouch).",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-21",
+    "model_correct": false,
+    "is_upset": false,
+    "v7_pred": 0.1353,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.485
   }
 ]
