@@ -850,5 +850,17 @@
     "espn_event_id": "401856505",
     "winner_name": "Vanderbilt Commodores",
     "loser_name": "High Point Panthers"
+  },
+  {
+    "winner_id": 1400,
+    "loser_id": 1211,
+    "winner_score": 74,
+    "loser_score": 68,
+    "round": "R32",
+    "date": "2026-03-21",
+    "gender": "M",
+    "espn_event_id": "401856537",
+    "winner_name": "Texas Longhorns",
+    "loser_name": "Gonzaga Bulldogs"
   }
 ]

@@ -1013,5 +1013,19 @@
     "v7_pred": 0.975,
     "seed_pred": 0.975,
     "rf_pred": 0.903
+  },
+  {
+    "timestamp": "2026-03-22T01:14:21.748465+00:00",
+    "type": "game",
+    "title": "(11) Texas 74, (3) Gonzaga 68",
+    "commentary": "(11) Texas takes it over (3) Gonzaga, winning by 6. Brutal miss. Model was 91% on (3) Gonzaga. This is a Brier score killer. UPSET: 11-seed over 3-seed! Per-game Brier contribution: 0.827 (ouch).",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-21",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.0904,
+    "seed_pred": 0.0383,
+    "rf_pred": 0.266
   }
 ]

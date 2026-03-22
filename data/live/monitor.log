@@ -1039,3 +1039,19 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (144 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 17:44:17
+
+[2026-03-21 17:44:17] Checking ESPN for new tournament games...
+  No new games. (70 total results)
+  Next check: 17:59:18
+
+[2026-03-21 17:59:18] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (2) Vanderbilt 102, (15) High Point 61 [R64] — CORRECT
+  Saved: 71 total results, 74 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (145 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 18:14:20
