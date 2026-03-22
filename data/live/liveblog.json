@@ -985,5 +985,19 @@
     "v7_pred": 0.975,
     "seed_pred": 0.9617,
     "rf_pred": 0.801
+  },
+  {
+    "timestamp": "2026-03-22T00:29:16.251725+00:00",
+    "type": "game",
+    "title": "(2) Houston 88, (10) Texas A&M 57",
+    "commentary": "Blowout. (2) Houston cruised past (10) Texas A&M by 31. Model had this at 94% \u2014 easy call. Per-game Brier contribution: 0.004 (great).",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-21",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9363,
+    "seed_pred": 0.9617,
+    "rf_pred": 0.647
   }
 ]

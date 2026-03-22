@@ -1011,3 +1011,19 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (143 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 16:44:10
+
+[2026-03-21 16:44:10] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (1) Duke 81, (9) TCU 58 [R32] — CORRECT
+  Saved: 69 total results, 72 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (144 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 16:59:13
+
+[2026-03-21 16:59:13] Checking ESPN for new tournament games...
+  No new games. (69 total results)
+  Next check: 17:14:14

@@ -826,5 +826,17 @@
     "espn_event_id": "401856530",
     "winner_name": "Duke Blue Devils",
     "loser_name": "TCU Horned Frogs"
+  },
+  {
+    "winner_id": 1222,
+    "loser_id": 1401,
+    "winner_score": 88,
+    "loser_score": 57,
+    "round": "R32",
+    "date": "2026-03-21",
+    "gender": "M",
+    "espn_event_id": "401856535",
+    "winner_name": "Houston Cougars",
+    "loser_name": "Texas A&M Aggies"
   }
 ]
