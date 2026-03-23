@@ -1265,5 +1265,19 @@
     "v7_pred": 0.0284,
     "seed_pred": 0.0383,
     "rf_pred": 0.327
+  },
+  {
+    "timestamp": "2026-03-23T02:16:43.394414+00:00",
+    "type": "game",
+    "title": "(4) Oklahoma 77, (5) Michigan St 71",
+    "commentary": "(4) Oklahoma takes it over (5) Michigan St, winning by 6. Close call \u2014 model gave 60%. We'll take it. Per-game Brier contribution: 0.160 (ouch).",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-22",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.5994,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.538
   }
 ]

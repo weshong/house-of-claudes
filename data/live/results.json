@@ -1066,5 +1066,17 @@
     "espn_event_id": "401856563",
     "winner_name": "Iowa Hawkeyes",
     "loser_name": "Florida Gators"
+  },
+  {
+    "winner_id": 3328,
+    "loser_id": 3277,
+    "winner_score": 77,
+    "loser_score": 71,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "W",
+    "espn_event_id": "401856546",
+    "winner_name": "Oklahoma Sooners",
+    "loser_name": "Michigan State Spartans"
   }
 ]
