@@ -1335,5 +1335,19 @@
     "v7_pred": 0.8418,
     "seed_pred": 0.7701,
     "rf_pred": 0.754
+  },
+  {
+    "timestamp": "2026-03-23T18:18:17.554099+00:00",
+    "type": "game",
+    "title": "(3) Louisville 69, (6) Alabama 68",
+    "commentary": "Nail-biter! (3) Louisville edges (6) Alabama by just 1. Model correctly favored the winner at 82%.",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-23",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8189,
+    "seed_pred": 0.7701,
+    "rf_pred": 0.787
   }
 ]

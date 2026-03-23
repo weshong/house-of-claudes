@@ -1126,5 +1126,17 @@
     "espn_event_id": "401856540",
     "winner_name": "TCU Horned Frogs",
     "loser_name": "Washington Huskies"
+  },
+  {
+    "winner_id": 3257,
+    "loser_id": 3104,
+    "winner_score": 69,
+    "loser_score": 68,
+    "round": "R32",
+    "date": "2026-03-23",
+    "gender": "W",
+    "espn_event_id": "401856549",
+    "winner_name": "Louisville Cardinals",
+    "loser_name": "Alabama Crimson Tide"
   }
 ]
