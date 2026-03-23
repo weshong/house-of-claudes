@@ -1042,5 +1042,17 @@
     "espn_event_id": "401856541",
     "winner_name": "Texas Longhorns",
     "loser_name": "Oregon Ducks"
+  },
+  {
+    "winner_id": 1397,
+    "loser_id": 1438,
+    "winner_score": 79,
+    "loser_score": 72,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "M",
+    "espn_event_id": "401856562",
+    "winner_name": "Tennessee Volunteers",
+    "loser_name": "Virginia Cavaliers"
   }
 ]

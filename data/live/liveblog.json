@@ -1237,5 +1237,19 @@
     "v7_pred": 0.9547,
     "seed_pred": 0.9438,
     "rf_pred": 0.865
+  },
+  {
+    "timestamp": "2026-03-23T00:46:31.122349+00:00",
+    "type": "game",
+    "title": "(6) Tennessee 79, (3) Virginia 72",
+    "commentary": "(6) Tennessee takes it over (3) Virginia, winning by 7. Coin flip at 53%. Got lucky on this one. UPSET: 6-seed over 3-seed! [Got it: v7 | Missed: Seed, RF] Per-game Brier contribution: 0.220 (ouch).",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-22",
+    "model_correct": true,
+    "is_upset": true,
+    "v7_pred": 0.5311,
+    "seed_pred": 0.2299,
+    "rf_pred": 0.423
   }
 ]
