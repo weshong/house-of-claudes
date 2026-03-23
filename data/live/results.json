@@ -1138,5 +1138,17 @@
     "espn_event_id": "401856549",
     "winner_name": "Louisville Cardinals",
     "loser_name": "Alabama Crimson Tide"
+  },
+  {
+    "winner_id": 3438,
+    "loser_id": 3234,
+    "winner_score": 83,
+    "loser_score": 75,
+    "round": "R32",
+    "date": "2026-03-23",
+    "gender": "W",
+    "espn_event_id": "401856552",
+    "winner_name": "Virginia Cavaliers",
+    "loser_name": "Iowa Hawkeyes"
   }
 ]

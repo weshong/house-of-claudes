@@ -1349,5 +1349,19 @@
     "v7_pred": 0.8189,
     "seed_pred": 0.7701,
     "rf_pred": 0.787
+  },
+  {
+    "timestamp": "2026-03-23T20:48:31.990932+00:00",
+    "type": "game",
+    "title": "(10) Virginia 83, (2) Iowa 75",
+    "commentary": "(10) Virginia takes it over (2) Iowa, winning by 8. Brutal miss. Model was 94% on (2) Iowa. This is a Brier score killer. UPSET: 10-seed over 2-seed! Per-game Brier contribution: 0.878 (ouch).",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-23",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.0632,
+    "seed_pred": 0.0383,
+    "rf_pred": 0.368
   }
 ]
