@@ -1054,5 +1054,17 @@
     "espn_event_id": "401856562",
     "winner_name": "Tennessee Volunteers",
     "loser_name": "Virginia Cavaliers"
+  },
+  {
+    "winner_id": 1234,
+    "loser_id": 1196,
+    "winner_score": 73,
+    "loser_score": 72,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "M",
+    "espn_event_id": "401856563",
+    "winner_name": "Iowa Hawkeyes",
+    "loser_name": "Florida Gators"
   }
 ]
