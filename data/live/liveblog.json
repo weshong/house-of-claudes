@@ -1391,5 +1391,19 @@
     "v7_pred": 0.4154,
     "seed_pred": 0.4006,
     "rf_pred": 0.588
+  },
+  {
+    "timestamp": "2026-03-23T23:48:52.797000+00:00",
+    "type": "game",
+    "title": "(1) Connecticut 98, (9) Syracuse 45",
+    "commentary": "Blowout. (1) Connecticut cruised past (9) Syracuse by 53. Model had this at 98% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-23",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.975,
+    "seed_pred": 0.9617,
+    "rf_pred": 0.815
   }
 ]

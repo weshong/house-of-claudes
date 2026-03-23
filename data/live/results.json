@@ -1174,5 +1174,17 @@
     "espn_event_id": "401856553",
     "winner_name": "Kentucky Wildcats",
     "loser_name": "West Virginia Mountaineers"
+  },
+  {
+    "winner_id": 3163,
+    "loser_id": 3393,
+    "winner_score": 98,
+    "loser_score": 45,
+    "round": "R32",
+    "date": "2026-03-23",
+    "gender": "W",
+    "espn_event_id": "401856551",
+    "winner_name": "UConn Huskies",
+    "loser_name": "Syracuse Orange"
   }
 ]
