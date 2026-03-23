@@ -1307,5 +1307,33 @@
     "v7_pred": 0.8483,
     "seed_pred": 0.8823,
     "rf_pred": 0.709
+  },
+  {
+    "timestamp": "2026-03-23T04:32:00.640814+00:00",
+    "type": "game",
+    "title": "(4) Alabama 90, (5) Texas Tech 65",
+    "commentary": "Blowout. (4) Alabama cruised past (5) Texas Tech by 25. Coin flip at 55%. Got lucky on this one. [Got it: v7, Seed | Missed: RF] Per-game Brier contribution: 0.204 (ouch).",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-22",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.5481,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.497
+  },
+  {
+    "timestamp": "2026-03-23T04:32:00.640838+00:00",
+    "type": "game",
+    "title": "(3) TCU 62, (6) Washington 59",
+    "commentary": "Nail-biter! (3) TCU edges (6) Washington by just 3. Model correctly favored the winner at 84%.",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-22",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8418,
+    "seed_pred": 0.7701,
+    "rf_pred": 0.754
   }
 ]

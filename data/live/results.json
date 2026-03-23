@@ -1102,5 +1102,29 @@
     "espn_event_id": "401856559",
     "winner_name": "UConn Huskies",
     "loser_name": "UCLA Bruins"
+  },
+  {
+    "winner_id": 1104,
+    "loser_id": 1403,
+    "winner_score": 90,
+    "loser_score": 65,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "M",
+    "espn_event_id": "401856560",
+    "winner_name": "Alabama Crimson Tide",
+    "loser_name": "Texas Tech Red Raiders"
+  },
+  {
+    "winner_id": 3395,
+    "loser_id": 3449,
+    "winner_score": 62,
+    "loser_score": 59,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "W",
+    "espn_event_id": "401856540",
+    "winner_name": "TCU Horned Frogs",
+    "loser_name": "Washington Huskies"
   }
 ]
