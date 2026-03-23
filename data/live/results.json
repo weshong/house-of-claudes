@@ -1078,5 +1078,17 @@
     "espn_event_id": "401856546",
     "winner_name": "Oklahoma Sooners",
     "loser_name": "Michigan State Spartans"
+  },
+  {
+    "winner_id": 1112,
+    "loser_id": 1429,
+    "winner_score": 78,
+    "loser_score": 66,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "M",
+    "espn_event_id": "401856565",
+    "winner_name": "Arizona Wildcats",
+    "loser_name": "Utah State Aggies"
   }
 ]
