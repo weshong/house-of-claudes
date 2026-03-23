@@ -1293,5 +1293,19 @@
     "v7_pred": 0.9556,
     "seed_pred": 0.9617,
     "rf_pred": 0.707
+  },
+  {
+    "timestamp": "2026-03-23T03:31:53.564623+00:00",
+    "type": "game",
+    "title": "(2) Connecticut 73, (7) UCLA 57",
+    "commentary": "Comfortable win for (2) Connecticut, up 16 over (7) UCLA. Model correctly favored the winner at 85%.",
+    "round": "R32",
+    "gender": "M",
+    "date": "2026-03-22",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8483,
+    "seed_pred": 0.8823,
+    "rf_pred": 0.709
   }
 ]

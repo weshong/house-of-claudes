@@ -1090,5 +1090,17 @@
     "espn_event_id": "401856565",
     "winner_name": "Arizona Wildcats",
     "loser_name": "Utah State Aggies"
+  },
+  {
+    "winner_id": 1163,
+    "loser_id": 1417,
+    "winner_score": 73,
+    "loser_score": 57,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "M",
+    "espn_event_id": "401856559",
+    "winner_name": "UConn Huskies",
+    "loser_name": "UCLA Bruins"
   }
 ]
