@@ -1377,5 +1377,19 @@
     "v7_pred": 0.2473,
     "seed_pred": 0.2299,
     "rf_pred": 0.32
+  },
+  {
+    "timestamp": "2026-03-23T23:18:48.762997+00:00",
+    "type": "game",
+    "title": "(5) Kentucky 74, (4) West Virginia 73",
+    "commentary": "Nail-biter! (5) Kentucky edges (4) West Virginia by just 1. Model leaned wrong at 58% for (4) West Virginia. Moderate miss. UPSET: 5-seed over 4-seed! [Got it: RF | Missed: v7, Seed] Per-game Brier contribution: 0.342 (ouch).",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-23",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.4154,
+    "seed_pred": 0.4006,
+    "rf_pred": 0.588
   }
 ]

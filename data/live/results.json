@@ -1162,5 +1162,17 @@
     "espn_event_id": "401856547",
     "winner_name": "Notre Dame Fighting Irish",
     "loser_name": "Ohio State Buckeyes"
+  },
+  {
+    "winner_id": 3246,
+    "loser_id": 3452,
+    "winner_score": 74,
+    "loser_score": 73,
+    "round": "R32",
+    "date": "2026-03-23",
+    "gender": "W",
+    "espn_event_id": "401856553",
+    "winner_name": "Kentucky Wildcats",
+    "loser_name": "West Virginia Mountaineers"
   }
 ]
