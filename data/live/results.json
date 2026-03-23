@@ -1030,5 +1030,17 @@
     "espn_event_id": "401856558",
     "winner_name": "St. John's Red Storm",
     "loser_name": "Kansas Jayhawks"
+  },
+  {
+    "winner_id": 3400,
+    "loser_id": 3332,
+    "winner_score": 100,
+    "loser_score": 58,
+    "round": "R32",
+    "date": "2026-03-22",
+    "gender": "W",
+    "espn_event_id": "401856541",
+    "winner_name": "Texas Longhorns",
+    "loser_name": "Oregon Ducks"
   }
 ]
