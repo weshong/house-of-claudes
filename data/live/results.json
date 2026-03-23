@@ -1150,5 +1150,17 @@
     "espn_event_id": "401856552",
     "winner_name": "Virginia Cavaliers",
     "loser_name": "Iowa Hawkeyes"
+  },
+  {
+    "winner_id": 3323,
+    "loser_id": 3326,
+    "winner_score": 83,
+    "loser_score": 73,
+    "round": "R32",
+    "date": "2026-03-23",
+    "gender": "W",
+    "espn_event_id": "401856547",
+    "winner_name": "Notre Dame Fighting Irish",
+    "loser_name": "Ohio State Buckeyes"
   }
 ]

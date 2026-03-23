@@ -1893,3 +1893,33 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (164 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 14:03:33
+
+[2026-03-23 14:03:33] Checking ESPN for new tournament games...
+  No new games. (96 total results)
+  Next check: 14:18:34
+
+[2026-03-23 14:18:34] Checking ESPN for new tournament games...
+  No new games. (96 total results)
+  Next check: 14:33:36
+
+[2026-03-23 14:33:36] Checking ESPN for new tournament games...
+  No new games. (96 total results)
+  Next check: 14:48:37
+
+[2026-03-23 14:48:37] Checking ESPN for new tournament games...
+  No new games. (96 total results)
+  Next check: 15:03:39
+
+[2026-03-23 15:03:39] Checking ESPN for new tournament games...
+  No new games. (96 total results)
+  Next check: 15:18:40
+
+[2026-03-23 15:18:40] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (6) Notre Dame 83, (3) Ohio St 73 [R32] — MISS
+  Saved: 97 total results, 100 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (164 KB)
+  Pushing to GitHub...

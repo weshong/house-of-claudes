@@ -1363,5 +1363,19 @@
     "v7_pred": 0.0632,
     "seed_pred": 0.0383,
     "rf_pred": 0.368
+  },
+  {
+    "timestamp": "2026-03-23T22:18:41.766554+00:00",
+    "type": "game",
+    "title": "(6) Notre Dame 83, (3) Ohio St 73",
+    "commentary": "Comfortable win for (6) Notre Dame, up 10 over (3) Ohio St. Significant miss \u2014 we had 75% on (3) Ohio St. Hurts the Brier. UPSET: 6-seed over 3-seed! Per-game Brier contribution: 0.567 (ouch).",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-23",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.2473,
+    "seed_pred": 0.2299,
+    "rf_pred": 0.32
   }
 ]
