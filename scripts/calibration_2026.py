@@ -15,15 +15,18 @@ with open(ROOT / "data/live/results.json") as f:
     results = json.load(f)
 
 # Build ground truth: ID -> outcome (1 if lower TeamId won, 0 otherwise)
+# Exclude Play-In games to match Kaggle scoring (dashboard uses same filter)
 actuals = {}
 for game in results:
+    if game["round"] == "Play-In":
+        continue
     w, l = game["winner_id"], game["loser_id"]
     low, high = min(w, l), max(w, l)
     game_id = f"2026_{low}_{high}"
     outcome = 1 if w == low else 0
     actuals[game_id] = outcome
 
-print(f"Total 2026 games with results: {len(actuals)}")
+print(f"Total 2026 Kaggle-scored games: {len(actuals)}")
 
 # --- Load submissions ---
 def load_submission(path):
