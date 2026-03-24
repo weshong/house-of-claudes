@@ -1945,3 +1945,43 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (165 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 16:33:50
+
+[2026-03-23 16:33:50] Checking ESPN for new tournament games...
+  No new games. (98 total results)
+  Next check: 16:48:51
+
+[2026-03-23 16:48:51] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (1) Connecticut 98, (9) Syracuse 45 [R32] — CORRECT
+  Saved: 99 total results, 102 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (166 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 17:03:54
+
+[2026-03-23 17:03:54] Checking ESPN for new tournament games...
+  No new games. (99 total results)
+  Next check: 17:18:55
+
+[2026-03-23 17:18:55] Checking ESPN for new tournament games...
+  No new games. (99 total results)
+  Next check: 17:33:57
+
+[2026-03-23 17:33:57] Checking ESPN for new tournament games...
+  No new games. (99 total results)
+  Next check: 17:48:59
+
+[2026-03-23 17:48:59] Checking ESPN for new tournament games...
+  No new games. (99 total results)
+  Next check: 18:04:01
+
+[2026-03-23 18:04:01] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (2) Vanderbilt 75, (7) Illinois 57 [R32] — CORRECT
+  Saved: 100 total results, 103 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (167 KB)
+  Pushing to GitHub...

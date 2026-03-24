@@ -1405,5 +1405,19 @@
     "v7_pred": 0.975,
     "seed_pred": 0.9617,
     "rf_pred": 0.815
+  },
+  {
+    "timestamp": "2026-03-24T01:04:03.144934+00:00",
+    "type": "game",
+    "title": "(2) Vanderbilt 75, (7) Illinois 57",
+    "commentary": "Comfortable win for (2) Vanderbilt, up 18 over (7) Illinois. Model correctly favored the winner at 86%.",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-23",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8561,
+    "seed_pred": 0.8823,
+    "rf_pred": 0.741
   }
 ]

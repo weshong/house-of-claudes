@@ -1186,5 +1186,17 @@
     "espn_event_id": "401856551",
     "winner_name": "UConn Huskies",
     "loser_name": "Syracuse Orange"
+  },
+  {
+    "winner_id": 3435,
+    "loser_id": 3228,
+    "winner_score": 75,
+    "loser_score": 57,
+    "round": "R32",
+    "date": "2026-03-23",
+    "gender": "W",
+    "espn_event_id": "401856554",
+    "winner_name": "Vanderbilt Commodores",
+    "loser_name": "Illinois Fighting Illini"
   }
 ]
