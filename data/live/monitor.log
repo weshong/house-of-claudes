@@ -1985,3 +1985,29 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (167 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 18:19:04
+
+[2026-03-23 18:19:04] Checking ESPN for new tournament games...
+  No new games. (100 total results)
+  Next check: 18:34:06
+
+[2026-03-23 18:34:06] Checking ESPN for new tournament games...
+  No new games. (100 total results)
+  Next check: 18:49:07
+
+[2026-03-23 18:49:07] Checking ESPN for new tournament games...
+  No new games. (100 total results)
+  Next check: 19:04:09
+
+[2026-03-23 19:04:09] Checking ESPN for new tournament games...
+  No new games. (100 total results)
+  Next check: 19:19:10
+
+[2026-03-23 19:19:10] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (1) South Carolina 101, (9) USC 61 [R32] — CORRECT
+  Saved: 101 total results, 104 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (167 KB)
+  Pushing to GitHub...

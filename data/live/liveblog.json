@@ -1419,5 +1419,19 @@
     "v7_pred": 0.8561,
     "seed_pred": 0.8823,
     "rf_pred": 0.741
+  },
+  {
+    "timestamp": "2026-03-24T02:19:12.659935+00:00",
+    "type": "game",
+    "title": "(1) South Carolina 101, (9) USC 61",
+    "commentary": "Blowout. (1) South Carolina cruised past (9) USC by 40. Model had this at 96% \u2014 easy call. Per-game Brier contribution: 0.002 (great).",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-23",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9588,
+    "seed_pred": 0.9617,
+    "rf_pred": 0.928
   }
 ]

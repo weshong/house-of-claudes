@@ -1198,5 +1198,17 @@
     "espn_event_id": "401856554",
     "winner_name": "Vanderbilt Commodores",
     "loser_name": "Illinois Fighting Illini"
+  },
+  {
+    "winner_id": 3376,
+    "loser_id": 3425,
+    "winner_score": 101,
+    "loser_score": 61,
+    "round": "R32",
+    "date": "2026-03-23",
+    "gender": "W",
+    "espn_event_id": "401856550",
+    "winner_name": "South Carolina Gamecocks",
+    "loser_name": "USC Trojans"
   }
 ]
