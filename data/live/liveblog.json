@@ -1433,5 +1433,19 @@
     "v7_pred": 0.9588,
     "seed_pred": 0.9617,
     "rf_pred": 0.928
+  },
+  {
+    "timestamp": "2026-03-24T04:04:26.800757+00:00",
+    "type": "game",
+    "title": "(1) UCLA 87, (8) Oklahoma St 68",
+    "commentary": "Comfortable win for (1) UCLA, up 19 over (8) Oklahoma St. Model had this at 96% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "R32",
+    "gender": "W",
+    "date": "2026-03-23",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9646,
+    "seed_pred": 0.9438,
+    "rf_pred": 0.816
   }
 ]

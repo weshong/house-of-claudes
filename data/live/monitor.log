@@ -2011,3 +2011,37 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (167 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 19:34:14
+
+[2026-03-23 19:34:14] Checking ESPN for new tournament games...
+  No new games. (101 total results)
+  Next check: 19:49:15
+
+[2026-03-23 19:49:15] Checking ESPN for new tournament games...
+  No new games. (101 total results)
+  Next check: 20:04:17
+
+[2026-03-23 20:04:17] Checking ESPN for new tournament games...
+  No new games. (101 total results)
+  Next check: 20:19:19
+
+[2026-03-23 20:19:19] Checking ESPN for new tournament games...
+  No new games. (101 total results)
+  Next check: 20:34:21
+
+[2026-03-23 20:34:21] Checking ESPN for new tournament games...
+  No new games. (101 total results)
+  Next check: 20:49:23
+
+[2026-03-23 20:49:23] Checking ESPN for new tournament games...
+  No new games. (101 total results)
+  Next check: 21:04:24
+
+[2026-03-23 21:04:24] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (1) UCLA 87, (8) Oklahoma St 68 [R32] — CORRECT
+  Saved: 102 total results, 105 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (168 KB)
+  Pushing to GitHub...
