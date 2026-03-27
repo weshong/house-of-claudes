@@ -1234,5 +1234,17 @@
     "espn_event_id": "401856567",
     "winner_name": "Iowa Hawkeyes",
     "loser_name": "Nebraska Cornhuskers"
+  },
+  {
+    "winner_id": 1345,
+    "loser_id": 1400,
+    "winner_score": 79,
+    "loser_score": 77,
+    "round": "Sweet 16",
+    "date": "2026-03-26",
+    "gender": "M",
+    "espn_event_id": "401856568",
+    "winner_name": "Purdue Boilermakers",
+    "loser_name": "Texas Longhorns"
   }
 ]

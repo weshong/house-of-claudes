@@ -1461,5 +1461,19 @@
     "v7_pred": 0.4547,
     "seed_pred": 0.1177,
     "rf_pred": 0.384
+  },
+  {
+    "timestamp": "2026-03-27T01:42:49.344697+00:00",
+    "type": "game",
+    "title": "(2) Purdue 79, (11) Texas 77",
+    "commentary": "Nail-biter! (2) Purdue edges (11) Texas by just 2. Model had this at 97% \u2014 easy call. Per-game Brier contribution: 0.001 (great).",
+    "round": "Sweet 16",
+    "gender": "M",
+    "date": "2026-03-26",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9693,
+    "seed_pred": 0.9741,
+    "rf_pred": 0.593
   }
 ]
