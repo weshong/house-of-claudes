@@ -1282,5 +1282,17 @@
     "espn_event_id": "401856557",
     "winner_name": "Notre Dame Fighting Irish",
     "loser_name": "Vanderbilt Commodores"
+  },
+  {
+    "winner_id": 3163,
+    "loser_id": 3314,
+    "winner_score": 63,
+    "loser_score": 42,
+    "round": "Sweet 16",
+    "date": "2026-03-27",
+    "gender": "W",
+    "espn_event_id": "401856556",
+    "winner_name": "UConn Huskies",
+    "loser_name": "North Carolina Tar Heels"
   }
 ]
