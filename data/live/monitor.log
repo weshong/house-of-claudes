@@ -3159,3 +3159,64 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (169 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 18:42:47
+
+[2026-03-26 18:42:47] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (2) Purdue 79, (11) Texas 77 [Sweet 16] — CORRECT
+  Saved: 104 total results, 107 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (170 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 18:57:50
+
+[2026-03-26 18:57:50] Checking ESPN for new tournament games...
+  No new games. (104 total results)
+  Next check: 19:12:52
+
+[2026-03-26 19:12:52] Checking ESPN for new tournament games...
+  No new games. (104 total results)
+  Next check: 19:27:55
+
+[2026-03-26 19:27:55] Checking ESPN for new tournament games...
+  No new games. (104 total results)
+  Next check: 19:42:57
+
+[2026-03-26 19:42:57] Checking ESPN for new tournament games...
+  No new games. (104 total results)
+  Next check: 19:58:00
+
+[2026-03-26 19:58:00] Checking ESPN for new tournament games...
+  No new games. (104 total results)
+  Next check: 20:13:02
+
+[2026-03-26 20:13:02] Checking ESPN for new tournament games...
+  No new games. (104 total results)
+  Next check: 20:28:05
+
+[2026-03-26 20:28:05] Checking ESPN for new tournament games...
+  No new games. (104 total results)
+  Next check: 20:43:07
+
+[2026-03-26 20:43:07] Checking ESPN for new tournament games...
+  No new games. (104 total results)
+  Next check: 20:58:10
+
+[2026-03-26 20:58:10] Checking ESPN for new tournament games...
+  No new games. (104 total results)
+  Next check: 21:13:13
+
+[2026-03-26 21:13:13] Checking ESPN for new tournament games...
+  No new games. (104 total results)
+  Next check: 21:28:15
+
+[2026-03-26 21:28:15] Checking ESPN for new tournament games...
+  Found 2 new game(s):
+    NEW: (1) Arizona 109, (4) Arkansas 88 [Sweet 16] — CORRECT
+    NEW: (3) Illinois 65, (2) Houston 55 [Sweet 16] — MISS
+  Saved: 106 total results, 109 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (171 KB)
+  Pushing to GitHub...

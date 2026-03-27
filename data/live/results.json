@@ -1246,5 +1246,29 @@
     "espn_event_id": "401856568",
     "winner_name": "Purdue Boilermakers",
     "loser_name": "Texas Longhorns"
+  },
+  {
+    "winner_id": 1112,
+    "loser_id": 1116,
+    "winner_score": 109,
+    "loser_score": 88,
+    "round": "Sweet 16",
+    "date": "2026-03-26",
+    "gender": "M",
+    "espn_event_id": "401856569",
+    "winner_name": "Arizona Wildcats",
+    "loser_name": "Arkansas Razorbacks"
+  },
+  {
+    "winner_id": 1228,
+    "loser_id": 1222,
+    "winner_score": 65,
+    "loser_score": 55,
+    "round": "Sweet 16",
+    "date": "2026-03-26",
+    "gender": "M",
+    "espn_event_id": "401856566",
+    "winner_name": "Illinois Fighting Illini",
+    "loser_name": "Houston Cougars"
   }
 ]
