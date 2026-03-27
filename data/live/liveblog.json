@@ -1447,5 +1447,19 @@
     "v7_pred": 0.9646,
     "seed_pred": 0.9438,
     "rf_pred": 0.816
+  },
+  {
+    "timestamp": "2026-03-27T01:27:45.870199+00:00",
+    "type": "game",
+    "title": "(9) Iowa 77, (4) Nebraska 71",
+    "commentary": "(9) Iowa takes it over (4) Nebraska, winning by 6. Essentially a toss-up miss (55%). Minimal Brier damage. UPSET: 9-seed over 4-seed! Per-game Brier contribution: 0.297 (ouch).",
+    "round": "Sweet 16",
+    "gender": "M",
+    "date": "2026-03-26",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.4547,
+    "seed_pred": 0.1177,
+    "rf_pred": 0.384
   }
 ]

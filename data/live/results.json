@@ -1222,5 +1222,17 @@
     "espn_event_id": "401856555",
     "winner_name": "UCLA Bruins",
     "loser_name": "Oklahoma State Cowgirls"
+  },
+  {
+    "winner_id": 1234,
+    "loser_id": 1304,
+    "winner_score": 77,
+    "loser_score": 71,
+    "round": "Sweet 16",
+    "date": "2026-03-26",
+    "gender": "M",
+    "espn_event_id": "401856567",
+    "winner_name": "Iowa Hawkeyes",
+    "loser_name": "Nebraska Cornhuskers"
   }
 ]
