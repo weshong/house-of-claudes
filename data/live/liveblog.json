@@ -1503,5 +1503,19 @@
     "v7_pred": 0.4809,
     "seed_pred": 0.4006,
     "rf_pred": 0.511
+  },
+  {
+    "timestamp": "2026-03-27T20:45:46.280813+00:00",
+    "type": "game",
+    "title": "(6) Notre Dame 67, (2) Vanderbilt 64",
+    "commentary": "Nail-biter! (6) Notre Dame edges (2) Vanderbilt by just 3. Significant miss \u2014 we had 71% on (2) Vanderbilt. Hurts the Brier. UPSET: 6-seed over 2-seed! Per-game Brier contribution: 0.499 (ouch).",
+    "round": "Sweet 16",
+    "gender": "W",
+    "date": "2026-03-27",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.294,
+    "seed_pred": 0.1663,
+    "rf_pred": 0.255
   }
 ]

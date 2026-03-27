@@ -1270,5 +1270,17 @@
     "espn_event_id": "401856566",
     "winner_name": "Illinois Fighting Illini",
     "loser_name": "Houston Cougars"
+  },
+  {
+    "winner_id": 3323,
+    "loser_id": 3435,
+    "winner_score": 67,
+    "loser_score": 64,
+    "round": "Sweet 16",
+    "date": "2026-03-27",
+    "gender": "W",
+    "espn_event_id": "401856557",
+    "winner_name": "Notre Dame Fighting Irish",
+    "loser_name": "Vanderbilt Commodores"
   }
 ]
