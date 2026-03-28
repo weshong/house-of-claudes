@@ -1587,5 +1587,19 @@
     "v7_pred": 0.7069,
     "seed_pred": 0.5994,
     "rf_pred": 0.626
+  },
+  {
+    "timestamp": "2026-03-28T04:32:10.898967+00:00",
+    "type": "game",
+    "title": "(3) Duke 87, (2) LSU 85",
+    "commentary": "Nail-biter! (3) Duke edges (2) LSU by just 2. Model leaned wrong at 67% for (2) LSU. Moderate miss. UPSET: 3-seed over 2-seed! Per-game Brier contribution: 0.454 (ouch).",
+    "round": "Sweet 16",
+    "gender": "W",
+    "date": "2026-03-27",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.326,
+    "seed_pred": 0.4006,
+    "rf_pred": 0.28
   }
 ]

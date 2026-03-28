@@ -1342,5 +1342,17 @@
     "espn_event_id": "401856571",
     "winner_name": "UConn Huskies",
     "loser_name": "Michigan State Spartans"
+  },
+  {
+    "winner_id": 3181,
+    "loser_id": 3261,
+    "winner_score": 87,
+    "loser_score": 85,
+    "round": "Sweet 16",
+    "date": "2026-03-27",
+    "gender": "W",
+    "espn_event_id": "401856579",
+    "winner_name": "Duke Blue Devils",
+    "loser_name": "LSU Tigers"
   }
 ]
