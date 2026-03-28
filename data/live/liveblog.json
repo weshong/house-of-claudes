@@ -1629,5 +1629,19 @@
     "v7_pred": 0.5216,
     "seed_pred": 0.5994,
     "rf_pred": 0.592
+  },
+  {
+    "timestamp": "2026-03-28T21:20:01.864022+00:00",
+    "type": "game",
+    "title": "(1) Texas 76, (5) Kentucky 54",
+    "commentary": "Blowout. (1) Texas cruised past (5) Kentucky by 22. Model had this at 91% \u2014 easy call. Per-game Brier contribution: 0.009 (great).",
+    "round": "Sweet 16",
+    "gender": "W",
+    "date": "2026-03-28",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9069,
+    "seed_pred": 0.8337,
+    "rf_pred": 0.742
   }
 ]

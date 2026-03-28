@@ -1378,5 +1378,17 @@
     "espn_event_id": "401856580",
     "winner_name": "Michigan Wolverines",
     "loser_name": "Louisville Cardinals"
+  },
+  {
+    "winner_id": 3400,
+    "loser_id": 3246,
+    "winner_score": 76,
+    "loser_score": 54,
+    "round": "Sweet 16",
+    "date": "2026-03-28",
+    "gender": "W",
+    "espn_event_id": "401856581",
+    "winner_name": "Texas Longhorns",
+    "loser_name": "Kentucky Wildcats"
   }
 ]
