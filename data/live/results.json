@@ -1294,5 +1294,17 @@
     "espn_event_id": "401856556",
     "winner_name": "UConn Huskies",
     "loser_name": "North Carolina Tar Heels"
+  },
+  {
+    "winner_id": 1181,
+    "loser_id": 1385,
+    "winner_score": 80,
+    "loser_score": 75,
+    "round": "Sweet 16",
+    "date": "2026-03-27",
+    "gender": "M",
+    "espn_event_id": "401856570",
+    "winner_name": "Duke Blue Devils",
+    "loser_name": "St. John's Red Storm"
   }
 ]
