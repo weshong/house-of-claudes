@@ -1390,5 +1390,17 @@
     "espn_event_id": "401856581",
     "winner_name": "Texas Longhorns",
     "loser_name": "Kentucky Wildcats"
+  },
+  {
+    "winner_id": 3376,
+    "loser_id": 3328,
+    "winner_score": 94,
+    "loser_score": 68,
+    "round": "Sweet 16",
+    "date": "2026-03-28",
+    "gender": "W",
+    "espn_event_id": "401856583",
+    "winner_name": "South Carolina Gamecocks",
+    "loser_name": "Oklahoma Sooners"
   }
 ]
