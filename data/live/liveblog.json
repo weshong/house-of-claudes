@@ -1559,5 +1559,19 @@
     "v7_pred": 0.9169,
     "seed_pred": 0.7701,
     "rf_pred": 0.745
+  },
+  {
+    "timestamp": "2026-03-28T02:16:44.465425+00:00",
+    "type": "game",
+    "title": "(1) Michigan 90, (4) Alabama 77",
+    "commentary": "Comfortable win for (1) Michigan, up 13 over (4) Alabama. Model correctly favored the winner at 88%. Per-game Brier contribution: 0.014 (great).",
+    "round": "Sweet 16",
+    "gender": "M",
+    "date": "2026-03-27",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8809,
+    "seed_pred": 0.7701,
+    "rf_pred": 0.653
   }
 ]

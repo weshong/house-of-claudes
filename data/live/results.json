@@ -1318,5 +1318,17 @@
     "espn_event_id": "401856578",
     "winner_name": "UCLA Bruins",
     "loser_name": "Minnesota Golden Gophers"
+  },
+  {
+    "winner_id": 1276,
+    "loser_id": 1104,
+    "winner_score": 90,
+    "loser_score": 77,
+    "round": "Sweet 16",
+    "date": "2026-03-27",
+    "gender": "M",
+    "espn_event_id": "401856572",
+    "winner_name": "Michigan Wolverines",
+    "loser_name": "Alabama Crimson Tide"
   }
 ]
