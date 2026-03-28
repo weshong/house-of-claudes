@@ -3586,3 +3586,41 @@ Press Ctrl+C to stop.
   Pushing to GitHub...
   Pushed to GitHub.
   Next check: 19:01:39
+
+[2026-03-27 19:01:39] Checking ESPN for new tournament games...
+  No new games. (110 total results)
+  Next check: 19:16:41
+
+[2026-03-27 19:16:41] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (1) Michigan 90, (4) Alabama 77 [Sweet 16] — CORRECT
+  Saved: 111 total results, 114 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (175 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 19:31:46
+
+[2026-03-27 19:31:46] Checking ESPN for new tournament games...
+  No new games. (111 total results)
+  Next check: 19:46:48
+
+[2026-03-27 19:46:48] Checking ESPN for new tournament games...
+  No new games. (111 total results)
+  Next check: 20:01:50
+
+[2026-03-27 20:01:50] Checking ESPN for new tournament games...
+  No new games. (111 total results)
+  Next check: 20:16:53
+
+[2026-03-27 20:16:53] Checking ESPN for new tournament games...
+  No new games. (111 total results)
+  Next check: 20:31:56
+
+[2026-03-27 20:31:56] Checking ESPN for new tournament games...
+  No new games. (111 total results)
+  Next check: 20:46:58
+
+[2026-03-27 20:46:58] Checking ESPN for new tournament games...
+  No new games. (111 total results)
+  Next check: 21:02:01

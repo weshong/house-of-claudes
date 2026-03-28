@@ -1573,5 +1573,19 @@
     "v7_pred": 0.8809,
     "seed_pred": 0.7701,
     "rf_pred": 0.653
+  },
+  {
+    "timestamp": "2026-03-28T04:17:06.798295+00:00",
+    "type": "game",
+    "title": "(2) Connecticut 67, (3) Michigan St 63",
+    "commentary": "(2) Connecticut takes it over (3) Michigan St, winning by 4. Model correctly favored the winner at 71%.",
+    "round": "Sweet 16",
+    "gender": "M",
+    "date": "2026-03-27",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.7069,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.626
   }
 ]

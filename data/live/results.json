@@ -1330,5 +1330,17 @@
     "espn_event_id": "401856572",
     "winner_name": "Michigan Wolverines",
     "loser_name": "Alabama Crimson Tide"
+  },
+  {
+    "winner_id": 1163,
+    "loser_id": 1277,
+    "winner_score": 67,
+    "loser_score": 63,
+    "round": "Sweet 16",
+    "date": "2026-03-27",
+    "gender": "M",
+    "espn_event_id": "401856571",
+    "winner_name": "UConn Huskies",
+    "loser_name": "Michigan State Spartans"
   }
 ]
