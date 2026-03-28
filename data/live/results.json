@@ -1366,5 +1366,17 @@
     "espn_event_id": "401856573",
     "winner_name": "Tennessee Volunteers",
     "loser_name": "Iowa State Cyclones"
+  },
+  {
+    "winner_id": 3276,
+    "loser_id": 3257,
+    "winner_score": 71,
+    "loser_score": 52,
+    "round": "Sweet 16",
+    "date": "2026-03-28",
+    "gender": "W",
+    "espn_event_id": "401856580",
+    "winner_name": "Michigan Wolverines",
+    "loser_name": "Louisville Cardinals"
   }
 ]

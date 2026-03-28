@@ -1615,5 +1615,19 @@
     "v7_pred": 0.3929,
     "seed_pred": 0.1663,
     "rf_pred": 0.369
+  },
+  {
+    "timestamp": "2026-03-28T18:49:34.602057+00:00",
+    "type": "game",
+    "title": "(2) Michigan 71, (3) Louisville 52",
+    "commentary": "Comfortable win for (2) Michigan, up 19 over (3) Louisville. Coin flip at 52%. Got lucky on this one. Per-game Brier contribution: 0.229 (ouch).",
+    "round": "Sweet 16",
+    "gender": "W",
+    "date": "2026-03-28",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.5216,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.592
   }
 ]
