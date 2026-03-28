@@ -1306,5 +1306,17 @@
     "espn_event_id": "401856570",
     "winner_name": "Duke Blue Devils",
     "loser_name": "St. John's Red Storm"
+  },
+  {
+    "winner_id": 3417,
+    "loser_id": 3278,
+    "winner_score": 80,
+    "loser_score": 56,
+    "round": "Sweet 16",
+    "date": "2026-03-27",
+    "gender": "W",
+    "espn_event_id": "401856578",
+    "winner_name": "UCLA Bruins",
+    "loser_name": "Minnesota Golden Gophers"
   }
 ]
