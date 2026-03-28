@@ -1601,5 +1601,19 @@
     "v7_pred": 0.326,
     "seed_pred": 0.4006,
     "rf_pred": 0.28
+  },
+  {
+    "timestamp": "2026-03-28T05:02:17.552343+00:00",
+    "type": "game",
+    "title": "(6) Tennessee 76, (2) Iowa St 62",
+    "commentary": "Comfortable win for (6) Tennessee, up 14 over (2) Iowa St. Model leaned wrong at 61% for (2) Iowa St. Moderate miss. UPSET: 6-seed over 2-seed! Per-game Brier contribution: 0.369 (ouch).",
+    "round": "Sweet 16",
+    "gender": "M",
+    "date": "2026-03-27",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.3929,
+    "seed_pred": 0.1663,
+    "rf_pred": 0.369
   }
 ]

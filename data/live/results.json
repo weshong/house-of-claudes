@@ -1354,5 +1354,17 @@
     "espn_event_id": "401856579",
     "winner_name": "Duke Blue Devils",
     "loser_name": "LSU Tigers"
+  },
+  {
+    "winner_id": 1397,
+    "loser_id": 1235,
+    "winner_score": 76,
+    "loser_score": 62,
+    "round": "Sweet 16",
+    "date": "2026-03-27",
+    "gender": "M",
+    "espn_event_id": "401856573",
+    "winner_name": "Tennessee Volunteers",
+    "loser_name": "Iowa State Cyclones"
   }
 ]
