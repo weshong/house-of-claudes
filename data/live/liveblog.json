@@ -1685,5 +1685,19 @@
     "v7_pred": 0.9305,
     "seed_pred": 0.9438,
     "rf_pred": 0.749
+  },
+  {
+    "timestamp": "2026-03-29T03:06:06.953342+00:00",
+    "type": "game",
+    "title": "(1) Arizona 79, (2) Purdue 64",
+    "commentary": "Comfortable win for (1) Arizona, up 15 over (2) Purdue. Close call \u2014 model gave 59%. We'll take it. Per-game Brier contribution: 0.171 (ouch).",
+    "round": "Elite 8",
+    "gender": "M",
+    "date": "2026-03-28",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.5865,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.603
   }
 ]

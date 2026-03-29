@@ -1426,5 +1426,17 @@
     "espn_event_id": "401856582",
     "winner_name": "TCU Horned Frogs",
     "loser_name": "Virginia Cavaliers"
+  },
+  {
+    "winner_id": 1112,
+    "loser_id": 1345,
+    "winner_score": 79,
+    "loser_score": 64,
+    "round": "Elite 8",
+    "date": "2026-03-28",
+    "gender": "M",
+    "espn_event_id": "401856575",
+    "winner_name": "Arizona Wildcats",
+    "loser_name": "Purdue Boilermakers"
   }
 ]

@@ -4018,3 +4018,33 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (181 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 18:50:50
+
+[2026-03-28 18:50:50] Checking ESPN for new tournament games...
+  No new games. (119 total results)
+  Next check: 19:05:53
+
+[2026-03-28 19:05:53] Checking ESPN for new tournament games...
+  No new games. (119 total results)
+  Next check: 19:20:56
+
+[2026-03-28 19:20:56] Checking ESPN for new tournament games...
+  No new games. (119 total results)
+  Next check: 19:35:58
+
+[2026-03-28 19:35:58] Checking ESPN for new tournament games...
+  No new games. (119 total results)
+  Next check: 19:51:01
+
+[2026-03-28 19:51:01] Checking ESPN for new tournament games...
+  No new games. (119 total results)
+  Next check: 20:06:04
+
+[2026-03-28 20:06:04] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (1) Arizona 79, (2) Purdue 64 [Elite 8] — CORRECT
+  Saved: 120 total results, 123 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (182 KB)
+  Pushing to GitHub...
