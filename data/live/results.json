@@ -1450,5 +1450,17 @@
     "espn_event_id": "401856584",
     "winner_name": "UConn Huskies",
     "loser_name": "Notre Dame Fighting Irish"
+  },
+  {
+    "winner_id": 1276,
+    "loser_id": 1397,
+    "winner_score": 95,
+    "loser_score": 62,
+    "round": "Elite 8",
+    "date": "2026-03-29",
+    "gender": "M",
+    "espn_event_id": "401856576",
+    "winner_name": "Michigan Wolverines",
+    "loser_name": "Tennessee Volunteers"
   }
 ]
