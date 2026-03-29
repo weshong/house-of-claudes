@@ -1414,5 +1414,17 @@
     "espn_event_id": "401856574",
     "winner_name": "Illinois Fighting Illini",
     "loser_name": "Iowa Hawkeyes"
+  },
+  {
+    "winner_id": 3395,
+    "loser_id": 3438,
+    "winner_score": 79,
+    "loser_score": 69,
+    "round": "Sweet 16",
+    "date": "2026-03-28",
+    "gender": "W",
+    "espn_event_id": "401856582",
+    "winner_name": "TCU Horned Frogs",
+    "loser_name": "Virginia Cavaliers"
   }
 ]

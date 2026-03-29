@@ -1671,5 +1671,19 @@
     "v7_pred": 0.955,
     "seed_pred": 0.9182,
     "rf_pred": 0.615
+  },
+  {
+    "timestamp": "2026-03-29T01:35:49.384277+00:00",
+    "type": "game",
+    "title": "(3) TCU 79, (10) Virginia 69",
+    "commentary": "Comfortable win for (3) TCU, up 10 over (10) Virginia. Model had this at 93% \u2014 easy call. Per-game Brier contribution: 0.005 (great).",
+    "round": "Sweet 16",
+    "gender": "W",
+    "date": "2026-03-28",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9305,
+    "seed_pred": 0.9438,
+    "rf_pred": 0.749
   }
 ]
