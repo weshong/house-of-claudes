@@ -1474,5 +1474,17 @@
     "espn_event_id": "401856585",
     "winner_name": "UCLA Bruins",
     "loser_name": "Duke Blue Devils"
+  },
+  {
+    "winner_id": 1163,
+    "loser_id": 1181,
+    "winner_score": 73,
+    "loser_score": 72,
+    "round": "Elite 8",
+    "date": "2026-03-29",
+    "gender": "M",
+    "espn_event_id": "401856577",
+    "winner_name": "UConn Huskies",
+    "loser_name": "Duke Blue Devils"
   }
 ]

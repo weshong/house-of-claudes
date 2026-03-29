@@ -4346,3 +4346,53 @@ Press Ctrl+C to stop.
 [2026-03-29 13:54:26] Checking ESPN for new tournament games...
   No new games. (122 total results)
   Next check: 14:09:29
+
+[2026-03-29 14:09:29] Checking ESPN for new tournament games...
+  No new games. (122 total results)
+  Next check: 14:24:32
+
+[2026-03-29 14:24:32] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (1) UCLA 70, (3) Duke 58 [Elite 8] — CORRECT
+  Saved: 123 total results, 126 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (184 KB)
+  Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 14:39:36
+
+[2026-03-29 14:39:36] Checking ESPN for new tournament games...
+  No new games. (123 total results)
+  Next check: 14:54:39
+
+[2026-03-29 14:54:39] Checking ESPN for new tournament games...
+  No new games. (123 total results)
+  Next check: 15:09:41
+
+[2026-03-29 15:09:41] Checking ESPN for new tournament games...
+  No new games. (123 total results)
+  Next check: 15:24:44
+
+[2026-03-29 15:24:44] Checking ESPN for new tournament games...
+  No new games. (123 total results)
+  Next check: 15:39:47
+
+[2026-03-29 15:39:47] Checking ESPN for new tournament games...
+  No new games. (123 total results)
+  Next check: 15:54:50
+
+[2026-03-29 15:54:50] Checking ESPN for new tournament games...
+  No new games. (123 total results)
+  Next check: 16:09:52
+
+[2026-03-29 16:09:52] Checking ESPN for new tournament games...
+  No new games. (123 total results)
+  Next check: 16:24:55
+
+[2026-03-29 16:24:55] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (2) Connecticut 73, (1) Duke 72 [Elite 8] — MISS
+  Saved: 124 total results, 127 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (185 KB)
+  Pushing to GitHub...

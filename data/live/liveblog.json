@@ -1741,5 +1741,19 @@
     "v7_pred": 0.872,
     "seed_pred": 0.6912,
     "rf_pred": 0.71
+  },
+  {
+    "timestamp": "2026-03-29T23:24:58.643439+00:00",
+    "type": "game",
+    "title": "(2) Connecticut 73, (1) Duke 72",
+    "commentary": "Nail-biter! (2) Connecticut edges (1) Duke by just 1. Significant miss \u2014 we had 79% on (1) Duke. Hurts the Brier. UPSET: 2-seed over 1-seed! Per-game Brier contribution: 0.628 (ouch).",
+    "round": "Elite 8",
+    "gender": "M",
+    "date": "2026-03-29",
+    "model_correct": false,
+    "is_upset": true,
+    "v7_pred": 0.2076,
+    "seed_pred": 0.4006,
+    "rf_pred": 0.474
   }
 ]
