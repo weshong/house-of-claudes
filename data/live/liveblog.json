@@ -1727,5 +1727,19 @@
     "v7_pred": 0.9124,
     "seed_pred": 0.8823,
     "rf_pred": 0.738
+  },
+  {
+    "timestamp": "2026-03-29T21:24:34.961875+00:00",
+    "type": "game",
+    "title": "(1) UCLA 70, (3) Duke 58",
+    "commentary": "Comfortable win for (1) UCLA, up 12 over (3) Duke. Model correctly favored the winner at 87%. Per-game Brier contribution: 0.016 (great).",
+    "round": "Elite 8",
+    "gender": "W",
+    "date": "2026-03-29",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.872,
+    "seed_pred": 0.6912,
+    "rf_pred": 0.71
   }
 ]
