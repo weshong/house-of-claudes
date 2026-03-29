@@ -1699,5 +1699,19 @@
     "v7_pred": 0.5865,
     "seed_pred": 0.5994,
     "rf_pred": 0.603
+  },
+  {
+    "timestamp": "2026-03-29T19:24:10.577504+00:00",
+    "type": "game",
+    "title": "(1) Connecticut 70, (6) Notre Dame 52",
+    "commentary": "Comfortable win for (1) Connecticut, up 18 over (6) Notre Dame. Model had this at 95% \u2014 easy call. Per-game Brier contribution: 0.002 (great).",
+    "round": "Elite 8",
+    "gender": "W",
+    "date": "2026-03-29",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.9542,
+    "seed_pred": 0.8823,
+    "rf_pred": 0.795
   }
 ]

@@ -1438,5 +1438,17 @@
     "espn_event_id": "401856575",
     "winner_name": "Arizona Wildcats",
     "loser_name": "Purdue Boilermakers"
+  },
+  {
+    "winner_id": 3163,
+    "loser_id": 3323,
+    "winner_score": 70,
+    "loser_score": 52,
+    "round": "Elite 8",
+    "date": "2026-03-29",
+    "gender": "W",
+    "espn_event_id": "401856584",
+    "winner_name": "UConn Huskies",
+    "loser_name": "Notre Dame Fighting Irish"
   }
 ]
