@@ -1657,5 +1657,19 @@
     "v7_pred": 0.8789,
     "seed_pred": 0.7701,
     "rf_pred": 0.75
+  },
+  {
+    "timestamp": "2026-03-29T00:35:37.531366+00:00",
+    "type": "game",
+    "title": "(3) Illinois 71, (9) Iowa 59",
+    "commentary": "Comfortable win for (3) Illinois, up 12 over (9) Iowa. Model had this at 96% \u2014 easy call. Per-game Brier contribution: 0.002 (great).",
+    "round": "Elite 8",
+    "gender": "M",
+    "date": "2026-03-28",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.955,
+    "seed_pred": 0.9182,
+    "rf_pred": 0.615
   }
 ]

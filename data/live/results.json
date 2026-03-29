@@ -1402,5 +1402,17 @@
     "espn_event_id": "401856583",
     "winner_name": "South Carolina Gamecocks",
     "loser_name": "Oklahoma Sooners"
+  },
+  {
+    "winner_id": 1228,
+    "loser_id": 1234,
+    "winner_score": 71,
+    "loser_score": 59,
+    "round": "Elite 8",
+    "date": "2026-03-28",
+    "gender": "M",
+    "espn_event_id": "401856574",
+    "winner_name": "Illinois Fighting Illini",
+    "loser_name": "Iowa Hawkeyes"
   }
 ]
