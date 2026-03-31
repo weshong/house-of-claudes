@@ -1755,5 +1755,19 @@
     "v7_pred": 0.2076,
     "seed_pred": 0.4006,
     "rf_pred": 0.474
+  },
+  {
+    "timestamp": "2026-03-31T01:15:15.226875+00:00",
+    "type": "game",
+    "title": "(1) Texas 77, (2) Michigan 41",
+    "commentary": "Blowout. (1) Texas cruised past (2) Michigan by 36. Model correctly favored the winner at 81%.",
+    "round": "Elite 8",
+    "gender": "W",
+    "date": "2026-03-30",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8069,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.742
   }
 ]

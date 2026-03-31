@@ -1486,5 +1486,17 @@
     "espn_event_id": "401856577",
     "winner_name": "UConn Huskies",
     "loser_name": "Duke Blue Devils"
+  },
+  {
+    "winner_id": 3400,
+    "loser_id": 3276,
+    "winner_score": 77,
+    "loser_score": 41,
+    "round": "Elite 8",
+    "date": "2026-03-30",
+    "gender": "W",
+    "espn_event_id": "401856586",
+    "winner_name": "Texas Longhorns",
+    "loser_name": "Michigan Wolverines"
   }
 ]
