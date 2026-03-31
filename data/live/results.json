@@ -1498,5 +1498,17 @@
     "espn_event_id": "401856586",
     "winner_name": "Texas Longhorns",
     "loser_name": "Michigan Wolverines"
+  },
+  {
+    "winner_id": 3376,
+    "loser_id": 3395,
+    "winner_score": 78,
+    "loser_score": 52,
+    "round": "Elite 8",
+    "date": "2026-03-30",
+    "gender": "W",
+    "espn_event_id": "401856587",
+    "winner_name": "South Carolina Gamecocks",
+    "loser_name": "TCU Horned Frogs"
   }
 ]

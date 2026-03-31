@@ -1769,5 +1769,19 @@
     "v7_pred": 0.8069,
     "seed_pred": 0.5994,
     "rf_pred": 0.742
+  },
+  {
+    "timestamp": "2026-03-31T03:15:44.086692+00:00",
+    "type": "game",
+    "title": "(1) South Carolina 78, (3) TCU 52",
+    "commentary": "Blowout. (1) South Carolina cruised past (3) TCU by 26. Model correctly favored the winner at 86%.",
+    "round": "Elite 8",
+    "gender": "W",
+    "date": "2026-03-30",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.8583,
+    "seed_pred": 0.6912,
+    "rf_pred": 0.708
   }
 ]

@@ -4814,3 +4814,41 @@ Press Ctrl+C to stop.
   Rendering dashboard...
   Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (186 KB)
   Pushing to GitHub...
+  Pushed to GitHub.
+  Next check: 18:30:16
+
+[2026-03-30 18:30:16] Checking ESPN for new tournament games...
+  No new games. (125 total results)
+  Next check: 18:45:19
+
+[2026-03-30 18:45:19] Checking ESPN for new tournament games...
+  No new games. (125 total results)
+  Next check: 19:00:23
+
+[2026-03-30 19:00:23] Checking ESPN for new tournament games...
+  No new games. (125 total results)
+  Next check: 19:15:26
+
+[2026-03-30 19:15:26] Checking ESPN for new tournament games...
+  No new games. (125 total results)
+  Next check: 19:30:29
+
+[2026-03-30 19:30:29] Checking ESPN for new tournament games...
+  No new games. (125 total results)
+  Next check: 19:45:33
+
+[2026-03-30 19:45:33] Checking ESPN for new tournament games...
+  No new games. (125 total results)
+  Next check: 20:00:36
+
+[2026-03-30 20:00:36] Checking ESPN for new tournament games...
+  No new games. (125 total results)
+  Next check: 20:15:40
+
+[2026-03-30 20:15:40] Checking ESPN for new tournament games...
+  Found 1 new game(s):
+    NEW: (1) South Carolina 78, (3) TCU 52 [Elite 8] — CORRECT
+  Saved: 126 total results, 129 liveblog entries
+  Rendering dashboard...
+  Dashboard written to C:\Users\wesho\Projects\house-of-claudes\docs\index.html (186 KB)
+  Pushing to GitHub...
