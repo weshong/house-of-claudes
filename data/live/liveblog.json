@@ -1783,5 +1783,19 @@
     "v7_pred": 0.8583,
     "seed_pred": 0.6912,
     "rf_pred": 0.708
+  },
+  {
+    "timestamp": "2026-04-04T02:00:07.099651+00:00",
+    "type": "game",
+    "title": "(1) South Carolina 62, (1) Connecticut 48",
+    "commentary": "Comfortable win for (1) South Carolina, up 14 over (1) Connecticut. Significant miss \u2014 we had 72% on (1) Connecticut. Hurts the Brier. [Got it: Seed | Missed: v7, RF] Per-game Brier contribution: 0.518 (ouch).",
+    "round": "Final Four",
+    "gender": "W",
+    "date": "2026-04-03",
+    "model_correct": false,
+    "is_upset": false,
+    "v7_pred": 0.28,
+    "seed_pred": 0.5,
+    "rf_pred": 0.438
   }
 ]

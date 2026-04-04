@@ -1510,5 +1510,17 @@
     "espn_event_id": "401856587",
     "winner_name": "South Carolina Gamecocks",
     "loser_name": "TCU Horned Frogs"
+  },
+  {
+    "winner_id": 3376,
+    "loser_id": 3163,
+    "winner_score": 62,
+    "loser_score": 48,
+    "round": "Final Four",
+    "date": "2026-04-03",
+    "gender": "W",
+    "espn_event_id": "401856588",
+    "winner_name": "South Carolina Gamecocks",
+    "loser_name": "UConn Huskies"
   }
 ]
