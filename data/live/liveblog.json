@@ -1797,5 +1797,19 @@
     "v7_pred": 0.28,
     "seed_pred": 0.5,
     "rf_pred": 0.438
+  },
+  {
+    "timestamp": "2026-04-04T04:00:06.338764+00:00",
+    "type": "game",
+    "title": "(1) UCLA 51, (1) Texas 44",
+    "commentary": "(1) UCLA takes it over (1) Texas, winning by 7. Close call \u2014 model gave 58%. We'll take it. Per-game Brier contribution: 0.174 (ouch).",
+    "round": "Final Four",
+    "gender": "W",
+    "date": "2026-04-03",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.5824,
+    "seed_pred": 0.5,
+    "rf_pred": 0.545
   }
 ]

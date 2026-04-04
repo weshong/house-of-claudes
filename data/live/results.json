@@ -1522,5 +1522,17 @@
     "espn_event_id": "401856588",
     "winner_name": "South Carolina Gamecocks",
     "loser_name": "UConn Huskies"
+  },
+  {
+    "winner_id": 3417,
+    "loser_id": 3400,
+    "winner_score": 51,
+    "loser_score": 44,
+    "round": "Final Four",
+    "date": "2026-04-03",
+    "gender": "W",
+    "espn_event_id": "401856589",
+    "winner_name": "UCLA Bruins",
+    "loser_name": "Texas Longhorns"
   }
 ]
