@@ -1825,5 +1825,19 @@
     "v7_pred": 0.3918,
     "seed_pred": 0.5994,
     "rf_pred": 0.542
+  },
+  {
+    "timestamp": "2026-04-05T04:00:08.851009+00:00",
+    "type": "game",
+    "title": "(1) Michigan 91, (1) Arizona 73",
+    "commentary": "Comfortable win for (1) Michigan, up 18 over (1) Arizona. Coin flip at 54%. Got lucky on this one. [Got it: v7, Seed | Missed: RF] Per-game Brier contribution: 0.213 (ouch).",
+    "round": "Final Four",
+    "gender": "M",
+    "date": "2026-04-04",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.5384,
+    "seed_pred": 0.5,
+    "rf_pred": 0.479
   }
 ]

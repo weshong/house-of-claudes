@@ -1546,5 +1546,17 @@
     "espn_event_id": "401856598",
     "winner_name": "UConn Huskies",
     "loser_name": "Illinois Fighting Illini"
+  },
+  {
+    "winner_id": 1276,
+    "loser_id": 1112,
+    "winner_score": 91,
+    "loser_score": 73,
+    "round": "Final Four",
+    "date": "2026-04-04",
+    "gender": "M",
+    "espn_event_id": "401856599",
+    "winner_name": "Michigan Wolverines",
+    "loser_name": "Arizona Wildcats"
   }
 ]
