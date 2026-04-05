@@ -1811,5 +1811,19 @@
     "v7_pred": 0.5824,
     "seed_pred": 0.5,
     "rf_pred": 0.545
+  },
+  {
+    "timestamp": "2026-04-05T01:00:08.244544+00:00",
+    "type": "game",
+    "title": "(2) Connecticut 71, (3) Illinois 62",
+    "commentary": "(2) Connecticut takes it over (3) Illinois, winning by 9. Model leaned wrong at 61% for (3) Illinois. Moderate miss. [Got it: Seed, RF | Missed: v7] Per-game Brier contribution: 0.370 (ouch).",
+    "round": "Final Four",
+    "gender": "M",
+    "date": "2026-04-04",
+    "model_correct": false,
+    "is_upset": false,
+    "v7_pred": 0.3918,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.542
   }
 ]

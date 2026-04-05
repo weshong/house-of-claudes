@@ -1534,5 +1534,17 @@
     "espn_event_id": "401856589",
     "winner_name": "UCLA Bruins",
     "loser_name": "Texas Longhorns"
+  },
+  {
+    "winner_id": 1163,
+    "loser_id": 1228,
+    "winner_score": 71,
+    "loser_score": 62,
+    "round": "Final Four",
+    "date": "2026-04-04",
+    "gender": "M",
+    "espn_event_id": "401856598",
+    "winner_name": "UConn Huskies",
+    "loser_name": "Illinois Fighting Illini"
   }
 ]
