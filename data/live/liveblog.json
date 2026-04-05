@@ -1839,5 +1839,19 @@
     "v7_pred": 0.5384,
     "seed_pred": 0.5,
     "rf_pred": 0.479
+  },
+  {
+    "timestamp": "2026-04-05T22:00:07.061257+00:00",
+    "type": "game",
+    "title": "(1) UCLA 79, (1) South Carolina 51",
+    "commentary": "Blowout. (1) UCLA cruised past (1) South Carolina by 28. Close call \u2014 model gave 57%. We'll take it. Per-game Brier contribution: 0.188 (ouch).",
+    "round": "Championship",
+    "gender": "W",
+    "date": "2026-04-05",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.5663,
+    "seed_pred": 0.5,
+    "rf_pred": 0.512
   }
 ]

@@ -1558,5 +1558,17 @@
     "espn_event_id": "401856599",
     "winner_name": "Michigan Wolverines",
     "loser_name": "Arizona Wildcats"
+  },
+  {
+    "winner_id": 3417,
+    "loser_id": 3376,
+    "winner_score": 79,
+    "loser_score": 51,
+    "round": "Championship",
+    "date": "2026-04-05",
+    "gender": "W",
+    "espn_event_id": "401856590",
+    "winner_name": "UCLA Bruins",
+    "loser_name": "South Carolina Gamecocks"
   }
 ]
