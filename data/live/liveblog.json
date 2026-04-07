@@ -1853,5 +1853,19 @@
     "v7_pred": 0.5663,
     "seed_pred": 0.5,
     "rf_pred": 0.512
+  },
+  {
+    "timestamp": "2026-04-07T04:00:08.012066+00:00",
+    "type": "game",
+    "title": "(1) Michigan 69, (2) Connecticut 63",
+    "commentary": "(1) Michigan takes it over (2) Connecticut, winning by 6. Model correctly favored the winner at 80%.",
+    "round": "Championship",
+    "gender": "M",
+    "date": "2026-04-06",
+    "model_correct": true,
+    "is_upset": false,
+    "v7_pred": 0.7968,
+    "seed_pred": 0.5994,
+    "rf_pred": 0.594
   }
 ]
